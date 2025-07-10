@@ -1,0 +1,517 @@
+.App {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: #fff; /* White background for everything */
+}
+
+/* Smaller Main Header */
+.main-header {
+  width: 100%;
+  height: 20vh; /* Even smaller */
+  background-color: #fff;
+  z-index: 1000;
+  position: relative;
+  transition: all 0.6s ease-in-out;
+}
+
+.main-header.hidden {
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.header-content {
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  position: relative;
+  background-color: #fff;
+}
+
+/* Logo Animation */
+.logo-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #fff;
+  padding: 5px 0;
+  z-index: 1001;
+}
+
+.logo {
+  font-size: 2rem; /* Smaller for compact header */
+  font-weight: 900;
+  font-family: 'Visby CF', sans-serif;
+  color: #333;
+  letter-spacing: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typewriter 2s steps(7) 0.5s forwards;
+  border-right: 3px solid #333;
+}
+
+@keyframes typewriter {
+  to {
+    width: 100%;
+  }
+}
+
+/* Navigation Styles - Fixed positioning */
+.main-nav {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin: 8px 0; /* Smaller margins for compact header */
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 0.8s ease forwards;
+}
+
+.nav-item:nth-child(1) { animation-delay: 1s; }
+.nav-item:nth-child(2) { animation-delay: 1.2s; }
+.nav-item:nth-child(3) { animation-delay: 1.4s; }
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem; /* Smaller font for compact header */
+  font-weight: 600;
+  font-family: 'Visby CF', sans-serif;
+  transition: all 0.3s ease;
+  display: block;
+  padding: 4px 0;
+}
+
+.nav-link:hover {
+  color: #8B5CF6;
+  transform: translateX(10px);
+}
+
+/* View Work Button */
+.view-work-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  opacity: 0;
+  animation: fadeIn 1s ease 2s forwards;
+}
+
+.view-work-btn button {
+  background: #000;
+  color: #fff;
+  padding: 6px 16px; /* Smaller button */
+  border: none;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Visby CF', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-work-btn button:hover {
+  background: #8B5CF6;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Holdings Menu - White background */
+.holdings-menu {
+  width: 100%;
+  background: #fff; /* Pure white background */
+  padding: 15px 0; /* Increased padding for better visibility */
+  z-index: 999;
+  transition: all 0.5s ease;
+  border-bottom: 1px solid #e0e0e0; /* Subtle border */
+  position: relative;
+  margin-top: 0; /* Remove negative margin */
+}
+
+.holdings-menu.fixed {
+  position: fixed;
+  top: 50px;
+  background: #fff; /* Ensure white when fixed */
+}
+
+.holdings-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px; /* Increased gap */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  background: #fff;
+}
+
+.holding-item {
+  position: relative;
+  cursor: pointer;
+}
+
+.holding-logo {
+  width: 70px; /* Slightly bigger */
+  height: 70px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.holding-item:hover .holding-logo {
+  transform: translateY(-2px);
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.holding-item:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #000;
+  animation: underlineExpand 0.3s ease forwards;
+}
+
+@keyframes underlineExpand {
+  from {
+    width: 0;
+    left: 50%;
+  }
+  to {
+    width: 100%;
+    left: 0;
+  }
+}
+
+.holding-placeholder {
+  width: 70px;
+  height: 70px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #666;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+/* Horizontal Navigation - White background */
+.horizontal-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff; /* Pure white */
+  padding: 12px 0;
+  z-index: 998;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.horizontal-nav.visible {
+  transform: translateY(0);
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  background: #fff;
+}
+
+.logo-small {
+  font-size: 1.2rem;
+  font-weight: 900;
+  font-family: 'Visby CF', sans-serif;
+  color: #333;
+}
+
+.horizontal-nav-list {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.horizontal-nav-list a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-family: 'Visby CF', sans-serif;
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.horizontal-nav-list a:hover {
+  color: #8B5CF6;
+}
+
+/* Vertical Zoom Controls - Always visible */
+.zoom-controls {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 30px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1; /* Always visible */
+  transform: translateY(0); /* Always in position */
+  transition: all 0.5s ease;
+  z-index: 100;
+  width: 60px;
+}
+
+/* Remove the .visible class requirement for zoom controls */
+.zoom-controls.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.zoom-btn {
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 25px;
+  font-family: 'Visby CF', sans-serif;
+}
+
+.zoom-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.zoom-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.zoom-divider {
+  width: 25px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 3px 0;
+}
+
+/* Main Content - White background */
+.main-content {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+}
+
+.portfolio-section {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+/* Portfolio Grid */
+.portfolio-masonry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 20px;
+  column-gap: 0;
+  width: 100%;
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.portfolio-item {
+  position: relative;
+  background: #f0f0f0;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+}
+
+.portfolio-item:hover {
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+.portfolio-image,
+.portfolio-video {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.project-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: white;
+  padding: 20px 15px 15px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover .project-overlay {
+  transform: translateY(0);
+}
+
+.project-overlay h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Visby CF', sans-serif;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.project-category {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  font-weight: 400;
+  font-family: 'Visby CF', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Dynamic grid columns */
+.portfolio-masonry[style*="repeat(1,"] {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.portfolio-masonry[style*="repeat(2,"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.portfolio-masonry[style*="repeat(4,"] {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.portfolio-masonry[style*="repeat(5,"] {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.portfolio-masonry[style*="repeat(6,"] {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.portfolio-masonry[style*="repeat(7,"] {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .portfolio-masonry {
+    grid-template-columns: repeat(2, 1fr) !important;
+    row-gap: 15px;
+  }
+  
+  .holding-logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .holdings-container {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-masonry {
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+  
+  .main-header {
+    height: 18vh;
+  }
+  
+  .header-content {
+    height: 18vh;
+    padding: 15px;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .nav-link {
+    font-size: 0.8rem;
+  }
+  
+  .zoom-controls {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+  }
+  
+  .zoom-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  
+  .holdings-container {
+    gap: 30px;
+    padding: 0 15px;
+  }
+  
+  .holding-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .holdings-menu {
+    padding: 10px 0;
+  }
+}
