@@ -6,6 +6,7 @@ function App() {
   const [showMainHeader, setShowMainHeader] = useState(true)
   const [scrollY, setScrollY] = useState(0)
   const [gridColumns, setGridColumns] = useState(3)
+  const [showPresentation, setShowPresentation] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -21,6 +22,14 @@ function App() {
     }
   }, [scrollY])
 
+  // Hide presentation message after animation completes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPresentation(false)
+    }, 4500) // Show for 4.5 seconds total
+    return () => clearTimeout(timer)
+  }, [])
+
   const handleZoomOut = () => {
     setGridColumns(prev => Math.min(prev + 1, 7))
   }
@@ -31,6 +40,15 @@ function App() {
 
   return (
     <div className="App">
+      {/* Presentation Message */}
+      {showPresentation && (
+        <div className="presentation-overlay">
+          <h1 className="presentation-text">
+            Welcome to HGROUP Creative Studio
+          </h1>
+        </div>
+      )}
+
       {/* Compact Main Header */}
       <header className={`main-header ${!showMainHeader ? 'hidden' : ''}`}>
         <div className="header-content">
@@ -41,13 +59,19 @@ function App() {
           <nav className="main-nav">
             <ul className="nav-list">
               <li className="nav-item">
-                <a href="#" className="nav-link">WORK WITH US</a>
+                <a href="#" className="nav-link">
+                  <span className="nav-text">WORK WITH US</span>
+                </a>
               </li>
               <li className="nav-item">
-                <a href="#" className="nav-link">JOIN US</a>
+                <a href="#" className="nav-link">
+                  <span className="nav-text">JOIN US</span>
+                </a>
               </li>
               <li className="nav-item">
-                <a href="#" className="nav-link">FOLLOW US →</a>
+                <a href="#" className="nav-link">
+                  <span className="nav-text">FOLLOW US →</span>
+                </a>
               </li>
             </ul>
           </nav>
@@ -61,8 +85,12 @@ function App() {
       {/* Holdings Submenu - White background */}
       <section className={`holdings-menu ${!showMainHeader ? 'fixed' : ''}`}>
         <div className="holdings-container">
-          {logos.holdingsLogos.map((holding) => (
-            <div key={holding.id} className="holding-item">
+          {logos.holdingsLogos.map((holding, index) => (
+            <div 
+              key={holding.id} 
+              className="holding-item"
+              style={{ animationDelay: `${2.5 + index * 0.2}s` }}
+            >
               <img 
                 src={holding.logo} 
                 alt={holding.alt} 
@@ -80,6 +108,7 @@ function App() {
         </div>
       </section>
 
+      {/* Rest of your component remains the same */}
       {/* Horizontal Navigation */}
       <nav className={`horizontal-nav ${!showMainHeader ? 'visible' : ''}`}>
         <div className="nav-content">

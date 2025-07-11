@@ -2,55 +2,56 @@
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-color: #fff; /* White background for everything */
+  background-color: #fff;
 }
 
-/* Smaller Main Header */
+/* Corrected Main Header */
 .main-header {
   width: 100%;
-  height: 20vh; /* Even smaller */
+  height: auto;
   background-color: #fff;
   z-index: 1000;
   position: relative;
   transition: all 0.6s ease-in-out;
+  padding: 20px 0;
 }
 
 .main-header.hidden {
   height: 0;
   overflow: hidden;
-  margin-bottom: 0;
+  padding: 0;
 }
 
 .header-content {
-  height: 20vh;
+  height: 25vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 30px;
   position: relative;
   background-color: #fff;
 }
 
-/* Logo Animation */
+/* Logo Animation - Better sizing */
 .logo-container {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 25px;
+  left: 25px;
   background: #fff;
   padding: 5px 0;
   z-index: 1001;
 }
 
 .logo {
-  font-size: 2rem; /* Smaller for compact header */
+  font-size: 3rem;
   font-weight: 900;
   font-family: 'Visby CF', sans-serif;
   color: #333;
-  letter-spacing: -1px;
+  letter-spacing: -2px;
   overflow: hidden;
   white-space: nowrap;
   width: 0;
-  animation: typewriter 2s steps(7) 0.5s forwards;
+  animation: typewriter 1.5s steps(7) 4.5s forwards; /* Changed timing */
   border-right: 3px solid #333;
 }
 
@@ -60,11 +61,11 @@
   }
 }
 
-/* Navigation Styles - Fixed positioning */
+/* Navigation Styles - Better positioning and sizing */
 .main-nav {
   position: absolute;
-  top: 50%;
-  left: 20px;
+  top: 55%;
+  left: 25px;
   transform: translateY(-50%);
 }
 
@@ -75,10 +76,9 @@
 }
 
 .nav-item {
-  margin: 8px 0; /* Smaller margins for compact header */
+  margin: 12px 0;
   opacity: 0;
-  transform: translateX(-50px);
-  animation: slideInLeft 0.8s ease forwards;
+  animation: fadeIn 0.3s ease var(--nav-delay) forwards;
 }
 
 .nav-item:nth-child(1) { animation-delay: 1s; }
@@ -95,12 +95,49 @@
 .nav-link {
   text-decoration: none;
   color: #333;
-  font-size: 0.9rem; /* Smaller font for compact header */
+  font-size: 1.1rem;
   font-weight: 600;
   font-family: 'Visby CF', sans-serif;
   transition: all 0.3s ease;
-  display: block;
-  padding: 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+  display: inline-block;
+  overflow: hidden;
+  padding: 5px 0;
+  line-height: 1.4;
+}
+
+.nav-text {
+  display: inline-block;
+  overflow: hidden;
+  width: 0;
+  animation: typewriterNav var(--nav-duration) steps(var(--nav-steps)) var(--nav-delay) forwards;
+  border-right: 2px solid transparent;
+}
+
+.nav-item:nth-child(1) .nav-text {
+  --nav-steps: 13;
+  --nav-duration: 1s;
+  --nav-delay: 5s;
+}
+
+.nav-item:nth-child(2) .nav-text {
+  --nav-steps: 7;
+  --nav-duration: 0.7s;
+  --nav-delay: 5.3s;
+}
+
+.nav-item:nth-child(3) .nav-text {
+  --nav-steps: 11;
+  --nav-duration: 0.9s;
+  --nav-delay: 5.6s;
+}
+
+@keyframes typewriterNav {
+  to {
+    width: 100%;
+  }
 }
 
 .nav-link:hover {
@@ -108,26 +145,27 @@
   transform: translateX(10px);
 }
 
-/* View Work Button */
+/* View Work Button - Better sizing */
 .view-work-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 25px;
+  right: 25px;
   opacity: 0;
-  animation: fadeIn 1s ease 2s forwards;
+  animation: fadeIn 0.8s ease 5.5s forwards; /* Changed timing */
 }
 
 .view-work-btn button {
   background: #000;
   color: #fff;
-  padding: 6px 16px; /* Smaller button */
+  padding: 10px 20px;
   border: none;
-  border-radius: 20px;
-  font-size: 0.75rem;
+  border-radius: 25px;
+  font-size: 0.85rem;
   font-weight: 600;
   font-family: 'Visby CF', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
 
 .view-work-btn button:hover {
@@ -141,43 +179,97 @@
   }
 }
 
+/* Presentation Overlay */
+.presentation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOutPresentation 0.5s ease 4s forwards;
+}
+
+.presentation-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Visby CF', sans-serif;
+  color: #000;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typewriterPresentation 3s steps(35) 0.5s forwards;
+  border-right: 3px solid #000;
+}
+
+@keyframes typewriterPresentation {
+  to {
+    width: 35ch;
+  }
+}
+
+@keyframes fadeOutPresentation {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 /* Holdings Menu - White background */
 .holdings-menu {
   width: 100%;
-  background: #fff; /* Pure white background */
-  padding: 15px 0; /* Increased padding for better visibility */
+  background: #fff;
+  padding: 20px 0;
   z-index: 999;
   transition: all 0.5s ease;
-  border-bottom: 1px solid #e0e0e0; /* Subtle border */
+  border-bottom: 1px solid #e0e0e0;
   position: relative;
-  margin-top: 0; /* Remove negative margin */
+  margin-top: 0;
 }
 
 .holdings-menu.fixed {
   position: fixed;
   top: 50px;
-  background: #fff; /* Ensure white when fixed */
+  background: #fff;
 }
 
 .holdings-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px; /* Increased gap */
+  gap: 60px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 15px 20px;
   background: #fff;
 }
 
 .holding-item {
   position: relative;
   cursor: pointer;
+  opacity: 0;
+  animation: fadeInScale 0.5s ease forwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .holding-logo {
-  width: 70px; /* Slightly bigger */
-  height: 70px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
   transition: all 0.3s ease;
   filter: grayscale(100%);
@@ -213,8 +305,8 @@
 }
 
 .holding-placeholder {
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   background: #f0f0f0;
   border-radius: 8px;
   display: flex;
@@ -222,7 +314,7 @@
   justify-content: center;
   font-weight: bold;
   color: #666;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   text-align: center;
 }
 
@@ -232,7 +324,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #fff; /* Pure white */
+  background: #fff;
   padding: 12px 0;
   z-index: 998;
   transform: translateY(-100%);
@@ -255,16 +347,17 @@
 }
 
 .logo-small {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 900;
   font-family: 'Visby CF', sans-serif;
   color: #333;
+  letter-spacing: -1px;
 }
 
 .horizontal-nav-list {
   display: flex;
   list-style: none;
-  gap: 30px;
+  gap: 35px;
   margin: 0;
   padding: 0;
 }
@@ -274,7 +367,7 @@
   color: #333;
   font-weight: 500;
   font-family: 'Visby CF', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   transition: color 0.3s ease;
 }
 
@@ -293,17 +386,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 1; /* Always visible */
-  transform: translateY(0); /* Always in position */
+  opacity: 1;
+  transform: translateY(0);
   transition: all 0.5s ease;
   z-index: 100;
   width: 60px;
-}
-
-/* Remove the .visible class requirement for zoom controls */
-.zoom-controls.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .zoom-btn {
@@ -456,9 +543,18 @@
     row-gap: 15px;
   }
   
-  .holding-logo {
-    width: 60px;
-    height: 60px;
+  .logo {
+    font-size: 2.5rem;
+  }
+  
+  .nav-link {
+    font-size: 1rem;
+  }
+  
+  .holding-logo,
+  .holding-placeholder {
+    width: 70px;
+    height: 70px;
   }
   
   .holdings-container {
@@ -473,20 +569,20 @@
   }
   
   .main-header {
-    height: 18vh;
+    height: 22vh;
   }
   
   .header-content {
-    height: 18vh;
-    padding: 15px;
+    height: 22vh;
+    padding: 20px;
   }
   
   .logo {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   
   .nav-link {
-    font-size: 0.8rem;
+    font-size: 0.95rem;
   }
   
   .zoom-controls {
@@ -506,12 +602,24 @@
     padding: 0 15px;
   }
   
-  .holding-logo {
+  .holding-logo,
+  .holding-placeholder {
     width: 50px;
     height: 50px;
   }
   
   .holdings-menu {
-    padding: 10px 0;
+    padding: 15px 0;
+  }
+  
+  .presentation-text {
+    font-size: 1.5rem;
+    padding: 0 20px;
+  }
+  
+  @keyframes typewriterPresentation {
+    to {
+      width: 90vw;
+    }
   }
 }
