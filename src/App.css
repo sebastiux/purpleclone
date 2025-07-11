@@ -5,85 +5,90 @@
   background-color: #fff;
 }
 
-/* Corrected Main Header */
+/* Main Header */
 .main-header {
   width: 100%;
-  height: auto;
+  min-height: 180px;
   background-color: #fff;
   z-index: 1000;
   position: relative;
   transition: all 0.6s ease-in-out;
-  padding: 20px 0;
 }
 
 .main-header.hidden {
   height: 0;
+  min-height: 0;
   overflow: hidden;
-  padding: 0;
 }
 
 .header-content {
-  height: 25vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 30px;
   position: relative;
   background-color: #fff;
+  height: 100%;
 }
 
-/* Logo Animation - Better sizing */
+/* Logo Container - BIGGER LOGO */
 .logo-container {
   position: absolute;
-  top: 25px;
-  left: 25px;
-  background: #fff;
-  padding: 5px 0;
+  top: 30px;
+  left: 30px;
   z-index: 1001;
 }
 
 .logo {
-  font-size: 3rem;
-  font-weight: 900;
-  font-family: 'Visby CF', sans-serif;
-  color: #333;
-  letter-spacing: -2px;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 0;
-  animation: typewriter 1.5s steps(7) 4.5s forwards; /* Changed timing */
-  border-right: 3px solid #333;
+  height: 100px; /* Bigger logo */
+  width: auto;
+  object-fit: contain;
+  opacity: 0;
+  animation: fadeInLogo 1.5s ease 4.5s forwards;
 }
 
-@keyframes typewriter {
+@keyframes fadeInLogo {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
   to {
-    width: 100%;
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-/* Navigation Styles - Better positioning and sizing */
+/* Navigation - Left side vertical menu */
 .main-nav {
   position: absolute;
-  top: 55%;
-  left: 25px;
-  transform: translateY(-50%);
+  top: 120px;
+  left: 30px;
 }
 
 .nav-list {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .nav-item {
-  margin: 12px 0;
+  margin: 0;
   opacity: 0;
-  animation: fadeIn 0.3s ease var(--nav-delay) forwards;
+  transform: translateX(-30px);
+  animation: slideInLeft 0.6s ease forwards;
 }
 
-.nav-item:nth-child(1) { animation-delay: 1s; }
-.nav-item:nth-child(2) { animation-delay: 1.2s; }
-.nav-item:nth-child(3) { animation-delay: 1.4s; }
+.nav-item:nth-child(1) { 
+  animation-delay: 5s; 
+}
+.nav-item:nth-child(2) { 
+  animation-delay: 5.2s; 
+}
+.nav-item:nth-child(3) { 
+  animation-delay: 5.4s; 
+}
 
 @keyframes slideInLeft {
   to {
@@ -145,13 +150,13 @@
   transform: translateX(10px);
 }
 
-/* View Work Button - Better sizing */
+/* View Work Button */
 .view-work-btn {
   position: absolute;
-  top: 25px;
-  right: 25px;
+  top: 30px;
+  right: 30px;
   opacity: 0;
-  animation: fadeIn 0.8s ease 5.5s forwards; /* Changed timing */
+  animation: fadeIn 0.8s ease 5.5s forwards;
 }
 
 .view-work-btn button {
@@ -191,13 +196,20 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  animation: fadeOutPresentation 0.5s ease 4s forwards;
+  animation: fadeOutPresentation 0.5s ease 16s forwards;
+}
+
+.presentation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
 }
 
 .presentation-text {
   font-size: 2.5rem;
   font-weight: 700;
-  font-family: 'Visby CF', sans-serif;
+  font-family: 'Visby CF';
   color: #000;
   text-align: center;
   overflow: hidden;
@@ -205,6 +217,14 @@
   width: 0;
   animation: typewriterPresentation 3s steps(35) 0.5s forwards;
   border-right: 3px solid #000;
+}
+
+.presentation-logo {
+  height: 400px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0;
+  animation: fadeInLogo 1s ease 3s forwards;
 }
 
 @keyframes typewriterPresentation {
@@ -220,11 +240,11 @@
   }
 }
 
-/* Holdings Menu - White background */
+/* Holdings Menu - Thinner */
 .holdings-menu {
   width: 100%;
   background: #fff;
-  padding: 20px 0;
+  padding: 10px 0;
   z-index: 999;
   transition: all 0.5s ease;
   border-bottom: 1px solid #e0e0e0;
@@ -234,8 +254,11 @@
 
 .holdings-menu.fixed {
   position: fixed;
-  top: 50px;
+  top: 60px;
+  left: 0;
+  right: 0;
   background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .holdings-container {
@@ -245,7 +268,7 @@
   gap: 60px;
   width: 100%;
   margin: 0 auto;
-  padding: 15px 20px;
+  padding: 5px 20px;
   background: #fff;
 }
 
@@ -285,7 +308,7 @@
 .holding-item:hover::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: -5px;
   left: 0;
   right: 0;
   height: 2px;
@@ -318,18 +341,19 @@
   text-align: center;
 }
 
-/* Horizontal Navigation - White background */
+/* Horizontal Navigation - MORE VISIBLE */
 .horizontal-nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background: #fff;
-  padding: 12px 0;
+  padding: 15px 0;
   z-index: 998;
   transform: translateY(-100%);
   transition: transform 0.5s ease;
   border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .horizontal-nav.visible {
@@ -341,17 +365,16 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 40px;
   background: #fff;
 }
 
 .logo-small {
-  font-size: 1.4rem;
-  font-weight: 900;
-  font-family: 'Visby CF', sans-serif;
-  color: #333;
-  letter-spacing: -1px;
+  height: 50px;
+  width: auto;
+  object-fit: contain;
 }
 
 .horizontal-nav-list {
@@ -360,22 +383,43 @@
   gap: 35px;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 .horizontal-nav-list a {
   text-decoration: none;
   color: #333;
-  font-weight: 500;
+  font-weight: 600;
   font-family: 'Visby CF', sans-serif;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .horizontal-nav-list a:hover {
   color: #8B5CF6;
 }
 
-/* Vertical Zoom Controls - Always visible */
+/* Hamburger Menu */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 2px;
+  background: #333;
+  transition: all 0.3s ease;
+}
+
+/* Vertical Zoom Controls */
 .zoom-controls {
   position: fixed;
   bottom: 40px;
@@ -427,7 +471,7 @@
   margin: 3px 0;
 }
 
-/* Main Content - White background */
+/* Main Content */
 .main-content {
   width: 100%;
   position: relative;
@@ -536,15 +580,19 @@
   grid-template-columns: repeat(7, 1fr);
 }
 
-/* Responsive adjustments */
+/* Responsive - Tablet */
 @media (max-width: 1024px) {
   .portfolio-masonry {
     grid-template-columns: repeat(2, 1fr) !important;
     row-gap: 15px;
   }
   
+  .header-content {
+    padding: 25px;
+  }
+  
   .logo {
-    font-size: 2.5rem;
+    height: 60px;
   }
   
   .nav-link {
@@ -560,66 +608,208 @@
   .holdings-container {
     gap: 40px;
   }
+  
+  .horizontal-nav-list {
+    gap: 25px;
+  }
+  
+  .horizontal-nav-list a {
+    font-size: 0.8rem;
+  }
 }
 
+/* Responsive - Mobile */
 @media (max-width: 768px) {
+  /* Portfolio */
   .portfolio-masonry {
     grid-template-columns: 1fr !important;
     row-gap: 10px;
   }
   
+  /* Main Header */
   .main-header {
-    height: 22vh;
+    min-height: auto;
+    padding-bottom: 0;
   }
   
   .header-content {
-    height: 22vh;
     padding: 20px;
+    padding-bottom: 10px;
+  }
+  
+  .logo-container {
+    top: 20px;
+    left: 20px;
   }
   
   .logo {
-    font-size: 2rem;
-  }
-  
-  .nav-link {
-    font-size: 0.95rem;
-  }
-  
-  .zoom-controls {
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-  }
-  
-  .zoom-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-  }
-  
-  .holdings-container {
-    gap: 30px;
-    padding: 0 15px;
-  }
-  
-  .holding-logo,
-  .holding-placeholder {
-    width: 50px;
     height: 50px;
   }
   
-  .holdings-menu {
-    padding: 15px 0;
+  /* Navigation */
+  .main-nav {
+    top: 80px;
+    left: 20px;
   }
   
+  .nav-list {
+    gap: 8px;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  
+  /* View Work Button */
+  .view-work-btn {
+    top: 20px;
+    right: 20px;
+  }
+  
+  .view-work-btn button {
+    font-size: 0.75rem;
+    padding: 8px 16px;
+  }
+  
+  /* Presentation */
   .presentation-text {
     font-size: 1.5rem;
     padding: 0 20px;
+  }
+  
+  .presentation-logo {
+    height: 50px;
+  }
+  
+  .presentation-content {
+    gap: 25px;
   }
   
   @keyframes typewriterPresentation {
     to {
       width: 90vw;
     }
+  }
+  
+  /* Holdings Menu - MOVE TO BOTTOM ON MOBILE */
+  .holdings-menu {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    background: #fff;
+    padding: 10px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: none;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 997;
+  }
+  
+  .holdings-menu.fixed {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+  }
+  
+  .holdings-container {
+    gap: 20px;
+    padding: 5px 15px;
+    overflow-x: auto;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .holding-logo,
+  .holding-placeholder {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+  }
+  
+  /* Horizontal Nav on Mobile */
+  .horizontal-nav {
+    padding: 12px 0;
+  }
+  
+  .nav-content {
+    padding: 0 20px;
+  }
+  
+  .logo-small {
+    height: 30px;
+  }
+  
+  /* Hamburger menu on mobile */
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  
+  .horizontal-nav-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .horizontal-nav-list.mobile-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .horizontal-nav-list a {
+    font-size: 0.9rem;
+    padding: 10px 0;
+    display: block;
+  }
+  
+  /* Adjust main content for bottom holdings */
+  .main-content {
+    padding-bottom: 80px;
+  }
+  
+  /* Zoom controls adjustment */
+  .zoom-controls {
+    bottom: 80px;
+    right: 20px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  .logo {
+    height: 50px;
+  }
+  
+  .nav-link {
+    font-size: 0.8rem;
+  }
+  
+  .view-work-btn button {
+    font-size: 0.7rem;
+    padding: 6px 12px;
+  }
+  
+  .presentation-text {
+    font-size: 1.2rem;
+  }
+  
+  .holding-logo,
+  .holding-placeholder {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .holdings-container {
+    gap: 15px;
   }
 }

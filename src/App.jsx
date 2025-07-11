@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { logos, images } from './assets'
+import { logohgroup, holdingsLogos } from './assets/logos'
+import { images } from './assets'
 import './App.css'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   const [scrollY, setScrollY] = useState(0)
   const [gridColumns, setGridColumns] = useState(3)
   const [showPresentation, setShowPresentation] = useState(true)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -26,7 +28,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPresentation(false)
-    }, 4500) // Show for 4.5 seconds total
+    }, 4500)
     return () => clearTimeout(timer)
   }, [])
 
@@ -40,20 +42,31 @@ function App() {
 
   return (
     <div className="App">
-      {/* Presentation Message */}
+      {/* Presentation Message with Logo */}
       {showPresentation && (
         <div className="presentation-overlay">
-          <h1 className="presentation-text">
-            Welcome to HGROUP Creative Studio
-          </h1>
+          <div className="presentation-content">
+            <h1 className="presentation-text">
+              Welcome to HGROUP Creative Studio
+            </h1>
+            <img 
+              src={logohgroup} 
+              alt="HGROUP" 
+              className="presentation-logo"
+            />
+          </div>
         </div>
       )}
 
-      {/* Compact Main Header */}
+      {/* Main Header */}
       <header className={`main-header ${!showMainHeader ? 'hidden' : ''}`}>
         <div className="header-content">
           <div className="logo-container">
-            <h1 className="logo">HGROUP</h1>
+            <img 
+              src={logohgroup} 
+              alt="HGROUP" 
+              className="logo"
+            />
           </div>
           
           <nav className="main-nav">
@@ -82,10 +95,10 @@ function App() {
         </div>
       </header>
 
-      {/* Holdings Submenu - White background */}
+      {/* Holdings Submenu */}
       <section className={`holdings-menu ${!showMainHeader ? 'fixed' : ''}`}>
         <div className="holdings-container">
-          {logos.holdingsLogos.map((holding, index) => (
+          {holdingsLogos.map((holding, index) => (
             <div 
               key={holding.id} 
               className="holding-item"
@@ -108,12 +121,26 @@ function App() {
         </div>
       </section>
 
-      {/* Rest of your component remains the same */}
       {/* Horizontal Navigation */}
       <nav className={`horizontal-nav ${!showMainHeader ? 'visible' : ''}`}>
         <div className="nav-content">
-          <div className="logo-small">HGROUP</div>
-          <ul className="horizontal-nav-list">
+          <img 
+            src={logohgroup} 
+            alt="HGROUP" 
+            className="logo-small"
+          />
+          
+          {/* Hamburger button for mobile */}
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
+          <ul className={`horizontal-nav-list ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <li><a href="#">WORK WITH US</a></li>
             <li><a href="#">ABOUT US</a></li>
             <li><a href="#">CONTACT US</a></li>
@@ -123,7 +150,7 @@ function App() {
         </div>
       </nav>
 
-      {/* Vertical Zoom Controls - Always visible */}
+      {/* Vertical Zoom Controls */}
       <div className="zoom-controls">
         <button 
           className="zoom-btn zoom-plus"
