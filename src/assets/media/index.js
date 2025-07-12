@@ -39,7 +39,8 @@ export const portfolioImages = [
     name: 'BULGARI',
     image: bulgariHype,
     alt: 'Bulgari Hype Campaign',
-    category: 'Luxury',
+    category: 'HYPE',
+    company: 'BULGARI',
     type: 'image'
   },
   {
@@ -47,7 +48,8 @@ export const portfolioImages = [
     name: 'EVENTI',
     image: eventiHome,
     alt: 'Eventi Home Project',
-    category: 'Events',
+    category: 'HERE',
+    company: 'HGROUP',
     type: 'image'
   },
   {
@@ -55,7 +57,8 @@ export const portfolioImages = [
     name: 'HERO PARTY',
     image: heroparty,
     alt: 'Hero Party Event',
-    category: 'Events',
+    category: 'HOOK',
+    company: 'HGROUP',
     type: 'image'
   },
   {
@@ -63,7 +66,8 @@ export const portfolioImages = [
     name: 'LAMBINTO',
     image: lambintoHype,
     alt: 'Lambinto Hype Campaign',
-    category: 'Fashion',
+    category: 'HALO',
+    company: 'LAMBORGHINI',
     type: 'image'
   },
   {
@@ -71,7 +75,8 @@ export const portfolioImages = [
     name: 'MASERATI',
     image: maseratiHype,
     alt: 'Maserati Hype Campaign',
-    category: 'Automotive',
+    category: 'HACK',
+    company: 'MASERATI',
     type: 'image'
   },
   {
@@ -79,7 +84,8 @@ export const portfolioImages = [
     name: 'OMODA',
     image: omodaHome,
     alt: 'Omoda Home Project',
-    category: 'Automotive',
+    category: 'HITS',
+    company: 'OMODA',
     type: 'image'
   }
 ]
@@ -91,7 +97,8 @@ export const portfolioVideos = [
     name: 'DON JULIO',
     video: donjulioHalo,
     alt: 'Don Julio Halo Campaign',
-    category: 'Spirits',
+    category: 'HUGE',
+    company: 'DON JULIO',
     type: 'video'
   },
   {
@@ -99,7 +106,8 @@ export const portfolioVideos = [
     name: 'FUNO HERO',
     video: funoHero,
     alt: 'Funo Hero Campaign',
-    category: 'Digital',
+    category: 'HOME',
+    company: 'FUNO',
     type: 'video'
   },
   {
@@ -107,7 +115,8 @@ export const portfolioVideos = [
     name: 'HONOR',
     video: honorHalo,
     alt: 'Honor Halo Campaign',
-    category: 'Technology',
+    category: 'HUNT',
+    company: 'HONOR',
     type: 'video'
   },
   {
@@ -115,7 +124,8 @@ export const portfolioVideos = [
     name: 'URUS',
     video: urusHype,
     alt: 'Urus Hype Campaign',
-    category: 'Automotive',
+    category: 'HERO',
+    company: 'LAMBORGHINI',
     type: 'video'
   }
 ]
