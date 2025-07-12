@@ -9,6 +9,7 @@ function App() {
   const [gridColumns, setGridColumns] = useState(3)
   const [showPresentation, setShowPresentation] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [selectedProject, setSelectedProject] = useState(null)
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -32,12 +33,32 @@ function App() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedProject])
+
   const handleZoomOut = () => {
     setGridColumns(prev => Math.min(prev + 1, 7))
   }
 
   const handleZoomIn = () => {
     setGridColumns(prev => Math.max(prev - 1, 1))
+  }
+
+  const openProject = (project) => {
+    setSelectedProject(project)
+  }
+
+  const closeProject = () => {
+    setSelectedProject(null)
   }
 
   return (
@@ -174,10 +195,14 @@ function App() {
         <section className="portfolio-section">
           <div 
             className="portfolio-masonry"
-            style={{ gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}
+            data-columns={gridColumns}
           >
             {images.allPortfolioItems.map((project, index) => (
-              <div key={project.id} className="portfolio-item">
+              <div 
+                key={project.id} 
+                className="portfolio-item"
+                onClick={() => openProject(project)}
+              >
                 {project.type === 'image' ? (
                   <img 
                     src={project.image} 
@@ -194,15 +219,45 @@ function App() {
                     playsInline
                   />
                 )}
-                <div className="project-overlay">
-                  <h3>{project.name}</h3>
-                  <span className="project-category">{project.category}</span>
+                <div className="project-info">
+                  <span className="project-tag">{project.name}</span>
+                  <span className="project-tag">{project.category}</span>
                 </div>
               </div>
             ))}
           </div>
         </section>
       </main>
+
+      {/* Fullscreen Modal */}
+      {selectedProject && (
+        <div className="fullscreen-modal" onClick={closeProject}>
+          <button className="close-modal" onClick={closeProject}>
+            ×
+          </button>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            {selectedProject.type === 'image' ? (
+              <img 
+                src={selectedProject.image} 
+                alt={selectedProject.alt}
+                className="modal-image"
+              />
+            ) : (
+              <video 
+                src={selectedProject.video}
+                className="modal-video"
+                controls
+                autoPlay
+                loop
+              />
+            )}
+            <div className="modal-info">
+              <span className="modal-tag">{selectedProject.name}</span>
+              <span className="modal-tag">{selectedProject.category}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
