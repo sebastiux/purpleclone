@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import { logohgroup, holdingsLogos } from './assets/logos'
 import { images } from './assets'
+import WorkWithUs from './components/WorkWithUs'
+import JoinUs from './components/JoinUs'
 import './App.css'
 
-function App() {
+function HomePage() {
   const [showMainHeader, setShowMainHeader] = useState(true)
   const [scrollY, setScrollY] = useState(0)
   const [gridColumns, setGridColumns] = useState(3)
   const [showPresentation, setShowPresentation] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
+  const [activePage, setActivePage] = useState('home')
+  const navigate = useNavigate()
   
   // Enhanced Filter states for combination
   const [showFilterMenu, setShowFilterMenu] = useState(false)
@@ -36,13 +41,12 @@ function App() {
 
   const getUniqueCompanies = () => {
     if (!images.allPortfolioItems) return []
-    // Only get companies from portfolio items, not holdings
     const portfolioCompanies = images.allPortfolioItems.map(item => item.company).filter(comp => comp)
     const allCompanies = [...new Set(portfolioCompanies)]
     return allCompanies.sort()
   }
 
-  // Filter projects based on selected categories and companies (no limit)
+  // Filter projects based on selected categories and companies
   useEffect(() => {
     if (!images.allPortfolioItems) {
       setFilteredProjects([])
@@ -51,26 +55,23 @@ function App() {
 
     let filtered = [...images.allPortfolioItems]
     
-    // Apply category filters (H's)
     if (selectedCategories.length > 0) {
       filtered = filtered.filter(item => 
         selectedCategories.includes(item.category)
       )
     }
     
-    // Apply company filters
     if (selectedCompanies.length > 0) {
       filtered = filtered.filter(item => 
         selectedCompanies.includes(item.company)
       )
     }
     
-    // Always shuffle for random order and show all results
     const shuffled = shuffleArray(filtered)
     setFilteredProjects(shuffled)
   }, [selectedCategories, selectedCompanies])
 
-  // Initial shuffle on mount (show all projects)
+  // Initial shuffle on mount
   useEffect(() => {
     if (images.allPortfolioItems) {
       const shuffled = shuffleArray([...images.allPortfolioItems])
@@ -95,7 +96,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPresentation(false)
-    }, 4500)
+    }, 2500) // Más rápido
     return () => clearTimeout(timer)
   }, [])
 
@@ -138,7 +139,6 @@ function App() {
     setSelectedProject(null)
   }
 
-  // Handle category filter toggle
   const handleCategoryToggle = (category) => {
     setSelectedCategories(prev => {
       if (prev.includes(category)) {
@@ -149,7 +149,6 @@ function App() {
     })
   }
 
-  // Handle company filter toggle
   const handleCompanyToggle = (company) => {
     setSelectedCompanies(prev => {
       if (prev.includes(company)) {
@@ -160,19 +159,16 @@ function App() {
     })
   }
 
-  // Clear all filters
   const clearAllFilters = () => {
     setSelectedCategories([])
     setSelectedCompanies([])
-    setShowFilterMenu(false) // Close the filter menu after clearing
+    setShowFilterMenu(false)
   }
 
-  // Handle holdings click
   const handleHoldingClick = (holdingName) => {
     handleCompanyToggle(holdingName)
   }
 
-  // Get display text for current filters
   const getFilterDisplayText = () => {
     const totalFilters = selectedCategories.length + selectedCompanies.length
     
@@ -185,9 +181,13 @@ function App() {
     return `${totalFilters} Filters Active`
   }
 
-  // Get active filter count
   const getActiveFilterCount = () => {
     return selectedCategories.length + selectedCompanies.length
+  }
+
+  const handleNavigation = (page, path) => {
+    setActivePage(page)
+    navigate(path)
   }
 
   return (
@@ -197,7 +197,7 @@ function App() {
         <div className="presentation-overlay">
           <div className="presentation-content">
             <h1 className="presentation-text">
-              Welcome to HGROUP Creative Studio
+              LUXURY BRANDING
             </h1>
             <img 
               src={logohgroup} 
@@ -217,24 +217,49 @@ function App() {
               src={logohgroup} 
               alt="HGROUP" 
               className="logo"
+              onClick={() => {
+                setActivePage('home')
+                navigate('/')
+              }}
+              style={{ cursor: 'pointer' }}
             />
           </div>
           
           <nav className="main-nav">
             <ul className="nav-list">
               <li className="nav-item">
-                <a href="#" className="nav-link">
+                <a 
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleNavigation('work', '/work-with-us')
+                  }}
+                  className={`nav-link ${activePage === 'work' ? 'active' : ''}`}
+                  style={{ cursor: 'pointer' }}
+                >
                   <span className="nav-text">WORK WITH US</span>
                 </a>
               </li>
               <li className="nav-item">
-                <a href="#" className="nav-link">
-                  <span className="nav-text">ABOUT US</span>
+                <a 
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleNavigation('join', '/join-us')
+                  }}
+                  className={`nav-link ${activePage === 'join' ? 'active' : ''}`}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span className="nav-text">JOIN US</span>
                 </a>
               </li>
               <li className="nav-item">
-                <a href="#" className="nav-link">
-                  <span className="nav-text">CONTACT US</span>
+                <a 
+                  href="https://www.instagram.com/hgroupp_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="nav-link"
+                >
+                  <span className="nav-text">FOLLOW US</span>
+                  
                 </a>
               </li>
             </ul>
@@ -268,7 +293,7 @@ function App() {
                     </div>
                   )}
                   
-                  {/* Categories Section - Now showing H's */}
+                  {/* Categories Section */}
                   {getUniqueCategories().length > 0 && (
                     <div className="filter-section">
                       <h4>By H</h4>
@@ -315,7 +340,7 @@ function App() {
             <div 
               key={holding.id} 
               className={`holding-item ${selectedCompanies.includes(holding.name) ? 'active' : ''}`}
-              style={{ animationDelay: `${2.5 + index * 0.2}s` }}
+              style={{ animationDelay: `${0.5 + index * 0.1}s` }}
               onClick={() => handleHoldingClick(holding.name)}
             >
               <img 
@@ -330,9 +355,6 @@ function App() {
               <div className="holding-placeholder" style={{ display: 'none' }}>
                 {holding.name}
               </div>
-              {selectedCompanies.includes(holding.name) && (
-                <div className="holding-active-indicator"></div>
-              )}
             </div>
           ))}
         </div>
@@ -345,6 +367,11 @@ function App() {
             src={logohgroup} 
             alt="HGROUP" 
             className="logo-small"
+            onClick={() => {
+              setActivePage('home')
+              navigate('/')
+            }}
+            style={{ cursor: 'pointer' }}
           />
           
           {/* Hamburger button for mobile */}
@@ -358,11 +385,42 @@ function App() {
           </button>
           
           <ul className={`horizontal-nav-list ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-            <li><a href="#">WORK WITH US</a></li>
-            <li><a href="#">ABOUT US</a></li>
-            <li><a href="#">CONTACT US</a></li>
-            <li><a href="#">100 VOICES</a></li>
-            <li><a href="#">FOLLOW US</a></li>
+            <li>
+              <a 
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleNavigation('work', '/work-with-us')
+                  setMobileMenuOpen(false)
+                }}
+                className={activePage === 'work' ? 'active' : ''}
+                style={{ cursor: 'pointer' }}
+              >
+                WORK WITH US
+              </a>
+            </li>
+            <li>
+              <a 
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleNavigation('join', '/join-us')
+                  setMobileMenuOpen(false)
+                }}
+                className={activePage === 'join' ? 'active' : ''}
+                style={{ cursor: 'pointer' }}
+              >
+                JOIN US
+              </a>
+            </li>
+            <li>
+              <a 
+                href="https://www.instagram.com/hgroupp_/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                FOLLOW US <span className="nav-arrow-small">↗</span>
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -389,40 +447,13 @@ function App() {
       {/* Portfolio Grid */}
       <main className="main-content">
         <section className="portfolio-section">
-          {/* Filter Summary */}
-          {getActiveFilterCount() > 0 && (
-            <div className="filter-summary">
-              <span>Showing {filteredProjects.length} projects</span>
-              {selectedCategories.length > 0 && (
-                <span className="filter-tags">
-                  {selectedCategories.map(cat => (
-                    <span key={cat} className="filter-tag category-tag">
-                      {cat}
-                      <button onClick={() => handleCategoryToggle(cat)}>×</button>
-                    </span>
-                  ))}
-                </span>
-              )}
-              {selectedCompanies.length > 0 && (
-                <span className="filter-tags">
-                  {selectedCompanies.map(comp => (
-                    <span key={comp} className="filter-tag company-tag">
-                      {comp}
-                      <button onClick={() => handleCompanyToggle(comp)}>×</button>
-                    </span>
-                  ))}
-                </span>
-              )}
-            </div>
-          )}
-          
           <div 
             className="portfolio-masonry"
             data-columns={gridColumns}
           >
             {filteredProjects.map((project, index) => (
               <div 
-                key={project.id} 
+                key={`${project.id}-${index}`} 
                 className="portfolio-item"
                 onClick={() => openProject(project)}
               >
@@ -497,6 +528,21 @@ function App() {
         </div>
       )}
     </div>
+  )
+}
+
+function App() {
+  // Obtener el basename de la configuración de Vite
+  const basename = import.meta.env.BASE_URL || '/'
+  
+  return (
+    <Router basename={basename}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/work-with-us" element={<WorkWithUs />} />
+        <Route path="/join-us" element={<JoinUs />} />
+      </Routes>
+    </Router>
   )
 }
 
