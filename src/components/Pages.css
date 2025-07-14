@@ -4,6 +4,7 @@
   background: #FFFCF2;
   font-family: 'Visby CF', sans-serif;
   animation: pageSlideIn 0.3s ease forwards;
+  opacity: 0;
 }
 
 @keyframes pageSlideIn {
@@ -14,6 +15,22 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* Faster close animation */
+.page-container.closing {
+  animation: pageSlideOut 0.2s ease forwards;
+}
+
+@keyframes pageSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
   }
 }
 

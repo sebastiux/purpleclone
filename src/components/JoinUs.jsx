@@ -1,10 +1,17 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { logohgroup } from '../assets/logos'
+import { useLanguage } from '../contexts/LanguageContext'
 import './Pages.css'
 
 function JoinUs() {
   const navigate = useNavigate()
+  const { t } = useLanguage()
+  
+  // Direct navigation without loading
+  const handleClose = () => {
+    navigate('/')
+  }
   
   const openings = [
     {
@@ -19,27 +26,29 @@ function JoinUs() {
     <div className="page-container">
       <button 
         className="close-page-btn"
-        onClick={() => navigate('/')}
+        onClick={handleClose}
         aria-label="Close page"
       >
         ×
       </button>
       
       <div className="page-sidebar">
-        <Link to="/">
+        <div onClick={handleClose} style={{ cursor: 'pointer' }}>
           <img src={logohgroup} alt="HGROUP" className="page-logo" />
-        </Link>
+        </div>
         
         <div className="sidebar-content">
           <div className="page-nav">
-            <Link to="/work-with-us" className="nav-item">WORK WITH US</Link>
+            <Link to="/work-with-us" className="nav-item">{t('nav.workWithUs')}</Link>
           </div>
           <div className="page-nav">
             <span className="nav-dot active"></span>
-            <Link to="/join-us" className="nav-item">JOIN US</Link>
+            <span className="nav-item">{t('nav.joinUs')}</span>
           </div>
           <div className="page-nav">
-            <a href="#" className="nav-item">FOLLOW US</a>
+            <a href="https://www.instagram.com/hgroupp_/" target="_blank" rel="noopener noreferrer" className="nav-item">
+              {t('nav.followUs')} <span style={{fontSize: '0.8rem', marginLeft: '4px'}}>↗</span>
+            </a>
           </div>
           
           <div className="social-links">
@@ -67,20 +76,15 @@ function JoinUs() {
 
       <div className="page-content">
         <div className="content-text">
-          <p>
-            We are a team of creators and innovators. We know there is more than one way to get things done, and 
-            we cultivate a range of diverse perspectives. HGROUP is always growing and seeking new talent to join 
-            our global community.
-          </p>
-          <p>
-            Please click <strong>here</strong> to see our current vacancies, or for any general enquiries, please email 
-            careers@hgroup.com
-          </p>
+          <p>{t('joinUs.text1')}</p>
+          <p dangerouslySetInnerHTML={{ 
+            __html: t('joinUs.text2').replace('aquí', '<strong>aquí</strong>').replace('here', '<strong>here</strong>')
+          }} />
         </div>
 
         <div className="filter-buttons">
-          <button className="filter-btn active">ALL LOCATIONS</button>
-          <button className="filter-btn">LONDON</button>
+          <button className="filter-btn active">{t('joinUs.allLocations')}</button>
+          <button className="filter-btn">{t('joinUs.london')}</button>
         </div>
 
         <div className="job-listings">
@@ -90,7 +94,7 @@ function JoinUs() {
               <p className="job-location">{job.location}</p>
               <p className="job-description">{job.description}</p>
               <a href={job.applyLink} target="_blank" rel="noopener noreferrer" className="apply-link">
-                APPLY ON LINKEDIN <span className="arrow">↗</span>
+                {t('joinUs.applyLinkedin')} <span className="arrow">↗</span>
               </a>
             </div>
           ))}

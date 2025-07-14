@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { logohgroup, holdingsLogos } from './assets/logos'
 import { images } from './assets'
 import WorkWithUs from './components/WorkWithUs'
 import JoinUs from './components/JoinUs'
+import { LanguageProvider, useLanguage } from './contexts/LanguageContext'
+import LanguageToggle from './components/LanguageToggle'
+import gsap from 'gsap'
 import './App.css'
 
 function HomePage() {
@@ -11,16 +14,43 @@ function HomePage() {
   const [scrollY, setScrollY] = useState(0)
   const [gridColumns, setGridColumns] = useState(3)
   const [showPresentation, setShowPresentation] = useState(true)
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
   const [activePage, setActivePage] = useState('home')
+  const [showHoldingsMenu, setShowHoldingsMenu] = useState(true)
+  const [isAnimating, setIsAnimating] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
+  const { t } = useLanguage()
+  
+  // Refs for GSAP
+  const portfolioRef = useRef(null)
+  const timelineRef = useRef(null)
+  const containerRef = useRef(null)
   
   // Enhanced Filter states for combination
   const [showFilterMenu, setShowFilterMenu] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedCompanies, setSelectedCompanies] = useState([])
   const [filteredProjects, setFilteredProjects] = useState([])
+
+  // Check if coming from another page
+  useEffect(() => {
+    const isFromSubpage = location.state?.fromSubpage
+    if (isFromSubpage) {
+      setIsInitialLoad(false)
+      setShowPresentation(false)
+    } else {
+      const sessionVisited = sessionStorage.getItem('hasVisited')
+      if (sessionVisited) {
+        setIsInitialLoad(false)
+        setShowPresentation(false)
+      } else {
+        sessionStorage.setItem('hasVisited', 'true')
+      }
+    }
+  }, [location])
 
   // Shuffle function for random order
   const shuffleArray = (array) => {
@@ -79,8 +109,19 @@ function HomePage() {
     }
   }, [])
 
+  // Scroll handler
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+      
+      // Hide holdings menu on scroll
+      if (window.scrollY > 100) {
+        setShowHoldingsMenu(false)
+      } else {
+        setShowHoldingsMenu(true)
+      }
+    }
+    
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -93,12 +134,16 @@ function HomePage() {
     }
   }, [scrollY])
 
+  // Updated presentation timer effect
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPresentation(false)
-    }, 2500) // Más rápido
-    return () => clearTimeout(timer)
-  }, [])
+    if (isInitialLoad && showPresentation) {
+      const timer = setTimeout(() => {
+        setShowPresentation(false)
+        setIsInitialLoad(false)
+      }, 2500)
+      return () => clearTimeout(timer)
+    }
+  }, [isInitialLoad, showPresentation])
 
   useEffect(() => {
     if (selectedProject) {
@@ -110,6 +155,110 @@ function HomePage() {
       document.body.style.overflow = 'unset'
     }
   }, [selectedProject])
+
+  // Enhanced GSAP Animation for ultra-smooth, water-like grid transitions
+  useEffect(() => {
+    if (!portfolioRef.current || !containerRef.current) return
+
+    // Kill any existing timeline
+    if (timelineRef.current) {
+      timelineRef.current.kill()
+    }
+
+    const items = Array.from(portfolioRef.current.querySelectorAll('.portfolio-item'))
+    
+    if (items.length === 0) return
+
+    // FLIP Technique - Step 1: Record initial positions (First)
+    const initialStates = items.map(item => {
+      const rect = item.getBoundingClientRect()
+      return {
+        element: item,
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height
+      }
+    })
+
+    // FLIP Technique - Step 2: Apply new layout (Last)
+    portfolioRef.current.style.gridTemplateColumns = `repeat(${gridColumns}, 1fr)`
+    
+    // Force layout recalculation
+    portfolioRef.current.offsetHeight
+
+    // FLIP Technique - Step 3: Record final positions
+    const finalStates = items.map(item => {
+      const rect = item.getBoundingClientRect()
+      return {
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height
+      }
+    })
+
+    // Create master timeline with sophisticated defaults
+    const masterTL = gsap.timeline({
+      defaults: {
+        duration: 1.1,
+        ease: "power1.out"
+      }
+    })
+
+    // FLIP Technique - Step 4: Animate from initial to final (Invert & Play)
+    items.forEach((item, i) => {
+      const initial = initialStates[i]
+      const final = finalStates[i]
+      
+      const deltaX = initial.x - final.x
+      const deltaY = initial.y - final.y
+      
+      // Only animate items that actually moved significantly
+      if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
+        // Calculate movement distance for dynamic duration
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
+        const dynamicDuration = Math.min(1.4, Math.max(0.7, distance / 400))
+        
+        // Set initial position (invert the change)
+        gsap.set(item, {
+          x: deltaX,
+          y: deltaY,
+          scale: 1,
+          rotation: 0
+        })
+        
+        // Animate to final position with beautiful water-like easing
+        masterTL.to(item, {
+          x: 0,
+          y: 0,
+          duration: dynamicDuration,
+          ease: "power2.out",
+          overwrite: true
+        }, i * 0.1) // Minimal stagger for organic wave flow
+        
+        // Add subtle "breathing" effect during transition
+        masterTL.to(item, {
+          scale: 1.003,
+          duration: dynamicDuration * 0.4,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: 1
+        }, i * 0.1)
+        
+      } else {
+        // For items that don't move, ensure clean state
+        gsap.set(item, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotation: 0.1
+        })
+      }
+    })
+
+    timelineRef.current = masterTL
+  }, [gridColumns])
 
   // Close filter menu when clicking outside
   useEffect(() => {
@@ -123,12 +272,19 @@ function HomePage() {
     return () => document.removeEventListener('click', handleClickOutside)
   }, [showFilterMenu])
 
+  // Enhanced zoom handlers with animation state management
   const handleZoomOut = () => {
+    if (isAnimating || gridColumns >= 7) return
+    setIsAnimating(true)
     setGridColumns(prev => Math.min(prev + 1, 7))
+    setTimeout(() => setIsAnimating(false), 800) // Allow time for animation
   }
 
   const handleZoomIn = () => {
+    if (isAnimating || gridColumns <= 1) return
+    setIsAnimating(true)
     setGridColumns(prev => Math.max(prev - 1, 1))
+    setTimeout(() => setIsAnimating(false), 800)
   }
 
   const openProject = (project) => {
@@ -165,20 +321,24 @@ function HomePage() {
     setShowFilterMenu(false)
   }
 
-  const handleHoldingClick = (holdingName) => {
-    handleCompanyToggle(holdingName)
+  const handleHoldingClick = (holdingId) => {
+    // For now, just console log or show alert
+    console.log(`Navigating to ${holdingId}`)
+    alert(`This would navigate to ${holdingId} page`)
+    // Later you can uncomment this:
+    // navigate(`/holding/${holdingId}`)
   }
 
   const getFilterDisplayText = () => {
     const totalFilters = selectedCategories.length + selectedCompanies.length
     
-    if (totalFilters === 0) return 'All Work'
+    if (totalFilters === 0) return t('nav.allWork')
     if (totalFilters === 1) {
       if (selectedCategories.length === 1) return selectedCategories[0].toUpperCase()
       if (selectedCompanies.length === 1) return selectedCompanies[0].toUpperCase()
     }
     
-    return `${totalFilters} Filters Active`
+    return `${totalFilters} ${t('nav.filtersActive')}`
   }
 
   const getActiveFilterCount = () => {
@@ -191,20 +351,20 @@ function HomePage() {
   }
 
   return (
-    <div className="App">
-      {/* Presentation Message with Logo */}
-      {showPresentation && (
+    <div className="App" ref={containerRef}>
+      {/* Presentation Message with Logo - Only on initial load */}
+      {showPresentation && isInitialLoad && (
         <div className="presentation-overlay">
           <div className="presentation-content">
             <h1 className="presentation-text">
-              LUXURY BRANDING
+              {t('presentation.title')}
             </h1>
             <img 
               src={logohgroup} 
               alt="HGROUP" 
               className="presentation-logo"
             />
-            <p className="presentation-tagline">Conectamos lo imposible</p>
+            <p className="presentation-tagline">{t('presentation.tagline')}</p>
           </div>
         </div>
       )}
@@ -219,7 +379,7 @@ function HomePage() {
               className="logo"
               onClick={() => {
                 setActivePage('home')
-                navigate('/')
+                navigate('/', { state: { fromSubpage: false } })
               }}
               style={{ cursor: 'pointer' }}
             />
@@ -236,7 +396,7 @@ function HomePage() {
                   className={`nav-link ${activePage === 'work' ? 'active' : ''}`}
                   style={{ cursor: 'pointer' }}
                 >
-                  <span className="nav-text">WORK WITH US</span>
+                  <span className="nav-text">{t('nav.workWithUs')}</span>
                 </a>
               </li>
               <li className="nav-item">
@@ -248,7 +408,7 @@ function HomePage() {
                   className={`nav-link ${activePage === 'join' ? 'active' : ''}`}
                   style={{ cursor: 'pointer' }}
                 >
-                  <span className="nav-text">JOIN US</span>
+                  <span className="nav-text">{t('nav.joinUs')}</span>
                 </a>
               </li>
               <li className="nav-item">
@@ -258,8 +418,7 @@ function HomePage() {
                   rel="noopener noreferrer"
                   className="nav-link"
                 >
-                  <span className="nav-text">FOLLOW US</span>
-                  
+                  <span className="nav-text">{t('nav.followUs')}</span>
                 </a>
               </li>
             </ul>
@@ -271,7 +430,7 @@ function HomePage() {
               onClick={() => setShowFilterMenu(!showFilterMenu)}
               className={`filter-toggle ${getActiveFilterCount() > 0 ? 'has-filters' : ''}`}
             >
-              VIEW WORK BY : {getFilterDisplayText()}
+              {t('nav.viewWorkBy')} : {getFilterDisplayText()}
               {getActiveFilterCount() > 0 && (
                 <span className="filter-count">{getActiveFilterCount()}</span>
               )}
@@ -288,7 +447,7 @@ function HomePage() {
                         onClick={clearAllFilters}
                         className="clear-all-btn"
                       >
-                        Clear All ({getActiveFilterCount()})
+                        {t('nav.clearAll')} ({getActiveFilterCount()})
                       </button>
                     </div>
                   )}
@@ -296,7 +455,7 @@ function HomePage() {
                   {/* Categories Section */}
                   {getUniqueCategories().length > 0 && (
                     <div className="filter-section">
-                      <h4>By H</h4>
+                      <h4>{t('nav.byH')}</h4>
                       {getUniqueCategories().map(category => (
                         <label key={category} className="filter-checkbox">
                           <input
@@ -313,7 +472,7 @@ function HomePage() {
                   
                   {/* Companies Section */}
                   <div className="filter-section">
-                    <h4>By Company</h4>
+                    <h4>{t('nav.byCompany')}</h4>
                     {getUniqueCompanies().map(company => (
                       <label key={company} className="filter-checkbox">
                         <input
@@ -334,14 +493,14 @@ function HomePage() {
       </header>
 
       {/* Holdings Submenu */}
-      <section className={`holdings-menu ${!showMainHeader ? 'fixed' : ''}`}>
+      <section className={`holdings-menu ${!showMainHeader ? 'fixed' : ''} ${!showHoldingsMenu ? 'hidden' : ''}`}>
         <div className="holdings-container">
           {holdingsLogos.map((holding, index) => (
-            <div 
+            <div
               key={holding.id} 
-              className={`holding-item ${selectedCompanies.includes(holding.name) ? 'active' : ''}`}
+              className="holding-item"
               style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-              onClick={() => handleHoldingClick(holding.name)}
+              onClick={() => handleHoldingClick(holding.id)}
             >
               <img 
                 src={holding.logo} 
@@ -369,7 +528,7 @@ function HomePage() {
             className="logo-small"
             onClick={() => {
               setActivePage('home')
-              navigate('/')
+              navigate('/', { state: { fromSubpage: false } })
             }}
             style={{ cursor: 'pointer' }}
           />
@@ -395,7 +554,7 @@ function HomePage() {
                 className={activePage === 'work' ? 'active' : ''}
                 style={{ cursor: 'pointer' }}
               >
-                WORK WITH US
+                {t('nav.workWithUs')}
               </a>
             </li>
             <li>
@@ -408,7 +567,7 @@ function HomePage() {
                 className={activePage === 'join' ? 'active' : ''}
                 style={{ cursor: 'pointer' }}
               >
-                JOIN US
+                {t('nav.joinUs')}
               </a>
             </li>
             <li>
@@ -418,7 +577,7 @@ function HomePage() {
                 rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                FOLLOW US <span className="nav-arrow-small">↗</span>
+                {t('nav.followUs')} <span className="nav-arrow-small">↗</span>
               </a>
             </li>
           </ul>
@@ -428,17 +587,17 @@ function HomePage() {
       {/* Vertical Zoom Controls - Desktop Only */}
       <div className="zoom-controls">
         <button 
-          className="zoom-btn zoom-plus"
+          className={`zoom-btn zoom-plus ${isAnimating ? 'animating' : ''}`}
           onClick={handleZoomIn}
-          disabled={gridColumns === 1}
+          disabled={gridColumns === 1 || isAnimating}
         >
           +
         </button>
         <div className="zoom-divider"></div>
         <button 
-          className="zoom-btn zoom-minus"
+          className={`zoom-btn zoom-minus ${isAnimating ? 'animating' : ''}`}
           onClick={handleZoomOut}
-          disabled={gridColumns === 7}
+          disabled={gridColumns === 7 || isAnimating}
         >
           −
         </button>
@@ -448,8 +607,9 @@ function HomePage() {
       <main className="main-content">
         <section className="portfolio-section">
           <div 
+            ref={portfolioRef}
             className="portfolio-masonry"
-            data-columns={gridColumns}
+            style={{ gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}
           >
             {filteredProjects.map((project, index) => (
               <div 
@@ -487,8 +647,8 @@ function HomePage() {
           
           {filteredProjects.length === 0 && getActiveFilterCount() > 0 && (
             <div className="no-results">
-              <h3>No projects found</h3>
-              <p>Try adjusting your filters or <button onClick={clearAllFilters} className="clear-link">clear all filters</button></p>
+              <h3>{t('nav.noResults')}</h3>
+              <p>{t('nav.tryAdjusting')} <button onClick={clearAllFilters} className="clear-link">{t('nav.clearFilters')}</button></p>
             </div>
           )}
         </section>
@@ -527,22 +687,26 @@ function HomePage() {
           </div>
         </div>
       )}
+
+      {/* Language Toggle */}
+      <LanguageToggle />
     </div>
   )
 }
 
 function App() {
-  // Obtener el basename de la configuración de Vite
   const basename = import.meta.env.BASE_URL || '/'
   
   return (
-    <Router basename={basename}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/work-with-us" element={<WorkWithUs />} />
-        <Route path="/join-us" element={<JoinUs />} />
-      </Routes>
-    </Router>
+    <LanguageProvider>
+      <Router basename={basename}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/work-with-us" element={<WorkWithUs />} />
+          <Route path="/join-us" element={<JoinUs />} />
+        </Routes>
+      </Router>
+    </LanguageProvider>
   )
 }
 
