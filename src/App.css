@@ -8,7 +8,7 @@
 /* Main Header */
 .main-header {
   width: 100%;
-  min-height: 80px;
+  min-height: 200px; /* Reducido de 80px */
   background-color: #FFFCF2;
   z-index: 1000;
   position: relative;
@@ -24,7 +24,7 @@
 .header-content {
   display: flex;
   flex-direction: column;
-  padding: 70px;
+  padding: 30px 70px; /* Reducido el padding superior de 70px */
   position: relative;
   background-color: #FFFCF2;
   height: 100%;
@@ -39,7 +39,7 @@
 }
 
 .logo {
-  height: 120px;
+  height: 80px; /* Reducido de 120px */
   width: auto;
   object-fit: contain;
   opacity: 0;
@@ -140,7 +140,7 @@
 /* Navigation - Left side vertical menu */
 .main-nav {
   position: absolute;
-  top: 120px;
+  top: 90px; /* Reducido de 120px */
   left: 30px;
 }
 
@@ -159,6 +159,24 @@
   transform: translateX(-30px);
   animation: slideInLeft 0.6s ease forwards;
   position: relative;
+}
+.nav-item::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 35%;
+  transform: translateY(-50%) scale(0);
+  width: 10px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
 }
 
 .nav-item:nth-child(1) .nav-text {
@@ -184,7 +202,7 @@
 .nav-link {
   text-decoration: none;
   color: #403d39;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   font-family: 'Visby CF', sans-serif;
   transition: all 0.3s ease;
@@ -193,7 +211,7 @@
   white-space: nowrap;
   display: inline-block;
   overflow: hidden;
-  padding: 5px 0;
+  padding: 1px 0;
   line-height: 1.4;
   position: relative;
 }
@@ -399,18 +417,19 @@
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid #CCC5B9;
   position: relative;
-  margin-top: 0;
+  margin-top: 10px; /* Negativo para subirlo y pegarlo al header */
   opacity: 1;
   transform: translateY(0);
 }
 
 .holdings-menu.fixed {
   position: fixed;
-  top: 80px;
+  top: 60px; /* Ajustado para cuando se fija */
   left: 0;
   right: 0;
   background: #FFFCF2;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-top: 0; /* Reset margin cuando está fixed */
 }
 
 .holdings-menu.hidden {
@@ -423,7 +442,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 55px;
   width: 100%;
   margin: 0 auto;
   padding: 5px 20px;
@@ -439,13 +458,13 @@
 
 /* Fixed holding item styles */
 .holding-item {
-  position: relative;
+  position: 100%;
   cursor: pointer;
   opacity: 0;
   animation: fadeInScale 0.5s ease forwards;
   min-width: 80px;
   text-align: center;
-  padding-bottom: 10px;
+  padding-bottom: -40px; /* Reduce de 10px a 5px o menos */
 }
 
 @keyframes fadeInScale {
@@ -460,7 +479,7 @@
 }
 
 .holding-logo {
-  width: 60px;
+  width: 90px;
   height: 90px;
   object-fit: contain;
   transition: all 0.3s ease;
@@ -478,10 +497,10 @@
 .holding-item::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%) scaleX(0);
-  width: 60px;
+  width: 85px;
   height: 2px;
   background: #000;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1456,8 +1475,8 @@ html {
   
   .holding-logo,
   .holding-placeholder {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     flex-shrink: 0;
   }
   
@@ -1632,7 +1651,7 @@ html {
   }
   
   .holdings-container {
-    gap: 12px;
+    gap: 50x;
   }
   
   .logo-small {
