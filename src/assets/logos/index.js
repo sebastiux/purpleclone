@@ -2,15 +2,32 @@
 // Holdings logos - add your actual logo files here
 // Example: import holding1Logo from './holding1.png'
 import logohgroup from './logoprincipalh-negro.png'
-import herologo from './herologo-negro.png'
-// import holding3Logo from './holding3.png'
+import herologo from './HEROlogo_negro.png'
+import hacklogo from './HACKlogo_negro.png'
+import halologo from './HALOlogo_negro.png'
+import herelogo from './HERElogo_negro.png'
+import hitslogo from './HITSlogo_negro.png'
+import homelogo from './HOMElogo_negro.png'
+import hopelogo from './HOPElogo_negro.png'
+import hugelogo from './HUGElogo_negro.png'
+import huntlogo from './HUNTlogo_negro.png'
+import hypelogo from './HYPElogo_negro.png'
 // import holding4Logo from './holding4.png'
 // import holding5Logo from './holding5.png'
 
 // Export individual logos
 export {
   logohgroup,
-  herologo
+  herologo,
+  hacklogo,
+  halologo,
+  herelogo,
+  hitslogo,
+  homelogo,
+  hopelogo,
+  hugelogo,
+  huntlogo,
+  hypelogo
 }
 
 // Export holdings as an array for easy mapping
@@ -22,39 +39,87 @@ export const holdingsLogos = [
     alt: 'HERO'
   },
   {
-    id: 'holding2',
-    name: 'Holding 2',
-    logo: herologo,
-    alt: 'Holding Company 2'
+    id: 'hack',
+    name: 'HACK',
+    logo: hacklogo,
+    alt: 'HACK'
   },
   {
-    id: 'holding3',
-    name: 'Holding 3',
-    logo: herologo,
-    alt: 'Holding Company 3'
+    id: 'halo',
+    name: 'HALO',
+    logo: halologo,
+    alt: 'HALO'
   },
   {
-    id: 'holding4',
-    name: 'Holding 4',
-    logo: herologo,
-    alt: 'Holding Company 4'
+    id: 'here',
+    name: 'HERE',
+    logo: herelogo,
+    alt: 'HERE'
   },
   {
-    id: 'holding5',
-    name: 'Holding 5',
-    logo: herologo,
-    alt: 'Holding Company 5'
+    id: 'hits',
+    name: 'HITS',
+    logo: hitslogo,
+    alt: 'HITS'
+  },
+   {
+    id: 'home',
+    name: 'HOME',
+    logo: homelogo,
+    alt: 'HOME'
+  },
+   {
+    id: 'hope',
+    name: 'HOPE',
+    logo: hopelogo,
+    alt: 'HOPE'
+  },
+   {
+    id: 'huge',
+    name: 'HUGE',
+    logo: hugelogo,
+    alt: 'HUGE'
+  },
+  {
+    id: 'hunt',
+    name: 'HUNT',
+    logo: huntlogo,
+    alt: 'HUNT'
+  },
+  {
+    id: 'hype',
+    name: 'HYPE',
+    logo: hypelogo,
+    alt: 'HYPE'
   }
 ]
 
 // Export all logos as default
 export default {
   holdings: {
-    herologo
+    herologo,
+    hacklogo,
+    halologo,
+    herelogo,
+    hitslogo,
+    homelogo,
+    hopelogo,
+    hugelogo,
+    huntlogo,
+    hypelogo
   },
   holdingsLogos,
   company: {
    logohgroup,
-   herologo
+   herologo,
+   hacklogo,
+   halologo,
+   herelogo,
+   hitslogo,
+   homelogo,
+   hopelogo,
+   hugelogo,
+   huntlogo,
+   hypelogo
   }
 }

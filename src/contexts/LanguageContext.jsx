@@ -39,13 +39,14 @@ export const translations = {
       applyLinkedin: 'APPLY ON LINKEDIN'
     },
     expertise: [
-      { name: 'HEART', description: 'Passionate creativity that connects emotionally' },
-      { name: 'HEAD', description: 'Strategic thinking that drives results' },
-      { name: 'HANDS', description: 'Flawless execution that delivers excellence' },
-      { name: 'HERO', description: 'Bold ideas that stand out' },
-      { name: 'HUB', description: 'Connected ecosystem of talent and resources' },
-      { name: 'HUMAN', description: 'Authentic experiences that resonate' },
-      { name: 'HALO', description: 'Positive impact that elevates brands' }
+      { name: 'HERO', description: 'Passionate creativity that connects emotionally' },
+      { name: 'HALO', description: 'Strategic thinking that drives results' },
+      { name: 'HERE', description: 'Flawless execution that delivers excellence' },
+      { name: 'HITS', description: 'Bold ideas that stand out' },
+      { name: 'HOME', description: 'Connected ecosystem of talent and resources' },
+      { name: 'HUGE', description: 'Authentic experiences that resonate' },
+      { name: 'HUNT', description: 'Positive impact that elevates brands' },
+      { name: 'HYPE', description: 'Constant innovation that inspires' }
     ]
   },
   es: {
@@ -80,17 +81,19 @@ export const translations = {
       text1: 'Somos un equipo de creadores e innovadores. Sabemos que hay más de una forma de hacer las cosas, y cultivamos una variedad de perspectivas diversas. HGROUP siempre está creciendo y buscando nuevos talentos para unirse a nuestra comunidad global.',
       text2: 'Por favor haz clic aquí para ver nuestras vacantes actuales, o para cualquier consulta general, envía un correo a careers@hgroup.com',
       allLocations: 'TODAS LAS UBICACIONES',
-      london: 'LONDRES',
+      london: 'CDMX',
       applyLinkedin: 'APLICAR EN LINKEDIN'
     },
     expertise: [
-      { name: 'HEART', description: 'Creatividad apasionada que conecta emocionalmente' },
-      { name: 'HEAD', description: 'Pensamiento estratégico que impulsa resultados' },
-      { name: 'HANDS', description: 'Ejecución impecable que entrega excelencia' },
-      { name: 'HERO', description: 'Ideas audaces que destacan' },
-      { name: 'HUB', description: 'Ecosistema conectado de talento y recursos' },
-      { name: 'HUMAN', description: 'Experiencias auténticas que resuenan' },
-      { name: 'HALO', description: 'Impacto positivo que eleva las marcas' }
+      { name: 'HERO', description: 'Creatividad apasionada que conecta emocionalmente' },
+      { name: 'HALO', description: 'Pensamiento estratégico que impulsa resultados' },
+      { name: 'HERE', description: 'Ejecución impecable que entrega excelencia' },
+      { name: 'HITS', description: 'Ideas audaces que destacan' },
+      { name: 'HOME', description: 'Ecosistema conectado de talento y recursos' },
+      { name: 'HOPE', description: 'Experiencias auténticas que resuenan' },
+      { name: 'HUGE', description: 'Impacto positivo que eleva las marcas' },
+      { name: 'HUNT', description: 'Conexiones auténticas que generan confianza' },
+      { name: 'HYPE', description: 'Innovación constante que inspira' }
     ]
   }
 };

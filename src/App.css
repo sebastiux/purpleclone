@@ -56,7 +56,87 @@
     transform: scale(1);
   }
 }
+/* Luxury Branding Text Styles */
+.luxury-branding-text {
+  position: absolute;
+  top: 50%;
+  left: 200px; /* Adjust based on logo width */
+  transform: translateY(-50%);
+  margin: 0;
+  font-family: 'Visby CF', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
+.luxury-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typewriterHeader 2s steps(15) 3.5s forwards;
+  border-right: 3px solid #000;
+  animation: typewriterHeader 2s steps(15) 3.5s forwards,
+             blinkCursor 0.75s step-end 3.5s 3;
+}
+
+@keyframes typewriterHeader {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blinkCursor {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #000;
+  }
+}
+
+/* Hide cursor after animation */
+.luxury-text {
+  animation: typewriterHeader 2s steps(15) 3.5s forwards,
+             blinkCursor 0.75s step-end 3.5s 3,
+             hideCursor 0s 6s forwards;
+}
+
+@keyframes hideCursor {
+  to {
+    border-color: transparent;
+  }
+}
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .luxury-branding-text {
+    font-size: 1.5rem;
+    left: 150px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .luxury-branding-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .logo-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 /* Navigation - Left side vertical menu */
 .main-nav {
   position: absolute;
@@ -142,19 +222,19 @@
 .nav-item:nth-child(1) .nav-text {
   --nav-steps: 13;
   --nav-duration: 1s;
-  --nav-delay: 5s;
+  --nav-delay: 3s;
 }
 
 .nav-item:nth-child(2) .nav-text {
   --nav-steps: 8;
   --nav-duration: 0.7s;
-  --nav-delay: 5.3s;
+  --nav-delay: 3.3s;
 }
 
 .nav-item:nth-child(3) .nav-text {
   --nav-steps: 10;
   --nav-duration: 0.9s;
-  --nav-delay: 5.6s;
+  --nav-delay: 3.6s;
 }
 
 @keyframes typewriterNav {
@@ -174,7 +254,7 @@
   top: 30px;
   right: 30px;
   opacity: 0;
-  animation: fadeIn 0.6s ease 3.2s forwards;
+  animation: fadeIn 0.6s ease 2.2s forwards;
   z-index: 1001;
 }
 
@@ -220,7 +300,7 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  animation: fadeOutPresentation 0.4s ease 2.8s forwards;
+  animation: fadeOutPresentation 0.8s ease 3.5s forwards; /* Adjusted timing */
 }
 
 .presentation-content {
@@ -239,7 +319,7 @@
   overflow: hidden;
   white-space: nowrap;
   width: 0;
-  animation: typewriterPresentation 1.5s steps(35) 0.3s forwards; /* Reduced from 3s and 0.5s */
+  animation: typewriterPresentation 1.5s steps(35) 0.3s forwards; /* Faster typewriter */
   border-right: 3px solid #000;
 }
 
@@ -250,7 +330,7 @@
   color: #403d39;
   text-align: center;
   opacity: 0;
-  animation: fadeIn 0.8s ease 2.3s forwards;
+  animation: fadeIn 0.6s ease 2s forwards; /* Appears sooner */
 }
 
 .presentation-logo {
@@ -258,12 +338,25 @@
   width: auto;
   object-fit: contain;
   opacity: 0;
-  animation: fadeInLogo 0.8s ease 1.8s forwards;
+  animation: fadeInLogo 0.6s ease 1.2s forwards; /* Appears sooner */
+}
+
+/* Hide cursor after typewriter completes */
+.presentation-text {
+  animation: 
+    typewriterPresentation 1.5s steps(35) 0.3s forwards,
+    hideCursor 0s 2s forwards; /* Hide cursor after typewriter */
 }
 
 @keyframes typewriterPresentation {
   to {
     width: 35ch;
+  }
+}
+
+@keyframes hideCursor {
+  to {
+    border-right-color: transparent;
   }
 }
 
@@ -274,6 +367,28 @@
   }
 }
 
+/* Ensure smooth transition for portfolio appearance */
+@keyframes fadeInLogo {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* Holdings Menu */
 /* Holdings Menu - Fixed and Working */
 .holdings-menu {
@@ -308,7 +423,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 20px;
   width: 100%;
   margin: 0 auto;
   padding: 5px 20px;
@@ -345,7 +460,7 @@
 }
 
 .holding-logo {
-  width: 90px;
+  width: 60px;
   height: 90px;
   object-fit: contain;
   transition: all 0.3s ease;
@@ -378,8 +493,8 @@
 }
 
 .holding-placeholder {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   background: #CCC5B9;
   border-radius: 8px;
   display: flex;
@@ -629,9 +744,18 @@
   gap: 20px 0;
   width: 100%;
   opacity: 0;
-  animation: project-appear 0.4s linear 4.2s forwards;
+  animation: project-appear 0.4s linear 3.2s forwards;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.portfolio-masonry.transitioning {
+  transition: none !important;
+}
+
+/* Ensure items are hidden during presentation */
+.presentation-overlay ~ * .portfolio-item {
+  opacity: 0 !important;
+}
+
 
 @keyframes project-appear {
   to {
@@ -1549,6 +1673,47 @@ html {
   }
 }
 
+/* Mobile filter close button */
+.filter-close-mobile {
+  display: none; /* Hidden on desktop */
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  color: #000;
+  font-size: 28px;
+  font-weight: 300;
+  font-family: 'Visby CF', sans-serif;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: transform 0.3s ease;
+  z-index: 10;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.filter-close-mobile:hover {
+  transform: rotate(90deg);
+  opacity: 0.7;
+}
+
+/* Show only on mobile when filter takes full screen */
+@media (max-width: 768px) {
+  .filter-close-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Adjust filter content padding to accommodate close button */
+  .filter-dropdown-content {
+    padding-top: 70px; /* Add space for close button */
+  }
+}
 /* Performance optimizations */
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -36,21 +36,30 @@ function HomePage() {
   const [filteredProjects, setFilteredProjects] = useState([])
 
   // Check if coming from another page
-  useEffect(() => {
-    const isFromSubpage = location.state?.fromSubpage
-    if (isFromSubpage) {
-      setIsInitialLoad(false)
+  // Updated presentation timer effect
+useEffect(() => {
+  const isFromSubpage = location.state?.fromSubpage
+  const sessionVisited = sessionStorage.getItem('hasVisited')
+  
+  if (!isFromSubpage && !sessionVisited) {
+    setIsInitialLoad(true)
+    setShowPresentation(true)
+    
+    // Set session storage immediately to prevent re-shows on navigation
+    sessionStorage.setItem('hasVisited', 'true')
+    
+    // Hide presentation after animations complete (4.3s total)
+    const timer = setTimeout(() => {
       setShowPresentation(false)
-    } else {
-      const sessionVisited = sessionStorage.getItem('hasVisited')
-      if (sessionVisited) {
-        setIsInitialLoad(false)
-        setShowPresentation(false)
-      } else {
-        sessionStorage.setItem('hasVisited', 'true')
-      }
-    }
-  }, [location])
+      setIsInitialLoad(false)
+    }, 4300)
+    
+    return () => clearTimeout(timer)
+  } else {
+    setIsInitialLoad(false)
+    setShowPresentation(false)
+  }
+}, [location])
 
   // Shuffle function for random order
   const shuffleArray = (array) => {
@@ -476,6 +485,15 @@ const handleZoomIn = () => {
             {showFilterMenu && (
               <div className="filter-dropdown">
                 <div className="filter-dropdown-content">
+                  {/* Mobile close button */}
+                  <button 
+                    className="filter-close-mobile"
+                    onClick={() => setShowFilterMenu(false)}
+                    aria-label="Close filters"
+                  >
+                    ×
+                  </button>
+                  
                   {/* Clear All Button */}
                   {getActiveFilterCount() > 0 && (
                     <div className="filter-actions">
