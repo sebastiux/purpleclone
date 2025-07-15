@@ -136,14 +136,22 @@ function HomePage() {
 
   // Updated presentation timer effect
   useEffect(() => {
-    if (isInitialLoad && showPresentation) {
-      const timer = setTimeout(() => {
-        setShowPresentation(false)
-        setIsInitialLoad(false)
-      }, 2500)
-      return () => clearTimeout(timer)
-    }
-  }, [isInitialLoad, showPresentation])
+  const isFromSubpage = location.state?.fromSubpage
+  const sessionVisited = sessionStorage.getItem('hasVisited')
+  
+  // Only show presentation on fresh page load (no session storage and not from subpage)
+  if (!isFromSubpage && !sessionVisited) {
+    setIsInitialLoad(true)
+    setShowPresentation(true)
+    // Set session storage after showing presentation
+    setTimeout(() => {
+      sessionStorage.setItem('hasVisited', 'true')
+    }, 3200)
+  } else {
+    setIsInitialLoad(false)
+    setShowPresentation(false)
+  }
+}, [location])
 
   useEffect(() => {
     if (selectedProject) {
@@ -157,109 +165,118 @@ function HomePage() {
   }, [selectedProject])
 
   // Enhanced GSAP Animation for ultra-smooth, water-like grid transitions
-  useEffect(() => {
-    if (!portfolioRef.current || !containerRef.current) return
+  // Replace the existing GSAP useEffect with this improved version
+useEffect(() => {
+  if (!portfolioRef.current || !containerRef.current) return
 
-    // Kill any existing timeline
-    if (timelineRef.current) {
-      timelineRef.current.kill()
+  // Kill any existing timeline
+  if (timelineRef.current) {
+    timelineRef.current.kill()
+  }
+
+  const items = Array.from(portfolioRef.current.querySelectorAll('.portfolio-item'))
+  
+  if (items.length === 0) return
+
+  // Set animation state
+  setIsAnimating(true)
+
+  // FLIP Technique - Step 1: Record initial positions (First)
+  const initialStates = items.map(item => {
+    const rect = item.getBoundingClientRect()
+    return {
+      element: item,
+      x: rect.left,
+      y: rect.top,
+      width: rect.width,
+      height: rect.height
     }
+  })
 
-    const items = Array.from(portfolioRef.current.querySelectorAll('.portfolio-item'))
+  // FLIP Technique - Step 2: Apply new layout (Last)
+  portfolioRef.current.style.gridTemplateColumns = `repeat(${gridColumns}, 1fr)`
+  
+  // Force layout recalculation
+  portfolioRef.current.offsetHeight
+
+  // FLIP Technique - Step 3: Record final positions
+  const finalStates = items.map(item => {
+    const rect = item.getBoundingClientRect()
+    return {
+      x: rect.left,
+      y: rect.top,
+      width: rect.width,
+      height: rect.height
+    }
+  })
+
+  // Create master timeline with optimized settings
+  const masterTL = gsap.timeline({
+    defaults: {
+      duration: 0.1, // Reduced from 1.1
+      ease: "power2.out" // More pronounced easing
+    },
+    onComplete: () => {
+      setIsAnimating(false)
+    }
+  })
+
+  // FLIP Technique - Step 4: Animate from initial to final (Invert & Play)
+  items.forEach((item, i) => {
+    const initial = initialStates[i]
+    const final = finalStates[i]
     
-    if (items.length === 0) return
-
-    // FLIP Technique - Step 1: Record initial positions (First)
-    const initialStates = items.map(item => {
-      const rect = item.getBoundingClientRect()
-      return {
-        element: item,
-        x: rect.left,
-        y: rect.top,
-        width: rect.width,
-        height: rect.height
-      }
-    })
-
-    // FLIP Technique - Step 2: Apply new layout (Last)
-    portfolioRef.current.style.gridTemplateColumns = `repeat(${gridColumns}, 1fr)`
+    const deltaX = initial.x - final.x
+    const deltaY = initial.y - final.y
     
-    // Force layout recalculation
-    portfolioRef.current.offsetHeight
-
-    // FLIP Technique - Step 3: Record final positions
-    const finalStates = items.map(item => {
-      const rect = item.getBoundingClientRect()
-      return {
-        x: rect.left,
-        y: rect.top,
-        width: rect.width,
-        height: rect.height
-      }
-    })
-
-    // Create master timeline with sophisticated defaults
-    const masterTL = gsap.timeline({
-      defaults: {
-        duration: 1.1,
-        ease: "power1.out"
-      }
-    })
-
-    // FLIP Technique - Step 4: Animate from initial to final (Invert & Play)
-    items.forEach((item, i) => {
-      const initial = initialStates[i]
-      const final = finalStates[i]
+    // Only animate items that actually moved significantly
+    if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
+      // Calculate movement distance for dynamic duration
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
+      const dynamicDuration = Math.min(1.0, Math.max(0.5, distance / 100)) // More responsive
       
-      const deltaX = initial.x - final.x
-      const deltaY = initial.y - final.y
+      // Set initial position with more visible transform
+      gsap.set(item, {
+        x: deltaX,
+        y: deltaY,
+        scale: 0.97, // Slight scale for more visible effect
+        rotation: 0,
+        opacity: 0.8 // Slight opacity change for visibility
+      })
       
-      // Only animate items that actually moved significantly
-      if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
-        // Calculate movement distance for dynamic duration
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
-        const dynamicDuration = Math.min(1.4, Math.max(0.7, distance / 400))
-        
-        // Set initial position (invert the change)
-        gsap.set(item, {
-          x: deltaX,
-          y: deltaY,
-          scale: 1,
-          rotation: 0
-        })
-        
-        // Animate to final position with beautiful water-like easing
-        masterTL.to(item, {
-          x: 0,
-          y: 0,
-          duration: dynamicDuration,
-          ease: "power2.out",
-          overwrite: true
-        }, i * 0.1) // Minimal stagger for organic wave flow
-        
-        // Add subtle "breathing" effect during transition
-        masterTL.to(item, {
-          scale: 1.003,
-          duration: dynamicDuration * 0.4,
-          ease: "power2.inOut",
-          yoyo: true,
-          repeat: 1
-        }, i * 0.1)
-        
-      } else {
-        // For items that don't move, ensure clean state
-        gsap.set(item, {
-          x: 0,
-          y: 0,
-          scale: 1,
-          rotation: 0.1
-        })
-      }
-    })
+      // Animate to final position with enhanced easing
+      masterTL.to(item, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        duration: dynamicDuration,
+        ease: "back.out(1.2)", // More bouncy easing for visibility
+        overwrite: true
+      }, i * 0.3) // Reduced stagger for faster overall animation
+      
+    } else {
+      // For items that don't move, ensure clean state with subtle animation
+      gsap.set(item, {
+        x: 0,
+        y: 0,
+        scale: 0.98,
+        rotation: 0,
+        opacity: 0.9
+      })
+      
+      // Quick fade-in for non-moving items
+      masterTL.to(item, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      }, i * 0.03)
+    }
+  })
 
-    timelineRef.current = masterTL
-  }, [gridColumns])
-
+  timelineRef.current = masterTL
+}, [gridColumns])
   // Close filter menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -273,19 +290,38 @@ function HomePage() {
   }, [showFilterMenu])
 
   // Enhanced zoom handlers with animation state management
-  const handleZoomOut = () => {
-    if (isAnimating || gridColumns >= 7) return
-    setIsAnimating(true)
+  // Simplified zoom handlers
+const handleZoomOut = () => {
+  if (isAnimating || gridColumns >= 7) return
+  setIsAnimating(true)
+  
+  // Add transitioning class
+  portfolioRef.current?.classList.add('transitioning')
+  
+  setTimeout(() => {
     setGridColumns(prev => Math.min(prev + 1, 7))
-    setTimeout(() => setIsAnimating(false), 800) // Allow time for animation
-  }
+    setTimeout(() => {
+      portfolioRef.current?.classList.remove('transitioning')
+      setIsAnimating(false)
+    }, 100)
+  }, 100)
+}
 
-  const handleZoomIn = () => {
-    if (isAnimating || gridColumns <= 1) return
-    setIsAnimating(true)
+const handleZoomIn = () => {
+  if (isAnimating || gridColumns <= 1) return
+  setIsAnimating(true)
+  
+  // Add transitioning class
+  portfolioRef.current?.classList.add('transitioning')
+  
+  setTimeout(() => {
     setGridColumns(prev => Math.max(prev - 1, 1))
-    setTimeout(() => setIsAnimating(false), 800)
-  }
+    setTimeout(() => {
+      portfolioRef.current?.classList.remove('transitioning')
+      setIsAnimating(false)
+    }, 100)
+  }, 100)
+}
 
   const openProject = (project) => {
     setSelectedProject(project)
