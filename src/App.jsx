@@ -13,7 +13,13 @@ import './App.css'
 function HomePage() {
   const [showMainHeader, setShowMainHeader] = useState(true)
   const [scrollY, setScrollY] = useState(0)
-  const [gridColumns, setGridColumns] = useState(3)
+  const getInitialColumns = () => {
+  if (window.innerWidth <= 768) return 2  // Móvil: 2 columnas
+  if (window.innerWidth <= 1024) return 3 // Tablet: 3 columnas
+  return 3 // Desktop: 4 columnas (o el número que prefieras)
+}
+
+const [gridColumns, setGridColumns] = useState(getInitialColumns())
   const [showPresentation, setShowPresentation] = useState(true)
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
