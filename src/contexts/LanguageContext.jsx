@@ -8,6 +8,7 @@ export const translations = {
       workWithUs: 'WORK WITH US',
       joinUs: 'JOIN US',
       followUs: 'FOLLOW US',
+      hundredVoices: '100 VOCES',
       viewWorkBy: 'VIEW WORK BY',
       allWork: 'All Work',
       filtersActive: 'Filters Active',
@@ -53,6 +54,7 @@ export const translations = {
     nav: {
       workWithUs: 'TRABAJA CON NOSOTROS',
       joinUs: 'ÚNETE',
+      hundredVoices: '100 VOCES',
       followUs: 'SÍGUENOS',
       viewWorkBy: 'VER TRABAJO POR',
       allWork: 'Todo el trabajo',

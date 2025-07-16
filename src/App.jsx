@@ -6,6 +6,7 @@ import WorkWithUs from './components/WorkWithUs'
 import JoinUs from './components/JoinUs'
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext'
 import LanguageToggle from './components/LanguageToggle'
+import HundredVoices from './components/HundredVoices'
 import gsap from 'gsap'
 import './App.css'
 
@@ -24,6 +25,11 @@ function HomePage() {
   const location = useLocation()
   const { t } = useLanguage()
   
+  // Estados para control móvil
+  const [isMobile, setIsMobile] = useState(false)
+  const [touchStartX, setTouchStartX] = useState(0)
+  const [touchEndX, setTouchEndX] = useState(0)
+  
   // Refs for GSAP
   const portfolioRef = useRef(null)
   const timelineRef = useRef(null)
@@ -35,31 +41,42 @@ function HomePage() {
   const [selectedCompanies, setSelectedCompanies] = useState([])
   const [filteredProjects, setFilteredProjects] = useState([])
 
+  // Detectar dispositivo móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   // Check if coming from another page
-  // Updated presentation timer effect
-useEffect(() => {
-  const isFromSubpage = location.state?.fromSubpage
-  const sessionVisited = sessionStorage.getItem('hasVisited')
-  
-  if (!isFromSubpage && !sessionVisited) {
-    setIsInitialLoad(true)
-    setShowPresentation(true)
+  useEffect(() => {
+    const isFromSubpage = location.state?.fromSubpage
+    const sessionVisited = sessionStorage.getItem('hasVisited')
     
-    // Set session storage immediately to prevent re-shows on navigation
-    sessionStorage.setItem('hasVisited', 'true')
-    
-    // Hide presentation after animations complete (4.3s total)
-    const timer = setTimeout(() => {
-      setShowPresentation(false)
+    if (!isFromSubpage && !sessionVisited) {
+      setIsInitialLoad(true)
+      setShowPresentation(true)
+      
+      // Set session storage immediately to prevent re-shows on navigation
+      sessionStorage.setItem('hasVisited', 'true')
+      
+      // Hide presentation after animations complete (4.3s total)
+      const timer = setTimeout(() => {
+        setShowPresentation(false)
+        setIsInitialLoad(false)
+      }, 4300)
+      
+      return () => clearTimeout(timer)
+    } else {
       setIsInitialLoad(false)
-    }, 4300)
-    
-    return () => clearTimeout(timer)
-  } else {
-    setIsInitialLoad(false)
-    setShowPresentation(false)
-  }
-}, [location])
+      setShowPresentation(false)
+    }
+  }, [location])
 
   // Shuffle function for random order
   const shuffleArray = (array) => {
@@ -118,10 +135,15 @@ useEffect(() => {
     }
   }, [])
 
-  // Scroll handler
+  // Scroll handler con cierre de menú móvil
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY)
+      
+      // Cerrar menú móvil al hacer scroll
+      if (window.scrollY > 50 && mobileMenuOpen) {
+        setMobileMenuOpen(false)
+      }
       
       // Hide holdings menu on scroll
       if (window.scrollY > 100) {
@@ -133,7 +155,7 @@ useEffect(() => {
     
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [mobileMenuOpen])
 
   useEffect(() => {
     if (scrollY > 50) {
@@ -142,25 +164,6 @@ useEffect(() => {
       setShowMainHeader(true)
     }
   }, [scrollY])
-
-  // Updated presentation timer effect
-  useEffect(() => {
-  const isFromSubpage = location.state?.fromSubpage
-  const sessionVisited = sessionStorage.getItem('hasVisited')
-  
-  // Only show presentation on fresh page load (no session storage and not from subpage)
-  if (!isFromSubpage && !sessionVisited) {
-    setIsInitialLoad(true)
-    setShowPresentation(true)
-    // Set session storage after showing presentation
-    setTimeout(() => {
-      sessionStorage.setItem('hasVisited', 'true')
-    }, 3200)
-  } else {
-    setIsInitialLoad(false)
-    setShowPresentation(false)
-  }
-}, [location])
 
   useEffect(() => {
     if (selectedProject) {
@@ -173,119 +176,119 @@ useEffect(() => {
     }
   }, [selectedProject])
 
-  // Enhanced GSAP Animation for ultra-smooth, water-like grid transitions
-  // Replace the existing GSAP useEffect with this improved version
-useEffect(() => {
-  if (!portfolioRef.current || !containerRef.current) return
+  // Enhanced GSAP Animation optimizada para móvil
+  useEffect(() => {
+    if (!portfolioRef.current || !containerRef.current) return
 
-  // Kill any existing timeline
-  if (timelineRef.current) {
-    timelineRef.current.kill()
-  }
-
-  const items = Array.from(portfolioRef.current.querySelectorAll('.portfolio-item'))
-  
-  if (items.length === 0) return
-
-  // Set animation state
-  setIsAnimating(true)
-
-  // FLIP Technique - Step 1: Record initial positions (First)
-  const initialStates = items.map(item => {
-    const rect = item.getBoundingClientRect()
-    return {
-      element: item,
-      x: rect.left,
-      y: rect.top,
-      width: rect.width,
-      height: rect.height
+    // Kill any existing timeline
+    if (timelineRef.current) {
+      timelineRef.current.kill()
     }
-  })
 
-  // FLIP Technique - Step 2: Apply new layout (Last)
-  portfolioRef.current.style.gridTemplateColumns = `repeat(${gridColumns}, 1fr)`
-  
-  // Force layout recalculation
-  portfolioRef.current.offsetHeight
-
-  // FLIP Technique - Step 3: Record final positions
-  const finalStates = items.map(item => {
-    const rect = item.getBoundingClientRect()
-    return {
-      x: rect.left,
-      y: rect.top,
-      width: rect.width,
-      height: rect.height
-    }
-  })
-
-  // Create master timeline with optimized settings
-  const masterTL = gsap.timeline({
-    defaults: {
-      duration: 0.1, // Reduced from 1.1
-      ease: "power2.out" // More pronounced easing
-    },
-    onComplete: () => {
-      setIsAnimating(false)
-    }
-  })
-
-  // FLIP Technique - Step 4: Animate from initial to final (Invert & Play)
-  items.forEach((item, i) => {
-    const initial = initialStates[i]
-    const final = finalStates[i]
+    const items = Array.from(portfolioRef.current.querySelectorAll('.portfolio-item'))
     
-    const deltaX = initial.x - final.x
-    const deltaY = initial.y - final.y
-    
-    // Only animate items that actually moved significantly
-    if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
-      // Calculate movement distance for dynamic duration
-      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
-      const dynamicDuration = Math.min(1.0, Math.max(0.5, distance / 100)) // More responsive
-      
-      // Set initial position with more visible transform
-      gsap.set(item, {
-        x: deltaX,
-        y: deltaY,
-        scale: 0.97, // Slight scale for more visible effect
-        rotation: 0,
-        opacity: 0.8 // Slight opacity change for visibility
-      })
-      
-      // Animate to final position with enhanced easing
-      masterTL.to(item, {
-        x: 0,
-        y: 0,
-        scale: 1,
-        opacity: 1,
-        duration: dynamicDuration,
-        ease: "back.out(1.2)", // More bouncy easing for visibility
-        overwrite: true
-      }, i * 0.3) // Reduced stagger for faster overall animation
-      
-    } else {
-      // For items that don't move, ensure clean state with subtle animation
-      gsap.set(item, {
-        x: 0,
-        y: 0,
-        scale: 0.98,
-        rotation: 0,
-        opacity: 0.9
-      })
-      
-      // Quick fade-in for non-moving items
-      masterTL.to(item, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.3,
-        ease: "power2.out"
-      }, i * 0.03)
-    }
-  })
+    if (items.length === 0) return
 
-  timelineRef.current = masterTL
-}, [gridColumns])
+    // Set animation state
+    setIsAnimating(true)
+
+    // FLIP Technique - Step 1: Record initial positions (First)
+    const initialStates = items.map(item => {
+      const rect = item.getBoundingClientRect()
+      return {
+        element: item,
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height
+      }
+    })
+
+    // FLIP Technique - Step 2: Apply new layout (Last)
+    portfolioRef.current.style.gridTemplateColumns = `repeat(${gridColumns}, 1fr)`
+    
+    // Force layout recalculation
+    portfolioRef.current.offsetHeight
+
+    // FLIP Technique - Step 3: Record final positions
+    const finalStates = items.map(item => {
+      const rect = item.getBoundingClientRect()
+      return {
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height
+      }
+    })
+
+    // Create master timeline with optimized settings
+    const masterTL = gsap.timeline({
+      defaults: {
+        duration: isMobile ? 0.3 : 0.5, // Animaciones más rápidas en móvil
+        ease: isMobile ? "power2.out" : "power3.inOut"
+      },
+      onComplete: () => {
+        setIsAnimating(false)
+      }
+    })
+
+    // FLIP Technique - Step 4: Animate from initial to final (Invert & Play)
+    items.forEach((item, i) => {
+      const initial = initialStates[i]
+      const final = finalStates[i]
+      
+      const deltaX = initial.x - final.x
+      const deltaY = initial.y - final.y
+      
+      // Only animate items that actually moved significantly
+      if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
+        // Calculate movement distance for dynamic duration
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
+        const dynamicDuration = Math.min(1.0, Math.max(0.5, distance / 100))
+        
+        // Set initial position with more visible transform
+        gsap.set(item, {
+          x: deltaX,
+          y: deltaY,
+          scale: 0.97,
+          rotation: 0,
+          opacity: 0.8
+        })
+        
+        // Animate to final position with enhanced easing
+        masterTL.to(item, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: dynamicDuration,
+          ease: "back.out(1.2)",
+          overwrite: true
+        }, i * 0.03)
+        
+      } else {
+        // For items that don't move, ensure clean state with subtle animation
+        gsap.set(item, {
+          x: 0,
+          y: 0,
+          scale: 0.98,
+          rotation: 0,
+          opacity: 0.9
+        })
+        
+        // Quick fade-in for non-moving items
+        masterTL.to(item, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        }, i * 0.03)
+      }
+    })
+
+    timelineRef.current = masterTL
+  }, [gridColumns, isMobile])
+
   // Close filter menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -298,39 +301,62 @@ useEffect(() => {
     return () => document.removeEventListener('click', handleClickOutside)
   }, [showFilterMenu])
 
-  // Enhanced zoom handlers with animation state management
-  // Simplified zoom handlers
-const handleZoomOut = () => {
-  if (isAnimating || gridColumns >= 7) return
-  setIsAnimating(true)
-  
-  // Add transitioning class
-  portfolioRef.current?.classList.add('transitioning')
-  
-  setTimeout(() => {
-    setGridColumns(prev => Math.min(prev + 1, 7))
-    setTimeout(() => {
-      portfolioRef.current?.classList.remove('transitioning')
-      setIsAnimating(false)
-    }, 100)
-  }, 100)
-}
+  // Touch handlers para swipe en móvil
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.targetTouches[0].clientX)
+  }
 
-const handleZoomIn = () => {
-  if (isAnimating || gridColumns <= 1) return
-  setIsAnimating(true)
-  
-  // Add transitioning class
-  portfolioRef.current?.classList.add('transitioning')
-  
-  setTimeout(() => {
-    setGridColumns(prev => Math.max(prev - 1, 1))
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return
+    
+    const distance = touchStartX - touchEndX
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
+    
+    if (isLeftSwipe && gridColumns < 7) {
+      handleZoomOut()
+    }
+    if (isRightSwipe && gridColumns > 1) {
+      handleZoomIn()
+    }
+  }
+
+  // Enhanced zoom handlers with animation state management
+  const handleZoomOut = () => {
+    if (isAnimating || gridColumns >= 7) return
+    setIsAnimating(true)
+    
+    // Add transitioning class
+    portfolioRef.current?.classList.add('transitioning')
+    
     setTimeout(() => {
-      portfolioRef.current?.classList.remove('transitioning')
-      setIsAnimating(false)
+      setGridColumns(prev => Math.min(prev + 1, 7))
+      setTimeout(() => {
+        portfolioRef.current?.classList.remove('transitioning')
+        setIsAnimating(false)
+      }, 100)
     }, 100)
-  }, 100)
-}
+  }
+
+  const handleZoomIn = () => {
+    if (isAnimating || gridColumns <= 1) return
+    setIsAnimating(true)
+    
+    // Add transitioning class
+    portfolioRef.current?.classList.add('transitioning')
+    
+    setTimeout(() => {
+      setGridColumns(prev => Math.max(prev - 1, 1))
+      setTimeout(() => {
+        portfolioRef.current?.classList.remove('transitioning')
+        setIsAnimating(false)
+      }, 100)
+    }, 100)
+  }
 
   const openProject = (project) => {
     setSelectedProject(project)
@@ -454,6 +480,18 @@ const handleZoomIn = () => {
                   style={{ cursor: 'pointer' }}
                 >
                   <span className="nav-text">{t('nav.joinUs')}</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a 
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleNavigation('hundred', '/100-voices')
+                  }}
+                  className={`nav-link ${activePage === 'hundred' ? 'active' : ''}`}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span className="nav-text">{t('nav.hundredVoices')}</span>
                 </a>
               </li>
               <li className="nav-item">
@@ -587,17 +625,24 @@ const handleZoomIn = () => {
             style={{ cursor: 'pointer' }}
           />
           
-          {/* Hamburger button for mobile */}
-          <button 
-            className="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          <ul 
+            className={`horizontal-nav-list ${mobileMenuOpen ? 'mobile-open' : ''}`}
+            style={mobileMenuOpen && isMobile ? {
+              background: '#FFFCF2',
+              position: 'fixed',
+              top: '60px',
+              left: '0',
+              right: '0',
+              bottom: '0',
+              width: '100%',
+              height: 'calc(100vh - 60px)',
+              zIndex: 997,
+              padding: '40px',
+              flexDirection: 'column',
+              gap: '25px',
+              display: 'flex'
+            } : {}}
           >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          
-          <ul className={`horizontal-nav-list ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <li>
               <a 
                 onClick={(e) => {
@@ -626,6 +671,19 @@ const handleZoomIn = () => {
             </li>
             <li>
               <a 
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleNavigation('hundred', '/100-voices')
+                  setMobileMenuOpen(false)
+                }}
+                className={activePage === 'hundred' ? 'active' : ''}
+                style={{ cursor: 'pointer' }}
+              >
+                {t('nav.hundredVoices')}
+              </a>
+            </li>
+            <li>
+              <a 
                 href="https://www.instagram.com/hgroupp_/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -635,10 +693,21 @@ const handleZoomIn = () => {
               </a>
             </li>
           </ul>
+          
+          {/* Hamburger button después del ul */}
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </nav>
 
-      {/* Vertical Zoom Controls - Desktop Only */}
+      {/* Vertical Zoom Controls */}
       <div className="zoom-controls">
         <button 
           className={`zoom-btn zoom-plus ${isAnimating ? 'animating' : ''}`}
@@ -664,6 +733,9 @@ const handleZoomIn = () => {
             ref={portfolioRef}
             className="portfolio-masonry"
             style={{ gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}
+            onTouchStart={isMobile ? handleTouchStart : undefined}
+            onTouchMove={isMobile ? handleTouchMove : undefined}
+            onTouchEnd={isMobile ? handleTouchEnd : undefined}
           >
             {filteredProjects.map((project, index) => (
               <div 
@@ -758,6 +830,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/work-with-us" element={<WorkWithUs />} />
           <Route path="/join-us" element={<JoinUs />} />
+          <Route path="/100-voices" element={<HundredVoices />} />
         </Routes>
       </Router>
     </LanguageProvider>

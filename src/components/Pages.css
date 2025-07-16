@@ -45,9 +45,9 @@
 }
 
 .page-logo {
-  height: 60px;
+  height: 100px;
   width: auto;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -76,10 +76,44 @@
   border-radius: 50%;
   position: absolute;
   left: -15px;
+  /* Eliminar cualquier transición o animación */
+  transition: none !important;
+  animation: none !important;
 }
 
 .nav-dot.active {
   background: #000;
+  /* Asegurar que no haya animación */
+  transition: none !important;
+  animation: none !important;
+}
+.nav-dot,
+.nav-dot.active,
+.nav-dot:hover,
+.nav-dot::before,
+.nav-dot::after {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+/* Eliminar animaciones de puntos en las subpáginas */
+.page-nav .nav-item::before,
+.page-nav .nav-item:hover::before {
+  display: none !important;
+}
+
+/* Asegurar que el nav-dot estático no tenga animaciones */
+.page-nav .nav-dot {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.page-nav .nav-dot.active {
+  background: #000;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
 }
 
 .nav-item {
