@@ -7,6 +7,25 @@ import heroparty from './heroparty.jpg'
 import lambintoHype from './lamboatrio-hype.jpg'
 import maseratiHype from './maseratti-hype.jpg'
 import omodaHome from './omoda-home.jpg'
+import alseaHero1 from './ALSEA_Proyectos.png'
+import alseaHero2 from './ALSEA1.png'
+import alseaHero3 from './ALSEA2.png'
+import alseaHero4 from './ALSEA3.png'
+import alseaHero5 from './Alsea4.png'
+//import sheinHero1 from './SHEIN1.png'
+//import sheinHero2 from './SHEIN2.png'
+//import sheinHero3 from './Shein3.png'
+import sheinHero4 from './SHEIN4.png'
+import volkswagenHero1 from './VOLKSWAGEN1.png'
+//import volkswagenHero2 from './VOLKSWAGEN2.png'
+import volkswagenHero3 from './VOLKSWAGEN3.png'
+//import volkswagenHero4 from './VOLKSWAGEN4.png'
+//import volkswagenHero5 from './VOLKSWAGEN5.png'
+import zurichHero1 from './Zurich1.jpg'
+import zurichHero2 from './Zurich3.jpg'
+import zurichHero3 from './Zurich4.jpg'
+import zurichHero4 from './Zurich5.jpg'
+
 
 // Import all project videos
 import donjulioHalo from './donjulio-halo.mp4'
@@ -21,7 +40,24 @@ export {
   heroparty,
   lambintoHype,
   maseratiHype,
-  omodaHome
+  omodaHome,
+  alseaHero1,
+  alseaHero2,
+  alseaHero3,
+  alseaHero4,
+  alseaHero5,
+  //sheinHero1,
+  //sheinHero2,
+  //sheinHero3,
+  sheinHero4,
+  volkswagenHero1,
+  //volkswagenHero2,
+  volkswagenHero3,
+  //volkswagenHero4,
+  zurichHero1,
+  zurichHero2,
+  zurichHero3,
+  zurichHero4
 }
 
 // Export individual videos
@@ -87,6 +123,108 @@ export const portfolioImages = [
     category: 'HITS',
     company: 'OMODA',
     type: 'image'
+  },
+  {
+    id: 'alsea',
+    name: 'ALSEA',
+    image: alseaHero1,
+    alt: 'Alsea Hero Campaign',
+    category: 'HERO',
+    company: 'ALSEA',
+    type: 'image'
+  },
+    {
+    id: 'alsea3',
+    name: 'ALSEA',
+    image: alseaHero3,
+    alt: 'Alsea 3 Hero Campaign',
+    category: 'HERO',
+    company: 'ALSEA',
+    type: 'image'
+  },
+  {
+    id: 'alsea4',
+    name: 'ALSEA',
+    image: alseaHero4,
+    alt: 'Alsea 4 Hero Campaign',
+    category: 'HERO',
+    company: 'ALSEA',
+    type: 'image'
+  },
+  {
+    id: 'alsea5',
+    name: 'ALSEA',
+    image: alseaHero5,
+    alt: 'Alsea 5 Hero Campaign',
+    category: 'HERO',
+    company: 'ALSEA',
+    type: 'image'
+  },
+  
+  {
+    id: 'shein4',
+    name: 'SHEIN',
+    image: sheinHero4,
+    alt: 'Shein 4 Hero Campaign',
+    category: 'HERO',
+    company: 'SHEIN',
+    type: 'image'
+  },
+  {
+    id: 'volkswagen',
+    name: 'VOLKSWAGEN',
+    image: volkswagenHero1,
+    alt: 'Volkswagen Hero Campaign',
+    category: 'HERO',
+    company: 'VOLKSWAGEN',
+    type: 'image'
+  },
+  
+  {
+    id: 'volkswagen3',
+    name: 'VOLKSWAGEN',
+    image: volkswagenHero3,
+    alt: 'Volkswagen 3 Hero Campaign',
+    category: 'HERO',
+    company: 'VOLKSWAGEN',
+    type: 'image'
+  },
+  
+  {
+    id: 'zurich',
+    name: 'ZURICH',
+    image: zurichHero1,
+    alt: 'Zurich Hero Campaign',
+    category: 'HERO',
+    company: 'ZURICH',
+    type: 'image'
+  },
+  {
+    id: 'zurich2',
+    name: 'ZURICH',
+    image: zurichHero2,
+    alt: 'Zurich 2 Hero Campaign',
+    category: 'HERO',
+    company: 'ZURICH',
+    type: 'image'
+  },
+  {
+    id: 'zurich3',
+    name: 'ZURICH',
+    image: zurichHero3,
+    alt: 'Zurich 3 Hero Campaign',
+    category: 'HERO',
+    company: 'ZURICH',
+    type: 'image'
+  },
+  {
+    id: 'zurich4',
+    name: 'ZURICH',
+    image: zurichHero4,
+    alt: 'Zurich 4 Hero Campaign',
+    category: 'HERO',
+    company: 'ZURICH',
+    type: 'image'
   }
 ]
 
@@ -144,7 +282,20 @@ export default {
     heroparty,
     lambintoHype,
     maseratiHype,
-    omodaHome
+    omodaHome,
+    alseaHero1,
+    alseaHero2,
+    alseaHero3,
+    alseaHero4,
+    alseaHero5,
+    //sheinHero1,
+    //sheinHero2,
+    //sheinHero3,
+    sheinHero4,
+    volkswagenHero1,
+    //volkswagenHero2,
+    volkswagenHero3,
+    //volkswagenHero4
   },
   videos: {
     donjulioHalo,

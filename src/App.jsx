@@ -616,7 +616,7 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
           ))}
         </div>
       </section>
-
+          
       {/* Horizontal Navigation */}
       <nav className={`horizontal-nav ${!showMainHeader ? 'visible' : ''}`}>
         <div className="nav-content">

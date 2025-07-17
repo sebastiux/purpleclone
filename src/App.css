@@ -853,10 +853,11 @@
 }
 
 .portfolio-masonry {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px 0;
+ display: grid;
+  grid-template-columns: repeat(auto-fit, 354px);
+  gap: 50px 0;
   width: 100%;
+  justify-content: center; /* Centra las columnas */
   opacity: 0;
   animation: project-appear 0.4s linear 3.2s forwards;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -881,16 +882,21 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  width: 100%;
+  width: 354px;
+  line-height: 0;
 }
+
 
 .portfolio-image,
 .portfolio-video {
-  width: 100%;
-  height: auto;
-  display: block;
+  width: 354px !important;
+  min-width: 354px !important;
+  max-width: 354px !important;
+  height: auto !important; /* Mantiene la altura proporcional */
+  display: block !important;
   transition: transform 0.3s ease;
-  vertical-align: bottom;
+  object-fit: cover !important; /* Cambia a cover para llenar el ancho */
+  object-position: center !important;
 }
 
 .portfolio-item:hover .portfolio-image,
@@ -1028,6 +1034,9 @@
 }
 
 /* Zoom variations with smooth transitions */
+.portfolio-masonry[data-columns] {
+  gap: 0 !important;
+}
 .portfolio-masonry[data-columns="1"] {
   grid-template-columns: repeat(1, 1fr);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1494,14 +1503,14 @@ html {
   .portfolio-masonry[style*="repeat(7,"] {
     gap: 4px 0;
   }
-  .main-header {
+ .main-header {
     min-height: auto;
-    padding-bottom: 0;
+    padding-bottom: 180px; /* Aumenta este valor (antes era 0) */
   }
   
   .header-content {
     padding: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 60px; /* Aumenta este valor (antes era 10px) */
   }
   
   .logo-container {
@@ -1510,7 +1519,7 @@ html {
   }
   
   .logo {
-    height: 60px;
+    height: 90px;
   }
   
   .main-nav {
@@ -1669,6 +1678,7 @@ html {
   }
   
   .filter-dropdown {
+      .filter-dropdown {
     position: fixed;
     top: 0;
     left: 0;
@@ -1679,6 +1689,8 @@ html {
     border-radius: 0;
     border: none;
     animation: filterSlideInMobile 0.3s ease;
+    z-index: 9999; /* Aumenta el z-index */
+    background: rgba(0, 0, 0, 0); /* Agrega un overlay oscuro */
   }
   
   @keyframes filterSlideInMobile {
@@ -1693,8 +1705,9 @@ html {
   }
   
   .filter-dropdown-content {
-    max-height: 100vh;
-    padding-bottom: 60px;
+    background: #FFFCF2;
+    height: 100%;
+    position: relative;
   }
   
   .filter-section {
@@ -2051,4 +2064,5 @@ html {
       padding: 6px 10px;
     }
   }
-}
+
+  
