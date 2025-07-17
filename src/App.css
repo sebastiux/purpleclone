@@ -889,9 +889,7 @@
 
 .portfolio-image,
 .portfolio-video {
-  width: 354px !important;
-  min-width: 354px !important;
-  max-width: 354px !important;
+
   height: auto !important; /* Mantiene la altura proporcional */
   display: block !important;
   transition: transform 0.3s ease;
