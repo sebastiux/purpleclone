@@ -467,7 +467,7 @@
 
 /* Fixed holding item styles */
 .holding-item {
-  position: 100%;
+  position: relative;
   cursor: pointer;
   opacity: 0;
   animation: fadeInScale 0.5s ease forwards;
@@ -853,11 +853,10 @@
 }
 
 .portfolio-masonry {
- display: grid;
-  grid-template-columns: repeat(auto-fit, 354px);
-  gap: 50px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 0;
   width: 100%;
-  justify-content: center; /* Centra las columnas */
   opacity: 0;
   animation: project-appear 0.4s linear 3.2s forwards;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -872,6 +871,7 @@
 }
 
 
+
 @keyframes project-appear {
   to {
     opacity: 1;
@@ -882,19 +882,17 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  width: 354px;
-  line-height: 0;
+  width: 100%;
 }
 
 
 .portfolio-image,
 .portfolio-video {
-
-  height: auto !important; /* Mantiene la altura proporcional */
-  display: block !important;
+    width: 100%;
+  height: auto;
+  display: block;
   transition: transform 0.3s ease;
-  object-fit: cover !important; /* Cambia a cover para llenar el ancho */
-  object-position: center !important;
+  vertical-align: bottom;
 }
 
 .portfolio-item:hover .portfolio-image,
@@ -1501,7 +1499,8 @@ html {
   .portfolio-masonry[style*="repeat(7,"] {
     gap: 4px 0;
   }
- .main-header {
+ 
+  .main-header {
     min-height: auto;
     padding-bottom: 180px; /* Aumenta este valor (antes era 0) */
   }
@@ -1732,7 +1731,7 @@ html {
     font-size: 0.8rem;
   }
 }
-
+}
 /* Extra small mobile */
 @media (max-width: 480px) {
   .logo {
@@ -2062,5 +2061,5 @@ html {
       padding: 6px 10px;
     }
   }
-
+}
   

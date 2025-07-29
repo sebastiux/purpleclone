@@ -69,138 +69,306 @@ function HundredVoices() {
 
       <div className="page-content">
         <div className="content-text">
-          <h2 style={{
-            fontSize: '3rem',
-            fontWeight: '900',
-            marginBottom: '40px',
-            textTransform: 'uppercase',
-            letterSpacing: '3px',
-            lineHeight: '1.1'
+          {/* Hero Section con número grande */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            marginBottom: '50px',
+            position: 'relative'
           }}>
-            100 VOCES
-          </h2>
+            <h1 style={{
+              fontSize: '8rem',
+              fontWeight: '900',
+              lineHeight: '0.8',
+              margin: 0,
+              background: 'linear-gradient(180deg, #000 0%, #403d39 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              letterSpacing: '-5px'
+            }}>
+              100
+            </h1>
+            <h2 style={{
+              fontSize: '3.5rem',
+              fontWeight: '900',
+              marginLeft: '20px',
+              marginBottom: '0',
+              textTransform: 'uppercase',
+              letterSpacing: '3px',
+              lineHeight: '1',
+              color: '#000'
+            }}>
+              VOCES
+            </h2>
+          </div>
           
+          {/* Subtítulo destacado */}
           <p style={{ 
-            fontSize: '1.3rem', 
-            fontWeight: '600', 
-            marginBottom: '35px',
+            fontSize: '1.4rem', 
+            fontWeight: '300', 
+            marginBottom: '50px',
             color: '#000',
-            lineHeight: '1.4'
+            lineHeight: '1.5',
+            maxWidth: '800px',
+            letterSpacing: '0.5px'
           }}>
-            {language === 'en' 
-              ? 'The definitive book featuring the voices of Mexico\'s most influential business leaders and prominent figures.'
-              : 'El libro definitivo que presenta las voces de los líderes empresariales y figuras más influyentes de México.'
-            }
+            {t('hundredVoices.subtitle')}
           </p>
+
+          {/* Quote destacado */}
+          <blockquote style={{
+            borderLeft: '4px solid #000',
+            paddingLeft: '30px',
+            marginLeft: '0',
+            marginBottom: '50px',
+            fontStyle: 'italic',
+            fontSize: '1.2rem',
+            lineHeight: '1.6',
+            color: '#403d39'
+          }}>
+            {t('hundredVoices.quote')}
+          </blockquote>
           
-          <p>
-            {language === 'en'
-              ? '100 Voces is an exclusive collection of testimonies, insights, and visions from Mexico\'s most distinguished entrepreneurs, innovators, and thought leaders. This carefully curated book captures the essence of Mexican leadership and entrepreneurial spirit.'
-              : '100 Voces es una colección exclusiva de testimonios, perspectivas y visiones de los empresarios, innovadores y líderes de opinión más distinguidos de México. Este libro cuidadosamente curado captura la esencia del liderazgo y espíritu empresarial mexicano.'
-            }
-          </p>
-          
-          <p>
-            {language === 'en'
-              ? 'Through intimate conversations and profound reflections, readers gain unprecedented access to the minds that are shaping Mexico\'s economic and cultural landscape. Each voice represents a unique journey of success, resilience, and transformation.'
-              : 'A través de conversaciones íntimas y reflexiones profundas, los lectores obtienen acceso sin precedentes a las mentes que están dando forma al panorama económico y cultural de México. Cada voz representa un viaje único de éxito, resiliencia y transformación.'
-            }
-          </p>
-          
-          <p>
-            {language === 'en'
-              ? 'From established industry titans to disruptive innovators, 100 Voces presents a comprehensive portrait of contemporary Mexican excellence, offering inspiration and wisdom for the next generation of leaders.'
-              : 'Desde titanes establecidos de la industria hasta innovadores disruptivos, 100 Voces presenta un retrato integral de la excelencia mexicana contemporánea, ofreciendo inspiración y sabiduría para la próxima generación de líderes.'
-            }
-          </p>
+          {/* Descripción principal */}
+          <div style={{
+            display: 'grid',
+            gap: '20px',
+            marginBottom: '60px'
+          }}>
+            <p style={{ lineHeight: '1.8', color: '#403d39' }}>
+              {t('hundredVoices.description1')}
+            </p>
+            
+            <p style={{ lineHeight: '1.8', color: '#403d39' }}>
+              {t('hundredVoices.description2')}
+            </p>
+          </div>
+
+          {/* Ediciones */}
+          <div style={{
+            marginBottom: '60px',
+            padding: '40px',
+            background: 'linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)',
+            borderRadius: '16px'
+          }}>
+            <h3 style={{
+              fontSize: '1.3rem',
+              fontWeight: '700',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              marginBottom: '30px',
+              color: '#000'
+            }}>
+              {t('hundredVoices.editionsTitle')}
+            </h3>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '30px'
+            }}>
+              {t('hundredVoices.editions').map((edition, index) => (
+                <div key={index} style={{
+                  background: '#fff',
+                  padding: '30px',
+                  borderRadius: '12px',
+                  boxShadow: '0 2px 20px rgba(0,0,0,0.05)',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.boxShadow = '0 5px 30px rgba(0,0,0,0.1)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+                }}>
+                  <h4 style={{
+                    fontSize: '1.1rem',
+                    fontWeight: '700',
+                    marginBottom: '10px',
+                    color: '#000',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    {edition.title}
+                  </h4>
+                  <p style={{
+                    fontSize: '0.95rem',
+                    color: '#666',
+                    lineHeight: '1.6',
+                    marginBottom: '15px'
+                  }}>
+                    {edition.description}
+                  </p>
+                  <div style={{
+                    fontSize: '0.85rem',
+                    color: '#999',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    {edition.featured}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="book-details" style={{
-          marginTop: '50px',
-          padding: '40px',
-          background: '#f8f8f8',
-          borderRadius: '12px'
+        {/* Book Details mejorado */}
+        <div style={{
+          marginTop: '60px',
+          padding: '50px',
+          background: '#000',
+          color: '#fff',
+          borderRadius: '16px',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
+          {/* Elemento decorativo */}
+          <div style={{
+            position: 'absolute',
+            top: '-50px',
+            right: '-50px',
+            width: '200px',
+            height: '200px',
+            background: 'rgba(255,255,255,0.05)',
+            borderRadius: '50%'
+          }}></div>
+          
           <h3 style={{
-            fontSize: '1.2rem',
+            fontSize: '1.3rem',
             fontWeight: '700',
             textTransform: 'uppercase',
             letterSpacing: '1px',
-            marginBottom: '25px',
-            color: '#000'
+            marginBottom: '35px',
+            color: '#fff'
           }}>
-            {language === 'en' ? 'BOOK DETAILS' : 'DETALLES DEL LIBRO'}
+            {t('hundredVoices.bookDetails')}
           </h3>
           
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '30px'
+            gap: '40px'
           }}>
             <div>
-              <h4 style={{ fontSize: '0.9rem', color: '#666', marginBottom: '5px' }}>
-                {language === 'en' ? 'FORMAT' : 'FORMATO'}
+              <h4 style={{ 
+                fontSize: '0.8rem', 
+                color: '#CCC5B9', 
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px'
+              }}>
+                {t('hundredVoices.format')}
               </h4>
-              <p style={{ fontSize: '1rem', fontWeight: '600' }}>
-                {language === 'en' ? 'Hardcover Edition' : 'Edición de Tapa Dura'}
+              <p style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+                {t('hundredVoices.formatValue')}
               </p>
             </div>
             
             <div>
-              <h4 style={{ fontSize: '0.9rem', color: '#666', marginBottom: '5px' }}>
-                {language === 'en' ? 'PAGES' : 'PÁGINAS'}
+              <h4 style={{ 
+                fontSize: '0.8rem', 
+                color: '#CCC5B9', 
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px'
+              }}>
+                {t('hundredVoices.pages')}
               </h4>
-              <p style={{ fontSize: '1rem', fontWeight: '600' }}>500+</p>
+              <p style={{ fontSize: '1.1rem', fontWeight: '600' }}>500+</p>
             </div>
             
             <div>
-              <h4 style={{ fontSize: '0.9rem', color: '#666', marginBottom: '5px' }}>
-                {language === 'en' ? 'LANGUAGE' : 'IDIOMA'}
+              <h4 style={{ 
+                fontSize: '0.8rem', 
+                color: '#CCC5B9', 
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px'
+              }}>
+                {t('hundredVoices.language')}
               </h4>
-              <p style={{ fontSize: '1rem', fontWeight: '600' }}>
-                {language === 'en' ? 'Spanish' : 'Español'}
+              <p style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+                {t('hundredVoices.languageValue')}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="contact-section" style={{ marginTop: '50px' }}>
-          <h3>{language === 'en' ? 'INQUIRIES' : 'CONSULTAS'}</h3>
-          <a href="mailto:100voces@hgroup.com" className="contact-email">100VOCES@HGROUP.COM</a>
-        </div>
-
-        <div style={{
-          marginTop: '50px',
+        {/* Contact Section mejorado */}
+        <div style={{ 
+          marginTop: '60px',
           textAlign: 'center',
-          padding: '30px',
-          borderTop: '1px solid #e0e0e0'
+          padding: '50px 0'
         }}>
-          <button style={{
-            background: '#000',
-            color: '#fff',
-            padding: '15px 40px',
-            border: 'none',
-            borderRadius: '30px',
-            fontSize: '0.9rem',
+          <h3 style={{
+            fontSize: '1rem',
             fontWeight: '700',
-            fontFamily: 'Visby CF, sans-serif',
-            cursor: 'pointer',
             textTransform: 'uppercase',
             letterSpacing: '1px',
-            transition: 'all 0.3s ease'
+            marginBottom: '20px',
+            color: '#666'
+          }}>
+            {t('hundredVoices.inquiries')}
+          </h3>
+          
+          <a href="mailto:100voces@hgroup.com" style={{
+            fontSize: '1.8rem',
+            fontWeight: '700',
+            color: '#000',
+            textDecoration: 'none',
+            transition: 'all 0.3s ease',
+            display: 'inline-block',
+            marginBottom: '40px'
           }}
           onMouseOver={(e) => {
-            e.target.style.background = '#403d39'
-            e.target.style.transform = 'translateY(-2px)'
+            e.target.style.color = '#403d39';
+            e.target.style.transform = 'translateY(-2px)';
           }}
           onMouseOut={(e) => {
-            e.target.style.background = '#000'
-            e.target.style.transform = 'translateY(0)'
-          }}
-          onClick={() => window.location.href = 'mailto:100voces@hgroup.com'}
-          >
-            {language === 'en' ? 'Request Information' : 'Solicitar Información'}
-          </button>
+            e.target.style.color = '#000';
+            e.target.style.transform = 'translateY(0)';
+          }}>
+            100VOCES@HGROUP.COM
+          </a>
+
+          <div>
+            <button style={{
+              background: '#fff',
+              color: '#000',
+              padding: '18px 50px',
+              border: '2px solid #000',
+              borderRadius: '50px',
+              fontSize: '0.9rem',
+              fontWeight: '700',
+              fontFamily: 'Visby CF, sans-serif',
+              cursor: 'pointer',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.background = '#000';
+              e.target.style.color = '#fff';
+              e.target.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.background = '#fff';
+              e.target.style.color = '#000';
+              e.target.style.transform = 'translateY(0)';
+            }}
+            onClick={() => window.location.href = 'mailto:100voces@hgroup.com'}
+            >
+              {t('hundredVoices.requestInfo')}
+            </button>
+          </div>
         </div>
       </div>
     </div>

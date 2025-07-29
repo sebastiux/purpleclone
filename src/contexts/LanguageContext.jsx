@@ -20,35 +20,73 @@ export const translations = {
       clearFilters: 'clear all filters'
     },
     presentation: {
-      title: 'LUXURY BRANDING',
+      title: 'WE CONNECT THE IMPOSSIBLE',
       tagline: 'Conectamos lo imposible'
     },
     workWithUs: {
-      text1: 'HGROUP understands the world of luxury, offering connected services across Press, Communications, Social Media, Events, VIP, Creative Strategy, Brand Strategy and Talent Partnerships. Culturally fluent and hyper-connected, we partner with our clients to create maximum impact.',
-      text2: 'Bringing together 25 years of strategic brand building experience with next generation in-house talent, we deliver creative thinking and game-changing ideas to drive commercial success.',
-      text3: 'Our clients span multiple divisions including Art, Design & Culture, Beauty & Wellbeing, Fashion & Jewellery, Restaurants & Bars, Property & Placemaking, Events, Charity and Sustainability.',
-      text4: 'Our commitment to sustainability is a core agency value and we continue to introduce business practices to reduce our clients\' impact.',
+      text1: 'We are HGROUP, a holding company with 11 specialized brands in different market niches. With a young and passionate vision, we connect the impossible through innovative strategies and measurable results.',
+      text2: 'We bring together years of strategic experience with next-generation talent to deliver creative solutions that transform brands. From social impact with HERO to digital strategies with HACK, each of our divisions works in synergy to maximize your brand\'s impact.',
+      text3: 'Our portfolio spans collaborations with Sony Music, Xiaomi, Estée Lauder, ALSEA, Zurich, Volkswagen, Maserati, Rolls-Royce, and many more. We operate in 32 states across Mexico and have presence in major cities in the USA, Canada, and Latin America.',
+      text4: 'Every day, with passion and dedication, we continue growing, innovating, and connecting brands with extraordinary experiences. This is HGROUP!',
       contact: 'CONTACT',
       ourHs: 'OUR H\'S',
       viewMore: 'VIEW MORE'
     },
     joinUs: {
-      text1: 'We are a team of creators and innovators. We know there is more than one way to get things done, and we cultivate a range of diverse perspectives. HGROUP is always growing and seeking new talent to join our global community.',
-      text2: 'Please click here to see our current vacancies, or for any general enquiries, please email careers@hgroup.com',
+      text1: 'We are a team of young dreamers with the passion to make the impossible a reality. At HGROUP, we believe there\'s more than one way to achieve success, and we cultivate diverse perspectives that drive innovation.',
+      text2: 'Join our team and be part of the transformation. Click here to see our current opportunities, or send your CV to careers@hgroup.com',
       allLocations: 'ALL LOCATIONS',
-      london: 'LONDON',
-      applyLinkedin: 'APPLY ON LINKEDIN'
+      mexicoCity: 'MEXICO CITY',
+      applyLinkedin: 'APPLY ON LINKEDIN',
+      openings: [
+        {
+          title: 'TALENT ACQUISITION SPECIALIST',
+          location: 'MEXICO CITY',
+          description: `ARE YOU PASSIONATE ABOUT DISCOVERING EXCEPTIONAL TALENT? HGROUP IS LOOKING FOR A RECRUITER WHO UNDERSTANDS THAT BEHIND EVERY GREAT BRAND, THERE'S AN EXTRAORDINARY TEAM. WE NEED SOMEONE WHO CAN IDENTIFY DREAMERS, INNOVATORS, AND GAME-CHANGERS WHO WILL HELP US CONTINUE CONNECTING THE IMPOSSIBLE.`,
+          applyLink: 'https://www.linkedin.com/company/herohgroup'
+        }
+      ]
     },
     expertise: [
-      { name: 'HERO', description: 'Passionate creativity that connects emotionally' },
-      { name: 'HALO', description: 'Strategic thinking that drives results' },
-      { name: 'HERE', description: 'Flawless execution that delivers excellence' },
-      { name: 'HITS', description: 'Bold ideas that stand out' },
-      { name: 'HOME', description: 'Connected ecosystem of talent and resources' },
-      { name: 'HUGE', description: 'Authentic experiences that resonate' },
-      { name: 'HUNT', description: 'Positive impact that elevates brands' },
-      { name: 'HYPE', description: 'Constant innovation that inspires' }
-    ]
+      { name: 'HERO', description: 'Social impact foundation connecting companies with 144+ foundations through creative strategies' },
+      { name: 'HYPE', description: 'Public relations amplifying brand voices through 150+ media outlets' },
+      { name: 'HERE', description: 'Influencer marketing managing a vibrant community of 730+ digital creators' },
+      { name: 'HUGE', description: 'Property management and retail design with 300+ properties portfolio' },
+      { name: 'HUNT', description: 'Media strategy offering 100,000+ brand visibility opportunities' },
+      { name: 'HOME', description: 'Automotive brand positioning across 170+ shopping centers' },
+      { name: 'HOPE', description: 'Educational innovation connecting brands with 200+ universities' },
+      { name: 'HALO', description: 'Creative content and high-quality video production' },
+      { name: 'HACK', description: 'Digital strategies focused on conversion and brand awareness' },
+      { name: 'HITS', description: 'Creative studio developing custom proposals for leading brands' }
+    ],
+    hundredVoices: {
+  subtitle: 'The definitive collection of insights from Mexico\'s most influential business leaders and visionaries.',
+  quote: '"Each voice in this collection represents a unique journey of transformation, innovation, and leadership that shapes the future of Mexican business."',
+  description1: '100 Voces is an exclusive corporate conference series by HGROUP where we interview and gather testimonies from Mexico\'s most distinguished entrepreneurs, innovators, and thought leaders. This carefully curated initiative captures the essence of Mexican leadership and entrepreneurial spirit.',
+  description2: 'Through intimate conversations and profound reflections, we provide unprecedented access to the minds that are shaping Mexico\'s economic and cultural landscape. From established industry titans to disruptive innovators, 100 Voces presents a comprehensive portrait of contemporary Mexican excellence.',
+  editionsTitle: 'EDITIONS',
+  editions: [
+    {
+      title: 'Multicategory Edition',
+      description: 'A diverse collection featuring chefs, entrepreneurs, athletes, and cultural icons.',
+      featured: 'Checo Pérez • Alejandro Fernández • Rafa Márquez'
+    },
+    {
+      title: 'Business Edition',
+      description: 'Exclusive interviews with Mexico\'s most influential business leaders.',
+      featured: 'Carlos Slim • Agustín Coppel • Daniel Servitje'
+    }
+  ],
+  bookDetails: 'BOOK DETAILS',
+  format: 'Format',
+  formatValue: 'Hardcover Edition',
+  pages: 'Pages',
+  language: 'Language',
+  languageValue: 'Spanish',
+  inquiries: 'For inquiries and information',
+  requestInfo: 'Request Information'
+}
+
   },
   es: {
     nav: {
@@ -67,36 +105,72 @@ export const translations = {
       clearFilters: 'limpiar todos los filtros'
     },
     presentation: {
-      title: 'BRANDING DE LUJO',
+      title: 'CONECTAMOS LO IMPOSIBLE',
       tagline: 'Conectamos lo imposible'
     },
     workWithUs: {
-      text1: 'HGROUP entiende el mundo del lujo, ofreciendo servicios conectados en Prensa, Comunicaciones, Redes Sociales, Eventos, VIP, Estrategia Creativa, Estrategia de Marca y Asociaciones de Talento. Culturalmente fluidos e hiperconectados, nos asociamos con nuestros clientes para crear el máximo impacto.',
-      text2: 'Reuniendo 25 años de experiencia en construcción estratégica de marca con talento interno de próxima generación, entregamos pensamiento creativo e ideas revolucionarias para impulsar el éxito comercial.',
-      text3: 'Nuestros clientes abarcan múltiples divisiones incluyendo Arte, Diseño y Cultura, Belleza y Bienestar, Moda y Joyería, Restaurantes y Bares, Propiedad y Placemaking, Eventos, Caridad y Sostenibilidad.',
-      text4: 'Nuestro compromiso con la sostenibilidad es un valor fundamental de la agencia y continuamos introduciendo prácticas comerciales para reducir el impacto de nuestros clientes.',
+      text1: 'Somos HGROUP, una holding con 11 marcas especializadas en distintos nichos de mercado. Con una visión joven y apasionada, conectamos lo imposible a través de estrategias innovadoras y resultados medibles.',
+      text2: 'Reunimos años de experiencia estratégica con talento de próxima generación para entregar soluciones creativas que transforman marcas. Desde el impacto social con HERO hasta las estrategias digitales con HACK, cada una de nuestras divisiones trabaja en sinergia para maximizar el impacto de tu marca.',
+      text3: 'Nuestro portafolio incluye colaboraciones con Sony Music, Xiaomi, Estée Lauder, ALSEA, Zurich, Volkswagen, Maserati, Rolls-Royce, y muchos más. Operamos en 32 estados de la República Mexicana y tenemos presencia en las principales ciudades de Estados Unidos, Canadá y Latinoamérica.',
+      text4: 'Cada día, con pasión y dedicación, seguimos creciendo, innovando y conectando marcas con experiencias extraordinarias. ¡Esto es HGROUP!',
       contact: 'CONTACTO',
       ourHs: 'NUESTRAS H\'S',
       viewMore: 'VER MÁS'
     },
     joinUs: {
-      text1: 'Somos un equipo de creadores e innovadores. Sabemos que hay más de una forma de hacer las cosas, y cultivamos una variedad de perspectivas diversas. HGROUP siempre está creciendo y buscando nuevos talentos para unirse a nuestra comunidad global.',
-      text2: 'Por favor haz clic aquí para ver nuestras vacantes actuales, o para cualquier consulta general, envía un correo a careers@hgroup.com',
+      text1: 'Somos un equipo de jóvenes soñadores con la pasión de hacer realidad lo imposible. En HGROUP creemos que hay más de una forma de lograr el éxito, y cultivamos perspectivas diversas que impulsan la innovación.',
+      text2: 'Únete a nuestro equipo y sé parte de la transformación. Haz clic aquí para ver nuestras oportunidades actuales, o envía tu CV a careers@hgroup.com',
       allLocations: 'TODAS LAS UBICACIONES',
-      london: 'CDMX',
-      applyLinkedin: 'APLICAR EN LINKEDIN'
+      mexicoCity: 'CDMX',
+      applyLinkedin: 'APLICAR EN LINKEDIN',
+      openings: [
+        {
+          title: 'ESPECIALISTA EN ADQUISICIÓN DE TALENTO',
+          location: 'CDMX',
+          description: `¿TE APASIONA DESCUBRIR TALENTO EXCEPCIONAL? HGROUP BUSCA UN RECLUTADOR QUE ENTIENDA QUE DETRÁS DE CADA GRAN MARCA HAY UN EQUIPO EXTRAORDINARIO. NECESITAMOS A ALGUIEN QUE PUEDA IDENTIFICAR SOÑADORES, INNOVADORES Y AGENTES DE CAMBIO QUE NOS AYUDEN A SEGUIR CONECTANDO LO IMPOSIBLE.`,
+          applyLink: 'https://www.linkedin.com/company/herohgroup'
+        }
+      ]
     },
     expertise: [
-      { name: 'HERO', description: 'Creatividad apasionada que conecta emocionalmente' },
-      { name: 'HALO', description: 'Pensamiento estratégico que impulsa resultados' },
-      { name: 'HERE', description: 'Ejecución impecable que entrega excelencia' },
-      { name: 'HITS', description: 'Ideas audaces que destacan' },
-      { name: 'HOME', description: 'Ecosistema conectado de talento y recursos' },
-      { name: 'HOPE', description: 'Experiencias auténticas que resuenan' },
-      { name: 'HUGE', description: 'Impacto positivo que eleva las marcas' },
-      { name: 'HUNT', description: 'Conexiones auténticas que generan confianza' },
-      { name: 'HYPE', description: 'Innovación constante que inspira' }
-    ]
+      { name: 'HERO', description: 'Fundación de impacto social conectando empresas con 144+ fundaciones a través de estrategias creativas' },
+      { name: 'HYPE', description: 'Relaciones públicas amplificando voces de marca a través de 150+ medios de comunicación' },
+      { name: 'HERE', description: 'Marketing de influencia gestionando una comunidad vibrante de 730+ creadores digitales' },
+      { name: 'HUGE', description: 'Gestión inmobiliaria y diseño retail con portafolio de 300+ propiedades' },
+      { name: 'HUNT', description: 'Estrategia de medios ofreciendo 100,000+ oportunidades de visibilidad de marca' },
+      { name: 'HOME', description: 'Posicionamiento de marcas automotrices en 170+ centros comerciales' },
+      { name: 'HOPE', description: 'Innovación educativa conectando marcas con 200+ universidades' },
+      { name: 'HALO', description: 'Contenido creativo y producción de video de alta calidad' },
+      { name: 'HACK', description: 'Estrategias digitales enfocadas en conversión y brand awareness' },
+      { name: 'HITS', description: 'Estudio creativo desarrollando propuestas a la medida para marcas líderes' }
+    ],
+    hundredVoices: {
+  subtitle: 'La colección definitiva de perspectivas de los líderes empresariales y visionarios más influyentes de México.',
+  quote: '"Cada voz en esta colección representa un viaje único de transformación, innovación y liderazgo que da forma al futuro de los negocios mexicanos."',
+  description1: '100 Voces es una serie exclusiva de conferencias corporativas de HGROUP donde entrevistamos y recopilamos testimonios de los empresarios, innovadores y líderes de opinión más distinguidos de México. Esta iniciativa cuidadosamente curada captura la esencia del liderazgo y espíritu empresarial mexicano.',
+  description2: 'A través de conversaciones íntimas y reflexiones profundas, brindamos acceso sin precedentes a las mentes que están dando forma al panorama económico y cultural de México. Desde titanes establecidos de la industria hasta innovadores disruptivos, 100 Voces presenta un retrato integral de la excelencia mexicana contemporánea.',
+  editionsTitle: 'EDICIONES',
+  editions: [
+    {
+      title: 'Edición Multicategoría',
+      description: 'Una colección diversa con chefs, empresarios, deportistas e íconos culturales.',
+      featured: 'Checo Pérez • Alejandro Fernández • Rafa Márquez'
+    },
+    {
+      title: 'Edición Empresarial',
+      description: 'Entrevistas exclusivas con los líderes empresariales más influyentes de México.',
+      featured: 'Carlos Slim • Agustín Coppel • Daniel Servitje'
+    }
+  ],
+  bookDetails: 'DETALLES DEL LIBRO',
+  format: 'Formato',
+  formatValue: 'Edición de Tapa Dura',
+  pages: 'Páginas',
+  language: 'Idioma',
+  languageValue: 'Español',
+  inquiries: 'Para consultas e información',
+  requestInfo: 'Solicitar Información'
+}
   }
 };
 
