@@ -17,6 +17,26 @@ function WorkWithUs() {
     navigate('/')
   }
 
+  // Holdings external links
+  const holdingLinks = {
+    hero: 'https://gregarious-torrone-c165bf.netlify.app/',
+    // Agrega más links cuando los tengas:
+    // hype: 'https://hype-website.com',
+    // hack: 'https://hack-website.com',
+    // etc...
+  }
+
+  const handleHoldingClick = (e, holdingName) => {
+    const holdingId = holdingName.toLowerCase()
+    const link = holdingLinks[holdingId]
+    
+    if (link) {
+      e.preventDefault()
+      window.open(link, '_blank')
+    }
+    // Si no hay link, deja que funcione como ancla normal
+  }
+
   return (
     <div className="page-container">
       <button 
@@ -40,9 +60,9 @@ function WorkWithUs() {
           <div className="page-nav">
             <Link to="/join-us" className="nav-item">{t('nav.joinUs')}</Link>
           </div>
-           <div className="page-nav">
-              <Link to="/100-voices" className="nav-item">{t('nav.hundredVoices')}</Link>
-            </div>
+          <div className="page-nav">
+            <Link to="/100-voices" className="nav-item">{t('nav.hundredVoices')}</Link>
+          </div>
           <div className="page-nav">
             <a href="https://www.instagram.com/hgroupp_/" target="_blank" rel="noopener noreferrer" className="nav-item">
               {t('nav.followUs')} <span style={{fontSize: '0.8rem', marginLeft: '4px'}}>↗</span>
@@ -91,7 +111,13 @@ function WorkWithUs() {
               <div key={index} className="h-item">
                 <div className="h-header">
                   <h4 className="h-name">{item.name}</h4>
-                  <a href={`#${item.name.toLowerCase()}`} className="h-link">
+                  <a 
+                    href={holdingLinks[item.name.toLowerCase()] || `#${item.name.toLowerCase()}`}
+                    className="h-link"
+                    onClick={(e) => handleHoldingClick(e, item.name)}
+                    target={holdingLinks[item.name.toLowerCase()] ? "_blank" : "_self"}
+                    rel={holdingLinks[item.name.toLowerCase()] ? "noopener noreferrer" : undefined}
+                  >
                     {t('workWithUs.viewMore')} <span className="h-arrow">↗</span>
                   </a>
                 </div>

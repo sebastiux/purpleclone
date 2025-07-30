@@ -10,6 +10,14 @@ import HundredVoices from './components/HundredVoices'
 import gsap from 'gsap'
 import './App.css'
 
+const holdingLinks = {
+  hero: 'https://gregarious-torrone-c165bf.netlify.app/',
+  // Agrega más links cuando los tengas:
+  // hype: 'https://hype-website.com',
+  // hack: 'https://hack-website.com',
+  // etc...
+};
+
 function HomePage() {
   const [showMainHeader, setShowMainHeader] = useState(true)
   const [scrollY, setScrollY] = useState(0)
@@ -399,12 +407,15 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
   }
 
   const handleHoldingClick = (holdingId) => {
-    // For now, just console log or show alert
-    console.log(`Navigating to ${holdingId}`)
-    alert(`This would navigate to ${holdingId} page`)
-    // Later you can uncomment this:
-    // navigate(`/holding/${holdingId}`)
+  const link = holdingLinks[holdingId];
+  
+  if (link) {
+    window.open(link, '_blank');
+  } else {
+    console.log(`No link available for ${holdingId} yet`);
+    alert(`Link for ${holdingId} coming soon!`);
   }
+}
 
   const getFilterDisplayText = () => {
     const totalFilters = selectedCategories.length + selectedCompanies.length
