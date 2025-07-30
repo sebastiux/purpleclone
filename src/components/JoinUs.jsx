@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { logohgroup } from '../assets/logos'
 import { useLanguage } from '../contexts/LanguageContext'
+import LanguageToggle from './LanguageToggle'
 import './Pages.css'
 
 function JoinUs() {
@@ -17,6 +18,7 @@ function JoinUs() {
   const openings = t('joinUs.openings') || []
 
   return (
+    <>
     <div className="page-container">
       <button 
         className="close-page-btn"
@@ -97,7 +99,11 @@ function JoinUs() {
           ))}
         </div>
       </div>
+     
     </div>
+     {/* Language Toggle */}
+      <LanguageToggle />
+    </>
   )
 }
 

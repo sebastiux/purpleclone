@@ -8,7 +8,7 @@ export const translations = {
       workWithUs: 'WORK WITH US',
       joinUs: 'JOIN US',
       followUs: 'FOLLOW US',
-      hundredVoices: '100 VOCES',
+      hundredVoices: 'CIEN VOCES',
       viewWorkBy: 'VIEW WORK BY',
       allWork: 'All Work',
       filtersActive: 'Filters Active',
@@ -30,19 +30,20 @@ export const translations = {
       text4: 'Every day, with passion and dedication, we continue growing, innovating, and connecting brands with extraordinary experiences. This is HGROUP!',
       contact: 'CONTACT',
       ourHs: 'OUR H\'S',
-      viewMore: 'VIEW MORE'
+      viewMore: 'VIEW MORE',
+      whatsapp: 'CHAT ON WHATSAPP'
     },
     joinUs: {
       text1: 'We are a team of young dreamers with the passion to make the impossible a reality. At HGROUP, we believe there\'s more than one way to achieve success, and we cultivate diverse perspectives that drive innovation.',
-      text2: 'Join our team and be part of the transformation. Click here to see our current opportunities, or send your CV to careers@hgroup.com',
+      text2: 'Join our team and be part of the transformation. Click here to see our current opportunities, or send your CV to carla.rosales@hgroup.consulting',
       allLocations: 'ALL LOCATIONS',
       mexicoCity: 'MEXICO CITY',
       applyLinkedin: 'APPLY ON LINKEDIN',
       openings: [
         {
-          title: 'TALENT ACQUISITION SPECIALIST',
-          location: 'MEXICO CITY',
-          description: `ARE YOU PASSIONATE ABOUT DISCOVERING EXCEPTIONAL TALENT? HGROUP IS LOOKING FOR A RECRUITER WHO UNDERSTANDS THAT BEHIND EVERY GREAT BRAND, THERE'S AN EXTRAORDINARY TEAM. WE NEED SOMEONE WHO CAN IDENTIFY DREAMERS, INNOVATORS, AND GAME-CHANGERS WHO WILL HELP US CONTINUE CONNECTING THE IMPOSSIBLE.`,
+          title: 'NO POSITIONS AVAILABLE',
+          location: '',
+          description: `Soon...`,
           applyLink: 'https://www.linkedin.com/company/herohgroup'
         }
       ]
@@ -92,7 +93,7 @@ export const translations = {
     nav: {
       workWithUs: 'TRABAJA CON NOSOTROS',
       joinUs: 'ÚNETE',
-      hundredVoices: '100 VOCES',
+      hundredVoices: 'CIEN VOCES',
       followUs: 'SÍGUENOS',
       viewWorkBy: 'VER TRABAJO POR',
       allWork: 'Todo el trabajo',
@@ -115,7 +116,8 @@ export const translations = {
       text4: 'Cada día, con pasión y dedicación, seguimos creciendo, innovando y conectando marcas con experiencias extraordinarias. ¡Esto es HGROUP!',
       contact: 'CONTACTO',
       ourHs: 'NUESTRAS H\'S',
-      viewMore: 'VER MÁS'
+      viewMore: 'VER MÁS',
+      whatsapp: 'CHAT EN WHATSAPP'
     },
     joinUs: {
       text1: 'Somos un equipo de jóvenes soñadores con la pasión de hacer realidad lo imposible. En HGROUP creemos que hay más de una forma de lograr el éxito, y cultivamos perspectivas diversas que impulsan la innovación.',
@@ -125,9 +127,9 @@ export const translations = {
       applyLinkedin: 'APLICAR EN LINKEDIN',
       openings: [
         {
-          title: 'ESPECIALISTA EN ADQUISICIÓN DE TALENTO',
-          location: 'CDMX',
-          description: `¿TE APASIONA DESCUBRIR TALENTO EXCEPCIONAL? HGROUP BUSCA UN RECLUTADOR QUE ENTIENDA QUE DETRÁS DE CADA GRAN MARCA HAY UN EQUIPO EXTRAORDINARIO. NECESITAMOS A ALGUIEN QUE PUEDA IDENTIFICAR SOÑADORES, INNOVADORES Y AGENTES DE CAMBIO QUE NOS AYUDEN A SEGUIR CONECTANDO LO IMPOSIBLE.`,
+          title: 'NO HAY VACANTES DISPONIBLES',
+          location: '',
+          description: `Pronto...`,
           applyLink: 'https://www.linkedin.com/company/herohgroup'
         }
       ]

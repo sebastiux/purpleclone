@@ -2,6 +2,8 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { logohgroup } from '../assets/logos'
 import { useLanguage } from '../contexts/LanguageContext'
+import LanguageToggle from './LanguageToggle'
+import { images } from '../assets'
 import './Pages.css'
 
 function HundredVoices() {
@@ -12,7 +14,12 @@ function HundredVoices() {
     navigate('/')
   }
 
+  // Número de WhatsApp - cambia esto por el número real
+  const whatsappNumber = '525644162396' // Reemplaza con el número real
+  const whatsappMessage = encodeURIComponent('Hola, me gustaría obtener más información sobre 100 Voces')
+
   return (
+    <>
     <div className="page-container">
       <button 
         className="close-page-btn"
@@ -36,7 +43,7 @@ function HundredVoices() {
           </div>
           <div className="page-nav">
             <span className="nav-dot active"></span>
-            <span className="nav-item">100 VOCES</span>
+            <span className="nav-item">CIEN VOCES</span>
           </div>
           <div className="page-nav">
             <a href="https://www.instagram.com/hgroupp_/" target="_blank" rel="noopener noreferrer" className="nav-item">
@@ -74,47 +81,47 @@ function HundredVoices() {
             display: 'flex',
             alignItems: 'baseline',
             marginBottom: '50px',
-            position: 'relative'
+            position: 'relative',
+            paddingRight: '20px' // Añadido para evitar corte
           }}>
-            <h1 style={{
-              fontSize: '8rem',
-              fontWeight: '900',
-              lineHeight: '0.8',
-              margin: 0,
-              background: 'linear-gradient(180deg, #000 0%, #403d39 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              letterSpacing: '-5px'
-            }}>
-              100
-            </h1>
-            <h2 style={{
-              fontSize: '3.5rem',
-              fontWeight: '900',
-              marginLeft: '20px',
-              marginBottom: '0',
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              lineHeight: '1',
-              color: '#000'
-            }}>
-              VOCES
-            </h2>
-          </div>
-          
-          {/* Subtítulo destacado */}
-          <p style={{ 
-            fontSize: '1.4rem', 
-            fontWeight: '300', 
-            marginBottom: '50px',
-            color: '#000',
-            lineHeight: '1.5',
-            maxWidth: '800px',
-            letterSpacing: '0.5px'
-          }}>
-            {t('hundredVoices.subtitle')}
-          </p>
+         <h1 style={{
+    fontSize: 'clamp(4rem, 10vw, 7rem)', // Ajustado para mejor proporción
+    fontWeight: '900',
+    lineHeight: '0.9',
+    margin: 0,
+    color: '#000', // Texto negro sólido
+    letterSpacing: '-0.02em',
+    flexShrink: 0 // Evita que se comprima
+  }}>
+    CIEN
+  </h1>
+  <h2 style={{
+    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', // Más pequeño que CIEN
+    fontWeight: '700',
+    margin: 0,
+    marginBottom: '0',
+    textTransform: 'uppercase',
+    letterSpacing: '0.1em',
+    lineHeight: '1',
+    color: '#000',
+    flexShrink: 0 // Evita que se comprima
+  }}>
+    VOCES
+  </h2>
+</div>
+
+{/* Subtítulo destacado */}
+<p style={{ 
+  fontSize: '1.2rem', // Reducido ligeramente
+  fontWeight: '300', 
+  marginBottom: '50px',
+  color: '#000',
+  lineHeight: '1.6',
+  maxWidth: '700px',
+  letterSpacing: '0.3px'
+}}>
+  {t('hundredVoices.subtitle')}
+</p>
 
           {/* Quote destacado */}
           <blockquote style={{
@@ -129,6 +136,26 @@ function HundredVoices() {
           }}>
             {t('hundredVoices.quote')}
           </blockquote>
+
+          {/* Imagen principal de 100 voces */}
+          {images.cienvoces && (
+            <div style={{
+              marginBottom: '60px',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
+            }}>
+              <img 
+                src={images.cienvoces} 
+                alt="100 Voces" 
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  display: 'block'
+                }}
+              />
+            </div>
+          )}
           
           {/* Descripción principal */}
           <div style={{
@@ -145,164 +172,30 @@ function HundredVoices() {
             </p>
           </div>
 
-          {/* Ediciones */}
-          <div style={{
-            marginBottom: '60px',
-            padding: '40px',
-            background: 'linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)',
-            borderRadius: '16px'
-          }}>
-            <h3 style={{
-              fontSize: '1.3rem',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              marginBottom: '30px',
-              color: '#000'
-            }}>
-              {t('hundredVoices.editionsTitle')}
-            </h3>
-            
+          {/* Segunda imagen opcional */}
+          {images.cienvoces2 && (
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '30px'
+              marginBottom: '80px',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
             }}>
-              {t('hundredVoices.editions').map((edition, index) => (
-                <div key={index} style={{
-                  background: '#fff',
-                  padding: '30px',
-                  borderRadius: '12px',
-                  boxShadow: '0 2px 20px rgba(0,0,0,0.05)',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
+              <img 
+                src={images.cienvoces2} 
+                alt="100 Voces Evento" 
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  display: 'block'
                 }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-5px)';
-                  e.currentTarget.style.boxShadow = '0 5px 30px rgba(0,0,0,0.1)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
-                }}>
-                  <h4 style={{
-                    fontSize: '1.1rem',
-                    fontWeight: '700',
-                    marginBottom: '10px',
-                    color: '#000',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>
-                    {edition.title}
-                  </h4>
-                  <p style={{
-                    fontSize: '0.95rem',
-                    color: '#666',
-                    lineHeight: '1.6',
-                    marginBottom: '15px'
-                  }}>
-                    {edition.description}
-                  </p>
-                  <div style={{
-                    fontSize: '0.85rem',
-                    color: '#999',
-                    fontWeight: '600',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>
-                    {edition.featured}
-                  </div>
-                </div>
-              ))}
+              />
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Book Details mejorado */}
-        <div style={{
-          marginTop: '60px',
-          padding: '50px',
-          background: '#000',
-          color: '#fff',
-          borderRadius: '16px',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          {/* Elemento decorativo */}
-          <div style={{
-            position: 'absolute',
-            top: '-50px',
-            right: '-50px',
-            width: '200px',
-            height: '200px',
-            background: 'rgba(255,255,255,0.05)',
-            borderRadius: '50%'
-          }}></div>
-          
-          <h3 style={{
-            fontSize: '1.3rem',
-            fontWeight: '700',
-            textTransform: 'uppercase',
-            letterSpacing: '1px',
-            marginBottom: '35px',
-            color: '#fff'
-          }}>
-            {t('hundredVoices.bookDetails')}
-          </h3>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '40px'
-          }}>
-            <div>
-              <h4 style={{ 
-                fontSize: '0.8rem', 
-                color: '#CCC5B9', 
-                marginBottom: '8px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px'
-              }}>
-                {t('hundredVoices.format')}
-              </h4>
-              <p style={{ fontSize: '1.1rem', fontWeight: '600' }}>
-                {t('hundredVoices.formatValue')}
-              </p>
-            </div>
-            
-            <div>
-              <h4 style={{ 
-                fontSize: '0.8rem', 
-                color: '#CCC5B9', 
-                marginBottom: '8px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px'
-              }}>
-                {t('hundredVoices.pages')}
-              </h4>
-              <p style={{ fontSize: '1.1rem', fontWeight: '600' }}>500+</p>
-            </div>
-            
-            <div>
-              <h4 style={{ 
-                fontSize: '0.8rem', 
-                color: '#CCC5B9', 
-                marginBottom: '8px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px'
-              }}>
-                {t('hundredVoices.language')}
-              </h4>
-              <p style={{ fontSize: '1.1rem', fontWeight: '600' }}>
-                {t('hundredVoices.languageValue')}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Section mejorado */}
+        {/* Contact Section con WhatsApp */}
         <div style={{ 
-          marginTop: '60px',
+          marginTop: '80px',
           textAlign: 'center',
           padding: '50px 0'
         }}>
@@ -311,36 +204,16 @@ function HundredVoices() {
             fontWeight: '700',
             textTransform: 'uppercase',
             letterSpacing: '1px',
-            marginBottom: '20px',
+            marginBottom: '40px',
             color: '#666'
           }}>
             {t('hundredVoices.inquiries')}
           </h3>
-          
-          <a href="mailto:100voces@hgroup.com" style={{
-            fontSize: '1.8rem',
-            fontWeight: '700',
-            color: '#000',
-            textDecoration: 'none',
-            transition: 'all 0.3s ease',
-            display: 'inline-block',
-            marginBottom: '40px'
-          }}
-          onMouseOver={(e) => {
-            e.target.style.color = '#403d39';
-            e.target.style.transform = 'translateY(-2px)';
-          }}
-          onMouseOut={(e) => {
-            e.target.style.color = '#000';
-            e.target.style.transform = 'translateY(0)';
-          }}>
-            100VOCES@HGROUP.COM
-          </a>
 
           <div>
             <button style={{
-              background: '#fff',
-              color: '#000',
+              background: '#000',
+              color: '#fff',
               padding: '18px 50px',
               border: '2px solid #000',
               borderRadius: '50px',
@@ -352,26 +225,41 @@ function HundredVoices() {
               letterSpacing: '1px',
               transition: 'all 0.3s ease',
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '12px'
             }}
             onMouseOver={(e) => {
-              e.target.style.background = '#000';
-              e.target.style.color = '#fff';
-              e.target.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.background = '#fff';
+              e.currentTarget.style.color = '#000';
+              e.currentTarget.style.transform = 'translateY(-2px)';
             }}
             onMouseOut={(e) => {
-              e.target.style.background = '#fff';
-              e.target.style.color = '#000';
-              e.target.style.transform = 'translateY(0)';
+              e.currentTarget.style.background = '#000';
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}
-            onClick={() => window.location.href = 'mailto:100voces@hgroup.com'}
+            onClick={() => window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank')}
             >
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="currentColor"
+              >
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
               {t('hundredVoices.requestInfo')}
             </button>
           </div>
         </div>
       </div>
+     
     </div>
+     {/* Language Toggle */}
+      <LanguageToggle />
+    </>
   )
 }
 

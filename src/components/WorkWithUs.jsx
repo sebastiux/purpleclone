@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { logohgroup } from '../assets/logos'
 import { useLanguage } from '../contexts/LanguageContext'
+import LanguageToggle from './LanguageToggle'
 import './Pages.css'
 
 function WorkWithUs() {
@@ -38,6 +39,7 @@ function WorkWithUs() {
   }
 
   return (
+    <>
     <div className="page-container">
       <button 
         className="close-page-btn"
@@ -100,9 +102,17 @@ function WorkWithUs() {
         </div>
 
         <div className="contact-section">
-          <h3>{t('workWithUs.contact')}</h3>
-          <a href="mailto:ENQUIRIES@HGROUP.COM" className="contact-email">ENQUIRIES@HGROUP.COM</a>
-        </div>
+  <h3>{t('workWithUs.contact')}</h3>
+  <a 
+    href="https://wa.me/5217202533388?text=Hola%20HGROUP,%20me%20gustaría%20trabajar%20con%20ustedes"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="contact-email whatsapp-link"
+  >
+
+    {t('workWithUs.whatsapp')}
+  </a>
+</div>
 
         <div className="expertise-section">
           <h3>{t('workWithUs.ourHs')}</h3>
@@ -126,8 +136,13 @@ function WorkWithUs() {
             ))}
           </div>
         </div>
+       
       </div>
+      
     </div>
+    {/* Language Toggle */}
+      <LanguageToggle />
+    </>
   )
 }
 
