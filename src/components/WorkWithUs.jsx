@@ -20,7 +20,16 @@ function WorkWithUs() {
 
   // Holdings external links
   const holdingLinks = {
-    hero: 'https://gregarious-torrone-c165bf.netlify.app/',
+  hero: 'https://heromexico.com/',
+  halo: 'https://halocontent.mx/',
+  here: 'https://hereconvocatorias.com/',
+  hits: 'https://hitspage.netlify.app/',
+  hook: 'https://hookproductions.mx/',
+  hunt: 'https://magical-crisp-a42faf.netlify.app/',
+  hype: 'https://hypeagency.mx/',
+  hack: 'https://hackdigital.mx/',
+  home: 'https://homemalls.mx/',
+  hope: 'https://hopepage.netlify.app/'
     // Agrega más links cuando los tengas:
     // hype: 'https://hype-website.com',
     // hack: 'https://hack-website.com',

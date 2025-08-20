@@ -2,14 +2,14 @@
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-color: #FFFCF2;
+  background-color: #FFFFFF;
 }
 
 /* Main Header */
 .main-header {
   width: 100%;
-  min-height: 200px; /* Reducido de 80px */
-  background-color: #FFFCF2;
+  min-height: 600px; /* Reducido de 80px */
+  background-color: #FFFFFF;
   z-index: 1000;
   position: relative;
   transition: all 0.6s ease-in-out;
@@ -26,7 +26,7 @@
   flex-direction: column;
   padding: 30px 70px; /* Reducido el padding superior de 70px */
   position: relative;
-  background-color: #FFFCF2;
+  background-color: #FFFFFF;
   height: 100%;
 }
 
@@ -211,7 +211,7 @@
 .nav-link {
   text-decoration: none;
   color: #403d39;
-  font-size: 1rem;
+  font-size: .7rem;
   font-weight: 600;
   font-family: 'Visby CF', sans-serif;
   transition: all 0.3s ease;
@@ -221,7 +221,7 @@
   display: inline-block;
   overflow: hidden;
   padding: 1px 0;
-  line-height: 1.4;
+  line-height: 1;
   position: relative;
 }
 
@@ -322,7 +322,7 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  background: #FFFCF2;
+  background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -416,181 +416,172 @@
     transform: translateY(0);
   }
 }
-/* Holdings Menu */
-/* Holdings Menu - Fixed and Working */
-.holdings-menu {
-  width: 100%;
-  background: #FFFCF2;
-  padding: 8px 0;
-  z-index: 999;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  border-bottom: 1px solid #CCC5B9;
-  position: relative;
-  margin-top: 10px; /* Negativo para subirlo y pegarlo al header */
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.holdings-menu.fixed {
-  position: fixed;
-  top: 60px; /* Ajustado para cuando se fija */
-  left: 0;
-  right: 0;
-  background: #FFFCF2;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  margin-top: 0; /* Reset margin cuando está fixed */
-}
-
-.holdings-menu.hidden {
-  opacity: 0;
-  transform: translateY(-100%);
-  pointer-events: none;
-}
-
-.holdings-container {
+/* Holdings List Menu - Nueva versión estilo lista */
+/* Holdings List Menu - Debajo del navbar con typewriter */
+.holdings-list-vertical {
+  position: absolute;
+  left: 30px;
+  top: 200px; /* Posicionado debajo del navbar */
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 9px; /* Mismo espaciado que el navbar */
+}
+
+.holding-list-item {
+  display: flex;
   align-items: center;
-  gap: 55px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 5px 20px;
-  background: #FFFCF2;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.holdings-container::-webkit-scrollbar {
-  display: none;
-}
-
-/* Fixed holding item styles */
-.holding-item {
-  position: relative;
+  gap: 8px;
   cursor: pointer;
   opacity: 0;
-  animation: fadeInScale 0.5s ease forwards;
-  min-width: 80px;
-  text-align: center;
-  padding-bottom: -40px; /* Reduce de 10px a 5px o menos */
-}
-
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.holding-logo {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
+  transform: translateX(-30px);
+  animation: slideInLeft 0.6s ease forwards;
   transition: all 0.3s ease;
-  filter: grayscale(100%);
-  opacity: 0.7;
+  position: relative;
 }
 
-.holding-item:hover .holding-logo {
-  transform: translateY(-2px);
-  filter: grayscale(0%);
-  opacity: 1;
-}
-
-/* Black underline on hover */
-.holding-item::after {
+/* Punto animado al hover - igual que navbar */
+.holding-list-item::before {
   content: '';
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  width: 85px;
-  height: 2px;
+  left: -15px;
+  top: 35%;
+  transform: translateY(-50%) scale(0);
+  width: 10px;
+  height: 10px;
   background: #000;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: center;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.holding-item:hover::after {
-  transform: translateX(-50%) scaleX(1);
+.holding-list-item:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
 }
 
-.holding-placeholder {
-  width: 150px;
-  height: 150px;
-  background: #CCC5B9;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #403d39;
-  font-size: 0.8rem;
-  text-align: center;
+/* Wrapper para typewriter */
+.holding-name-wrapper {
+  overflow: hidden;
+  display: inline-block;
+  line-height: 1;
+}
+
+.holding-name {
   font-family: 'Visby CF', sans-serif;
+  font-size: 0.7rem; /* Mismo tamaño que navbar */
+  font-weight: 600;
+  color: #403d39;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  padding: 1px 0;
+  line-height: 1;
+  animation: typewriterHolding var(--holding-duration) steps(var(--holding-steps)) var(--holding-delay) forwards;
+  border-right: 2px solid transparent;
 }
 
-/* Remove any conflicting styles */
-.holding-button {
-  display: none !important;
-}
-
-.holding-underline {
-  display: none !important;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .holdings-menu {
-    position: fixed;
-    bottom: 0;
-    top: auto;
+@keyframes typewriterHolding {
+  to {
     width: 100%;
-    background: #FFFCF2;
-    padding: 10px 0;
-    border-top: 1px solid #CCC5B9;
-    border-bottom: none;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
-    z-index: 997;
   }
-  
-  .holdings-menu.fixed {
-    position: fixed;
-    bottom: 0;
-    top: auto;
+}
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
-  
-  .holdings-menu.hidden {
-    transform: translateY(100%);
-  }
-  
-  .holdings-container {
-    gap: 15px;
-    padding: 3px 10px;
-    overflow-x: auto;
-    justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .holding-item {
-    min-width: 50px;
-    flex-shrink: 0;
-  }
-  
-  .holding-logo,
-  .holding-placeholder {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .holding-item::after {
-    width: 30px;
-    bottom: 0;
+}
+
+/* Delays para cada holding */
+.holding-list-item:nth-child(1) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 4.2s;
+}
+
+.holding-list-item:nth-child(2) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 4.4s;
+}
+
+.holding-list-item:nth-child(3) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 4.6s;
+}
+
+.holding-list-item:nth-child(4) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 4.8s;
+}
+
+.holding-list-item:nth-child(5) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 5.0s;
+}
+
+.holding-list-item:nth-child(6) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 5.2s;
+}
+
+.holding-list-item:nth-child(7) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 5.4s;
+}
+
+.holding-list-item:nth-child(8) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 5.6s;
+}
+
+.holding-list-item:nth-child(9) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 5.8s;
+}
+
+.holding-list-item:nth-child(10) .holding-name {
+  --holding-steps: 4;
+  --holding-duration: 0.4s;
+  --holding-delay: 6.0s;
+}
+
+.holding-arrow {
+  font-size: 0.6rem;
+  color: #403d39;
+  opacity: 0;
+  transition: all 0.3s ease;
+  margin-left: 2px;
+}
+
+.holding-list-item:hover .holding-name {
+  color: #000;
+}
+
+.holding-list-item:hover .holding-arrow {
+  opacity: 1;
+  transform: translate(3px, -3px);
+}
+
+.holding-list-item:hover {
+  transform: translateX(10px);
+}
+
+/* Ocultar en móvil */
+@media (max-width: 768px) {
+  .holdings-list-vertical {
+    display: none;
   }
 }
 /* Horizontal Navigation */
@@ -600,7 +591,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #FFFCF2;
+  background: #FFFFFF;
   padding: 15px 0;
   z-index: 998;
   transform: translateY(-100%);
@@ -841,7 +832,7 @@
   width: 100%;
   position: relative;
   z-index: 1;
-  background-color: #FFFCF2;
+  background-color: #FFFFFF;
 }
 
 /* Portfolio Section */
@@ -849,7 +840,7 @@
   padding: 0;
   margin: 0;
   width: 100%;
-  background-color: #FFFCF2;
+  background-color: #FFFFFF;
 }
 
 .portfolio-masonry {
@@ -1075,7 +1066,7 @@
   right: 0;
   width: 340px;
   max-height: 420px;
-  background: #FFFCF2;
+  background: #FFFFFF;
   border: 1px solid #CCC5B9;
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -1572,7 +1563,7 @@ html {
     bottom: 0;
     top: auto;
     width: 100%;
-    background: #FFFCF2;
+    background: #FFFFFF;
     padding: 10px 0;
     border-top: 1px solid #CCC5B9;
     border-bottom: none;
@@ -1702,7 +1693,7 @@ html {
   }
   
   .filter-dropdown-content {
-    background: #FFFCF2;
+    background: #FFFFFF;
     height: 100%;
     position: relative;
   }
@@ -1965,7 +1956,7 @@ html {
   .horizontal-nav {
     padding: 12px 0;
     min-height: 60px;
-    background: #FFFCF2;
+    background: #FFFFFF;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   }
   

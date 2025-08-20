@@ -12,6 +12,7 @@ import hopelogo from './HOPElogo_negro.png'
 import hugelogo from './HUGElogo_negro.png'
 import huntlogo from './HUNTlogo_negro.png'
 import hypelogo from './HYPElogo_negro.png'
+import hooklogo from './HOOKlogo_negro.png'
 // import holding4Logo from './holding4.png'
 // import holding5Logo from './holding5.png'
 
@@ -27,7 +28,8 @@ export {
   hopelogo,
   hugelogo,
   huntlogo,
-  hypelogo
+  hypelogo,
+  hooklogo
 }
 
 // Export holdings as an array for easy mapping
@@ -74,12 +76,14 @@ export const holdingsLogos = [
     logo: hopelogo,
     alt: 'HOPE'
   },
+  /*
    {
     id: 'huge',
     name: 'HUGE',
     logo: hugelogo,
     alt: 'HUGE'
-  },
+  },*/
+  
   {
     id: 'hunt',
     name: 'HUNT',
@@ -91,6 +95,12 @@ export const holdingsLogos = [
     name: 'HYPE',
     logo: hypelogo,
     alt: 'HYPE'
+  },
+  {
+    id: 'hook',
+    name: 'HOOK',
+    logo: hooklogo,
+    alt: 'HOOK'
   }
 ]
 
@@ -106,7 +116,8 @@ export default {
     hopelogo,
     hugelogo,
     huntlogo,
-    hypelogo
+    hypelogo,
+    hooklogo
   },
   holdingsLogos,
   company: {
@@ -120,6 +131,7 @@ export default {
    hopelogo,
    hugelogo,
    huntlogo,
-   hypelogo
+   hypelogo,
+   hooklogo
   }
 }

@@ -58,7 +58,8 @@ export const translations = {
       { name: 'HOPE', description: 'Educational innovation connecting brands with 200+ universities' },
       { name: 'HALO', description: 'Creative content and high-quality video production' },
       { name: 'HACK', description: 'Digital strategies focused on conversion and brand awareness' },
-      { name: 'HITS', description: 'Creative studio developing custom proposals for leading brands' }
+      { name: 'HITS', description: 'Creative studio developing custom proposals for leading brands' },
+      { name: 'HOOK', description: 'Event management and activations.' }
     ],
     hundredVoices: {
   subtitle: 'The definitive collection of insights from Mexico\'s most influential business leaders and visionaries.',
@@ -107,7 +108,7 @@ export const translations = {
     },
     presentation: {
       title: 'CONECTAMOS LO IMPOSIBLE',
-      tagline: 'Conectamos lo imposible'
+      tagline: 'WE CONNECT THE IMPOSSIBLE'
     },
     workWithUs: {
       text1: 'Somos HGROUP, una holding con 11 marcas especializadas en distintos nichos de mercado. Con una visión joven y apasionada, conectamos lo imposible a través de estrategias innovadoras y resultados medibles.',
@@ -144,7 +145,8 @@ export const translations = {
       { name: 'HOPE', description: 'Innovación educativa conectando marcas con 200+ universidades' },
       { name: 'HALO', description: 'Contenido creativo y producción de video de alta calidad' },
       { name: 'HACK', description: 'Estrategias digitales enfocadas en conversión y brand awareness' },
-      { name: 'HITS', description: 'Estudio creativo desarrollando propuestas a la medida para marcas líderes' }
+      { name: 'HITS', description: 'Estudio creativo desarrollando propuestas a la medida para marcas líderes' },
+       { name: 'HOOK', description: 'Gestión de eventos y activaciones.' }
     ],
     hundredVoices: {
   subtitle: 'La colección definitiva de perspectivas de los líderes empresariales y visionarios más influyentes de México.',
@@ -177,7 +179,7 @@ export const translations = {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState('es');
 
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'en' ? 'es' : 'en');

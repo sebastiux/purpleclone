@@ -11,23 +11,29 @@ import gsap from 'gsap'
 import './App.css'
 
 const holdingLinks = {
-  hero: 'https://gregarious-torrone-c165bf.netlify.app/',
-  // Agrega más links cuando los tengas:
-  // hype: 'https://hype-website.com',
-  // hack: 'https://hack-website.com',
-  // etc...
+  hero: 'https://heromexico.com/',
+  halo: 'https://halocontent.mx/',
+  here: 'https://hereconvocatorias.com/',
+  hits: 'https://hitspage.netlify.app/',
+  hook: 'https://hookproductions.mx/',
+  hunt: 'https://huntmedia.mx/',
+  hype: 'https://hypeagency.mx/',
+  hack: 'https://hackdigital.mx/',
+  home: 'https://homemalls.mx/',
+  hope: 'https://hopeadvertising.mx/',
+  huge: 'https://hugeproperties.mx/'
 };
 
 function HomePage() {
   const [showMainHeader, setShowMainHeader] = useState(true)
   const [scrollY, setScrollY] = useState(0)
   const getInitialColumns = () => {
-  if (window.innerWidth <= 768) return 2  // Móvil: 2 columnas
-  if (window.innerWidth <= 1024) return 3 // Tablet: 3 columnas
-  return 3 // Desktop: 4 columnas (o el número que prefieras)
-}
+    if (window.innerWidth <= 768) return 2
+    if (window.innerWidth <= 1024) return 3
+    return 3
+  }
 
-const [gridColumns, setGridColumns] = useState(getInitialColumns())
+  const [gridColumns, setGridColumns] = useState(getInitialColumns())
   const [showPresentation, setShowPresentation] = useState(true)
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -39,23 +45,19 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
   const location = useLocation()
   const { t } = useLanguage()
   
-  // Estados para control móvil
   const [isMobile, setIsMobile] = useState(false)
   const [touchStartX, setTouchStartX] = useState(0)
   const [touchEndX, setTouchEndX] = useState(0)
   
-  // Refs for GSAP
   const portfolioRef = useRef(null)
   const timelineRef = useRef(null)
   const containerRef = useRef(null)
   
-  // Enhanced Filter states for combination
   const [showFilterMenu, setShowFilterMenu] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedCompanies, setSelectedCompanies] = useState([])
   const [filteredProjects, setFilteredProjects] = useState([])
 
-  // Detectar dispositivo móvil
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768)
@@ -67,7 +69,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Check if coming from another page
   useEffect(() => {
     const isFromSubpage = location.state?.fromSubpage
     const sessionVisited = sessionStorage.getItem('hasVisited')
@@ -76,10 +77,8 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
       setIsInitialLoad(true)
       setShowPresentation(true)
       
-      // Set session storage immediately to prevent re-shows on navigation
       sessionStorage.setItem('hasVisited', 'true')
       
-      // Hide presentation after animations complete (4.3s total)
       const timer = setTimeout(() => {
         setShowPresentation(false)
         setIsInitialLoad(false)
@@ -92,7 +91,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     }
   }, [location])
 
-  // Shuffle function for random order
   const shuffleArray = (array) => {
     const shuffled = [...array]
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -102,7 +100,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     return shuffled
   }
 
-  // Get unique categories (H's) from portfolio
   const getUniqueCategories = () => {
     if (!images.allPortfolioItems) return []
     const categories = [...new Set(images.allPortfolioItems.map(item => item.category))]
@@ -116,7 +113,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     return allCompanies.sort()
   }
 
-  // Filter projects based on selected categories and companies
   useEffect(() => {
     if (!images.allPortfolioItems) {
       setFilteredProjects([])
@@ -141,7 +137,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     setFilteredProjects(shuffled)
   }, [selectedCategories, selectedCompanies])
 
-  // Initial shuffle on mount
   useEffect(() => {
     if (images.allPortfolioItems) {
       const shuffled = shuffleArray([...images.allPortfolioItems])
@@ -149,17 +144,14 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     }
   }, [])
 
-  // Scroll handler con cierre de menú móvil
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY)
       
-      // Cerrar menú móvil al hacer scroll
       if (window.scrollY > 50 && mobileMenuOpen) {
         setMobileMenuOpen(false)
       }
       
-      // Hide holdings menu on scroll
       if (window.scrollY > 100) {
         setShowHoldingsMenu(false)
       } else {
@@ -190,11 +182,9 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     }
   }, [selectedProject])
 
-  // Enhanced GSAP Animation optimizada para móvil
   useEffect(() => {
     if (!portfolioRef.current || !containerRef.current) return
 
-    // Kill any existing timeline
     if (timelineRef.current) {
       timelineRef.current.kill()
     }
@@ -203,10 +193,8 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     
     if (items.length === 0) return
 
-    // Set animation state
     setIsAnimating(true)
 
-    // FLIP Technique - Step 1: Record initial positions (First)
     const initialStates = items.map(item => {
       const rect = item.getBoundingClientRect()
       return {
@@ -218,13 +206,9 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
       }
     })
 
-    // FLIP Technique - Step 2: Apply new layout (Last)
     portfolioRef.current.style.gridTemplateColumns = `repeat(${gridColumns}, 1fr)`
-    
-    // Force layout recalculation
     portfolioRef.current.offsetHeight
 
-    // FLIP Technique - Step 3: Record final positions
     const finalStates = items.map(item => {
       const rect = item.getBoundingClientRect()
       return {
@@ -235,10 +219,9 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
       }
     })
 
-    // Create master timeline with optimized settings
     const masterTL = gsap.timeline({
       defaults: {
-        duration: isMobile ? 0.3 : 0.5, // Animaciones más rápidas en móvil
+        duration: isMobile ? 0.3 : 0.5,
         ease: isMobile ? "power2.out" : "power3.inOut"
       },
       onComplete: () => {
@@ -246,7 +229,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
       }
     })
 
-    // FLIP Technique - Step 4: Animate from initial to final (Invert & Play)
     items.forEach((item, i) => {
       const initial = initialStates[i]
       const final = finalStates[i]
@@ -254,13 +236,10 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
       const deltaX = initial.x - final.x
       const deltaY = initial.y - final.y
       
-      // Only animate items that actually moved significantly
       if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
-        // Calculate movement distance for dynamic duration
         const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
         const dynamicDuration = Math.min(1.0, Math.max(0.5, distance / 100))
         
-        // Set initial position with more visible transform
         gsap.set(item, {
           x: deltaX,
           y: deltaY,
@@ -269,7 +248,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
           opacity: 0.8
         })
         
-        // Animate to final position with enhanced easing
         masterTL.to(item, {
           x: 0,
           y: 0,
@@ -281,7 +259,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
         }, i * 0.03)
         
       } else {
-        // For items that don't move, ensure clean state with subtle animation
         gsap.set(item, {
           x: 0,
           y: 0,
@@ -290,7 +267,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
           opacity: 0.9
         })
         
-        // Quick fade-in for non-moving items
         masterTL.to(item, {
           scale: 1,
           opacity: 1,
@@ -303,7 +279,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     timelineRef.current = masterTL
   }, [gridColumns, isMobile])
 
-  // Close filter menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (showFilterMenu && !event.target.closest('.view-work-btn')) {
@@ -315,7 +290,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     return () => document.removeEventListener('click', handleClickOutside)
   }, [showFilterMenu])
 
-  // Touch handlers para swipe en móvil
   const handleTouchStart = (e) => {
     setTouchStartX(e.targetTouches[0].clientX)
   }
@@ -339,12 +313,10 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     }
   }
 
-  // Enhanced zoom handlers with animation state management
   const handleZoomOut = () => {
     if (isAnimating || gridColumns >= 7) return
     setIsAnimating(true)
     
-    // Add transitioning class
     portfolioRef.current?.classList.add('transitioning')
     
     setTimeout(() => {
@@ -360,7 +332,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
     if (isAnimating || gridColumns <= 1) return
     setIsAnimating(true)
     
-    // Add transitioning class
     portfolioRef.current?.classList.add('transitioning')
     
     setTimeout(() => {
@@ -407,15 +378,14 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
   }
 
   const handleHoldingClick = (holdingId) => {
-  const link = holdingLinks[holdingId];
-  
-  if (link) {
-    window.open(link, '_blank');
-  } else {
-    console.log(`No link available for ${holdingId} yet`);
-    alert(`Link for ${holdingId} coming soon!`);
+    const link = holdingLinks[holdingId];
+    
+    if (link) {
+      window.open(link, '_blank');
+    } else {
+      console.log(`No link available for ${holdingId} yet`);
+    }
   }
-}
 
   const getFilterDisplayText = () => {
     const totalFilters = selectedCategories.length + selectedCompanies.length
@@ -440,7 +410,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
 
   return (
     <div className="App" ref={containerRef}>
-      {/* Presentation Message with Logo - Only on initial load */}
       {showPresentation && isInitialLoad && (
         <div className="presentation-overlay">
           <div className="presentation-content">
@@ -452,12 +421,11 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
               alt="HGROUP" 
               className="presentation-logo"
             />
-            <p className="presentation-tagline">{t('presentation.tagline')}</p>
           </div>
         </div>
       )}
 
-      {/* Main Header */}
+      {/* Main Header con Holdings List */}
       <header className={`main-header ${!showMainHeader ? 'hidden' : ''}`}>
         <div className="header-content">
           <div className="logo-container">
@@ -524,7 +492,23 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
             </ul>
           </nav>
 
-          {/* Enhanced View Work Filter Menu */}
+          {/* Holdings List Vertical - DENTRO DEL HEADER */}
+         <div className="holdings-list-vertical">
+  {holdingsLogos.map((holding, index) => (
+    <div
+      key={holding.id} 
+      className="holding-list-item"
+      style={{ animationDelay: `${index * 0.1}s` }}
+      onClick={() => handleHoldingClick(holding.id)}
+    >
+      <span className="holding-name-wrapper">
+        <span className="holding-name">{holding.name}</span>
+      </span>
+      <span className="holding-arrow">↗</span>
+    </div>
+  ))}
+</div>
+
           <div className="view-work-btn">
             <button 
               onClick={() => setShowFilterMenu(!showFilterMenu)}
@@ -540,7 +524,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
             {showFilterMenu && (
               <div className="filter-dropdown">
                 <div className="filter-dropdown-content">
-                  {/* Mobile close button */}
                   <button 
                     className="filter-close-mobile"
                     onClick={() => setShowFilterMenu(false)}
@@ -549,7 +532,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
                     ×
                   </button>
                   
-                  {/* Clear All Button */}
                   {getActiveFilterCount() > 0 && (
                     <div className="filter-actions">
                       <button 
@@ -561,7 +543,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
                     </div>
                   )}
                   
-                  {/* Categories Section */}
                   {getUniqueCategories().length > 0 && (
                     <div className="filter-section">
                       <h4>{t('nav.byH')}</h4>
@@ -579,7 +560,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
                     </div>
                   )}
                   
-                  {/* Companies Section */}
                   <div className="filter-section">
                     <h4>{t('nav.byCompany')}</h4>
                     {getUniqueCompanies().map(company => (
@@ -601,33 +581,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
         </div>
       </header>
 
-      {/* Holdings Submenu */}
-      <section className={`holdings-menu ${!showMainHeader ? 'fixed' : ''} ${!showHoldingsMenu ? 'hidden' : ''}`}>
-        <div className="holdings-container">
-          {holdingsLogos.map((holding, index) => (
-            <div
-              key={holding.id} 
-              className="holding-item"
-              style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-              onClick={() => handleHoldingClick(holding.id)}
-            >
-              <img 
-                src={holding.logo} 
-                alt={holding.alt} 
-                className="holding-logo"
-                onError={(e) => {
-                  e.target.style.display = 'none'
-                  e.target.nextSibling.style.display = 'flex'
-                }}
-              />
-              <div className="holding-placeholder" style={{ display: 'none' }}>
-                {holding.name}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-          
       {/* Horizontal Navigation */}
       <nav className={`horizontal-nav ${!showMainHeader ? 'visible' : ''}`}>
         <div className="nav-content">
@@ -645,7 +598,7 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
           <ul 
             className={`horizontal-nav-list ${mobileMenuOpen ? 'mobile-open' : ''}`}
             style={mobileMenuOpen && isMobile ? {
-              background: '#FFFCF2',
+              background: '#FFFFFF',
               position: 'fixed',
               top: '60px',
               left: '0',
@@ -711,7 +664,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
             </li>
           </ul>
           
-          {/* Hamburger button después del ul */}
           <button 
             className="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -724,7 +676,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
         </div>
       </nav>
 
-      {/* Vertical Zoom Controls */}
       <div className="zoom-controls">
         <button 
           className={`zoom-btn zoom-plus ${isAnimating ? 'animating' : ''}`}
@@ -743,7 +694,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
         </button>
       </div>
 
-      {/* Portfolio Grid */}
       <main className="main-content">
         <section className="portfolio-section">
           <div 
@@ -797,7 +747,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
         </section>
       </main>
 
-      {/* Fullscreen Modal */}
       {selectedProject && (
         <div className="fullscreen-modal" onClick={closeProject}>
           <button className="close-modal" onClick={closeProject}>
@@ -831,7 +780,6 @@ const [gridColumns, setGridColumns] = useState(getInitialColumns())
         </div>
       )}
 
-      {/* Language Toggle */}
       <LanguageToggle />
     </div>
   )
