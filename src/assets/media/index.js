@@ -29,16 +29,18 @@ import cienvoces from './100vocesHERO.png'
 import cienvoces2 from './100voces2HERO.jpg'
 import cienvoces3 from './100voces3HERO.jpg'
 import cienvoces4 from './100voces4HERO.jpg'
-import cienvoces5 from './100voces5HERO.png'
+//import cienvoces5 from './100voces5HERO.png'
+/*
 import cienvoces6 from './100voces6HERO.png'
 import cienvoces7 from './100voces7HERO.png'
 import cienvoces8 from './100voces8HERO.png'
 import cienvoces9 from './100voces9HERO.png'
 import cienvoces10 from './100voces10HERO.png'
+*/
 import cienvoces11 from './100voces11HERO.jpg'
-import cienvoces12 from './100voces12HERO.png'
-import cienvoces13 from './100voces13HERO.png'
-import cienvoces14 from './100voces14HERO.png'
+//import cienvoces12 from './100voces12HERO.png'
+//import cienvoces13 from './100voces13HERO.png'
+//import cienvoces14 from './100voces14HERO.png'
 import anserHero from './ANSERHERO.jpg'
 import fundaHero from './fundaHERO.jpg'
 import fundahero2 from './funda2HERO.jpg'
@@ -130,16 +132,18 @@ export {
   cienvoces2,
   cienvoces3,
   cienvoces4,
-  cienvoces5,
+  //cienvoces5,
+  /*
   cienvoces6,
   cienvoces7,
   cienvoces8,
   cienvoces9,
   cienvoces10,
+  */
   cienvoces11,
-  cienvoces12,
-  cienvoces13,
-  cienvoces14,
+  //cienvoces12,
+  //cienvoces13,
+//  cienvoces14,
   anserHero,
   fundaHero,
   fundahero2,
@@ -390,6 +394,7 @@ export const portfolioImages = [
     company: 'CIEN VOCES',
     type: 'image'
   },
+  /*
   {
     id: 'cienvoces5',
     name: 'CIEN VOCES',
@@ -399,6 +404,7 @@ export const portfolioImages = [
     company: 'CIEN VOCES',
     type: 'image'
   },
+  
   {
     id: 'cienvoces6',
     name: 'CIEN VOCES',
@@ -444,6 +450,7 @@ export const portfolioImages = [
     company: 'CIEN VOCES',
     type: 'image'
   },
+  */
   {
     id: 'cienvoces11',
     name: 'CIEN VOCES',
@@ -453,6 +460,7 @@ export const portfolioImages = [
     company: 'CIEN VOCES',
     type: 'image'
   },
+  /*
   {
     id: 'cienvoces12',
     name: 'CIEN VOCES',
@@ -480,6 +488,7 @@ export const portfolioImages = [
     company: 'CIEN VOCES',
     type: 'image'
   },
+  */
   {
     id: 'anser',
     name: 'ANSER',

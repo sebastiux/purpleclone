@@ -189,7 +189,7 @@ function HomePage() {
       timelineRef.current.kill()
     }
 
-    const items = Array.from(portfolioRef.current.querySelectorAll('.portfolio-item'))
+    const items = Array.from(portfolioRef.current.querySelectorAll('.portfolio-item-wrapper'))
     
     if (items.length === 0) return
 
@@ -425,7 +425,6 @@ function HomePage() {
         </div>
       )}
 
-      {/* Main Header con Holdings List */}
       <header className={`main-header ${!showMainHeader ? 'hidden' : ''}`}>
         <div className="header-content">
           <div className="logo-container">
@@ -492,22 +491,21 @@ function HomePage() {
             </ul>
           </nav>
 
-          {/* Holdings List Vertical - DENTRO DEL HEADER */}
-         <div className="holdings-list-vertical">
-  {holdingsLogos.map((holding, index) => (
-    <div
-      key={holding.id} 
-      className="holding-list-item"
-      style={{ animationDelay: `${index * 0.1}s` }}
-      onClick={() => handleHoldingClick(holding.id)}
-    >
-      <span className="holding-name-wrapper">
-        <span className="holding-name">{holding.name}</span>
-      </span>
-      <span className="holding-arrow">↗</span>
-    </div>
-  ))}
-</div>
+          <div className="holdings-list-vertical">
+            {holdingsLogos.map((holding, index) => (
+              <div
+                key={holding.id} 
+                className="holding-list-item"
+                style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => handleHoldingClick(holding.id)}
+              >
+                <span className="holding-name-wrapper">
+                  <span className="holding-name">{holding.name}</span>
+                </span>
+                <span className="holding-arrow">↗</span>
+              </div>
+            ))}
+          </div>
 
           <div className="view-work-btn">
             <button 
@@ -581,7 +579,6 @@ function HomePage() {
         </div>
       </header>
 
-      {/* Horizontal Navigation */}
       <nav className={`horizontal-nav ${!showMainHeader ? 'visible' : ''}`}>
         <div className="nav-content">
           <img 
@@ -699,6 +696,7 @@ function HomePage() {
           <div 
             ref={portfolioRef}
             className="portfolio-masonry"
+            data-columns={gridColumns}
             style={{ gridTemplateColumns: `repeat(${gridColumns}, 1fr)` }}
             onTouchStart={isMobile ? handleTouchStart : undefined}
             onTouchMove={isMobile ? handleTouchMove : undefined}
@@ -707,32 +705,34 @@ function HomePage() {
             {filteredProjects.map((project, index) => (
               <div 
                 key={`${project.id}-${index}`} 
-                className="portfolio-item"
+                className="portfolio-item-wrapper"
                 onClick={() => openProject(project)}
               >
-                {project.type === 'image' ? (
-                  <img 
-                    src={project.image} 
-                    alt={project.alt}
-                    className="portfolio-image"
-                  />
-                ) : (
-                  <video 
-                    src={project.video}
-                    className="portfolio-video"
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                  />
-                )}
-                <div className="project-info">
-                  {project.category && (
-                    <span className="project-tag">{project.category}</span>
+                <div className="portfolio-item-inner">
+                  {project.type === 'image' ? (
+                    <img 
+                      src={project.image} 
+                      alt={project.alt}
+                      className="portfolio-image"
+                    />
+                  ) : (
+                    <video 
+                      src={project.video}
+                      className="portfolio-video"
+                      muted
+                      loop
+                      autoPlay
+                      playsInline
+                    />
                   )}
-                  {project.company && (
-                    <span className="project-tag company">{project.company}</span>
-                  )}
+                  <div className="project-info-container">
+                    {project.category && (
+                      <span className="project-tag">{project.category}</span>
+                    )}
+                    {project.company && (
+                      <span className="project-tag company">{project.company}</span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
