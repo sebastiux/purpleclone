@@ -20,8 +20,8 @@ export const translations = {
       clearFilters: 'clear all filters'
     },
     presentation: {
-      title: 'WE CONNECT THE IMPOSSIBLE',
-      tagline: 'Conectamos lo imposible'
+      title: '',
+      tagline: ''
     },
     workWithUs: {
       text1: 'We are HGROUP, a holding company with 11 specialized brands in different market niches. With a young and passionate vision, we connect the impossible through innovative strategies and measurable results.',
@@ -107,8 +107,8 @@ export const translations = {
       clearFilters: 'limpiar todos los filtros'
     },
     presentation: {
-      title: 'CONECTAMOS LO IMPOSIBLE',
-      tagline: 'WE CONNECT THE IMPOSSIBLE'
+      title: '',
+      tagline: ''
     },
     workWithUs: {
       text1: 'Somos HGROUP, una holding con 11 marcas especializadas en distintos nichos de mercado. Con una visión joven y apasionada, conectamos lo imposible a través de estrategias innovadoras y resultados medibles.',

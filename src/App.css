@@ -772,35 +772,48 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 30px;
-  padding: 5px;
+  background: #1a1a1a; /* Negro sólido más profundo */
+  border-radius: 50px; /* Más redondeado para forma de píldora */
+  padding: 15px 10px; /* Más padding para hacerlo más grande */
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 100;
-  width: 60px;
+  width: 80px; /* Aumentado de 60px */
   backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
 }
 
 .zoom-btn {
-  width: 50px;
-  height: 50px;
+  width: 60px; /* Aumentado de 50px */
+  height: 60px; /* Aumentado de 50px */
   background: transparent;
   border: none;
   color: white;
-  font-size: 22px;
-  font-weight: 300;
+  font-size: 32px; /* Aumentado de 22px */
+  font-weight: 200; /* Más delgado */
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  border-radius: 25px;
+  border-radius: 30px;
   font-family: 'Visby CF', sans-serif;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
 }
+
+/* Ajuste específico para los símbolos */
+.zoom-btn.zoom-plus {
+  font-size: 36px; /* Símbolo + más grande */
+}
+
+.zoom-btn.zoom-minus {
+  font-size: 40px; /* Símbolo - más grande */
+  line-height: 0.5; /* Ajusta la altura del guión */
+}
+
 
 .zoom-btn:focus {
   outline: none;
@@ -846,11 +859,11 @@
 .portfolio-masonry {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px 0;
+  gap: 130px 0;
   width: 100%;
   opacity: 0;
   animation: project-appear 0.4s linear 3.2s forwards;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .portfolio-masonry.transitioning {
   transition: none !important;
@@ -1645,12 +1658,7 @@ html {
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   }
   
- .zoom-controls {
-    /* NO ocultar, solo ajustar posición */
-    bottom: 100px; /* Subir para estar arriba del holdings menu */
-    right: 20px;
-    width: 50px;
-  }
+
   
   .zoom-btn {
     width: 42px;
@@ -1860,81 +1868,79 @@ html {
 /* Mostrar controles verticales en móvil también */
 @media (max-width: 768px) {
   .zoom-controls {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 30px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 100;
-  width: 60px;
-  backdrop-filter: blur(10px);
-}
-
-.zoom-btn {
-  width: 50px;
-  height: 50px;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 22px;
-  font-weight: 300;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  border-radius: 25px;
-  font-family: 'Visby CF', sans-serif;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.zoom-btn:focus {
-  outline: none;
-}
-
-.zoom-btn:hover:not(:disabled) {
-  color: #CCC5B9;
-  transform: scale(1.1);
-}
-
-.zoom-btn:active:not(:disabled) {
-  transform: scale(0.95);
-}
-
-.zoom-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.zoom-divider {
-  width: 30px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 3px 0;
-}
-}
-/* Mantener los mismos estilos en móvil */
-@media (max-width: 768px) {
-  .zoom-controls {
-    /* Los mismos estilos, solo ajustar posición si es necesario */
-    bottom: 100px; /* Arriba del menú de holdings */
+    position: fixed;
+    bottom: 90px !important; /* Ajusta este valor */
     right: 20px;
+    background: #1a1a1a; /* Negro más sólido como en la imagen */
+    border-radius: 50px; /* Más redondeado para forma de píldora */
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 996;
+    width: 70px; /* Ya está bien */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
   }
-  
-  /* Portfolio grid */
-  .portfolio-masonry {
-    gap: 10px 0;
+
+  .zoom-btn {
+    width: 64px;
+    height: 54px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 28px; /* Aumentado de 22px */
+    font-weight: 200; /* Más delgado */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border-radius: 27px;
+    font-family: 'Visby CF', sans-serif;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
   }
-  
-  .main-content {
-    padding-bottom: 150px;
+
+  /* Ajuste específico para los símbolos en móvil */
+  .zoom-btn.zoom-plus {
+    font-size: 50px; /* Símbolo + más grande */
+  }
+
+  .zoom-btn.zoom-minus {
+    font-size: 50px; /* Símbolo - más grande */
+    line-height: 0.5; /* Centra mejor el guión */
+  }
+
+  .zoom-btn:focus {
+    outline: none;
+  }
+
+  .zoom-btn:hover:not(:disabled) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.15);
+  }
+
+  .zoom-btn:active:not(:disabled) {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .zoom-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .zoom-divider {
+    width: 35px; /* Aumentado de 30px */
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 6px 0; /* Más espacio */
   }
 }
+
 
 @media (max-width: 768px) {
   .portfolio-section {
@@ -2071,3 +2077,114 @@ html {
   display: none !important;
 }
   
+
+/* Holdings Menu - Oculto en desktop, visible en móvil */
+.holdings-menu {
+  display: none; /* Oculto por defecto en desktop */
+}
+
+@media (max-width: 768px) {
+  /* Mantener la lista vertical oculta en móvil */
+  .holdings-list-vertical {
+    display: none !important;
+  }
+  
+  /* Mostrar el holdings menu en móvil */
+  .holdings-menu {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #FFFFFF;
+    padding: 10px 0;
+    border-top: 1px solid #CCC5B9;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+    z-index: 997;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .holdings-menu.fixed {
+    position: fixed;
+    bottom: 0;
+  }
+  
+  .holdings-menu.hidden {
+    transform: translateY(100%);
+  }
+  
+  .holdings-container {
+    display: flex;
+    gap: 15px;
+    padding: 5px 10px;
+    overflow-x: auto;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .holdings-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .holding-item {
+    position: relative;
+    cursor: pointer;
+    min-width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  
+  .holding-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: grayscale(100%);
+    opacity: 0.7;
+  }
+  
+  .holding-item:hover .holding-logo,
+  .holding-item:active .holding-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  
+  .holding-item::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 30px;
+    height: 2px;
+    background: #000;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .holding-item:hover::after,
+  .holding-item:active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+  
+  .holding-placeholder {
+    width: 40px;
+    height: 40px;
+    background: #CCC5B9;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    color: #403d39;
+    font-family: 'Visby CF', sans-serif;
+  }
+  
+
+  /* Ajustar contenido principal */
+  .main-content {
+    padding-bottom: 80px; /* Espacio para el holdings menu */
+  }
+}

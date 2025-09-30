@@ -221,7 +221,7 @@ function HomePage() {
 
     const masterTL = gsap.timeline({
       defaults: {
-        duration: isMobile ? 0.3 : 0.5,
+        duration: isMobile ? 5.5 : 6.2,
         ease: isMobile ? "power2.out" : "power3.inOut"
       },
       onComplete: () => {
@@ -238,7 +238,7 @@ function HomePage() {
       
       if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
         const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
-        const dynamicDuration = Math.min(1.0, Math.max(0.5, distance / 100))
+        const dynamicDuration = Math.min(2, Math.max(0.5, distance / 15))
         
         gsap.set(item, {
           x: deltaX,
@@ -256,7 +256,7 @@ function HomePage() {
           duration: dynamicDuration,
           ease: "back.out(1.2)",
           overwrite: true
-        }, i * 0.03)
+        }, i * 0.01)
         
       } else {
         gsap.set(item, {
@@ -413,9 +413,6 @@ function HomePage() {
       {showPresentation && isInitialLoad && (
         <div className="presentation-overlay">
           <div className="presentation-content">
-            <h1 className="presentation-text">
-              {t('presentation.title')}
-            </h1>
             <img 
               src={logohgroup} 
               alt="HGROUP" 
@@ -578,7 +575,32 @@ function HomePage() {
           </div>
         </div>
       </header>
-
+            {/* Holdings Submenu - Solo móvil */}
+<section className={`holdings-menu ${!showMainHeader ? 'fixed' : ''} ${!showHoldingsMenu ? 'hidden' : ''}`}>
+  <div className="holdings-container">
+    {holdingsLogos.map((holding, index) => (
+      <div
+        key={holding.id} 
+        className="holding-item"
+        style={{ animationDelay: `${0.5 + index * 0.1}s` }}
+        onClick={() => handleHoldingClick(holding.id)}
+      >
+        <img 
+          src={holding.logo} 
+          alt={holding.alt} 
+          className="holding-logo"
+          onError={(e) => {
+            e.target.style.display = 'none'
+            e.target.nextSibling.style.display = 'flex'
+          }}
+        />
+        <div className="holding-placeholder" style={{ display: 'none' }}>
+          {holding.name}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
       <nav className={`horizontal-nav ${!showMainHeader ? 'visible' : ''}`}>
         <div className="nav-content">
           <img 
